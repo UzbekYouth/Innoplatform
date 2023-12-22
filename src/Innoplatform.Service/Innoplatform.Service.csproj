@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Innoplatform.Data\Innoplatform.Data.csproj" />
     <ProjectReference Include="..\Innoplatform.Domain\Innoplatform.Domain.csproj" />
   </ItemGroup>
 

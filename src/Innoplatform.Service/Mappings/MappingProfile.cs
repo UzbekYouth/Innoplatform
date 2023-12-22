@@ -5,7 +5,11 @@ using Innoplatform.Service.DTOs.AboutUsAssets;
 using Innoplatform.Service.DTOs.InvestmentAreas;
 using Innoplatform.Service.DTOs.Investments;
 using Innoplatform.Service.DTOs.Messages;
+using Innoplatform.Service.DTOs.ProjectAssets;
+using Innoplatform.Service.DTOs.ProjectInvestments;
+using Innoplatform.Service.DTOs.RecommendationAreas;
 using Innoplatform.Service.DTOs.RecommendationAsset;
+using Innoplatform.Service.DTOs.Recommendations;
 using Innoplatform.Service.DTOs.Sponsors;
 using Innoplatform.Service.DTOs.Transactions;
 using Innoplatform.Service.DTOs.Users;
@@ -47,10 +51,25 @@ namespace Innoplatform.Service.Mappings
             CreateMap<Sponsor, SponsorForUpdateDto>().ReverseMap();
             CreateMap<Sponsor, SponsorForResultDto>().ReverseMap();
 
-            CreateMap<Recommendation, RecommendationAssetForCreationDto>().ReverseMap();
-            CreateMap<Recommendation, RecommendationAssetForUpdateDto>().ReverseMap();
-            CreateMap<Recommendation, RecommendationAssetForResultDto>().ReverseMap();
+            CreateMap<Recommendation, RecommendationForCreationDto>().ReverseMap();
+            CreateMap<Recommendation, RecommendationForUpdateDto>().ReverseMap();
+            CreateMap<Recommendation, RecommendationForResultDto>().ReverseMap();
 
+            CreateMap<Project, ProjectAssetForCreationDto>().ReverseMap();
+            CreateMap<Project, ProjectAssetForUpdateDto>().ReverseMap();
+            CreateMap<Project, ProjectAssetForResultDto>().ReverseMap();
+
+            CreateMap<ProjectAsset, ProjectAssetForResultDto>().ReverseMap();
+            CreateMap<ProjectAsset, ProjectAssetForUpdateDto>().ReverseMap();
+            CreateMap<ProjectAsset, ProjectAssetForCreationDto>().ReverseMap();
+
+            CreateMap<ProjectInvestment, ProjectInvestmentForCreationDto>().ReverseMap();
+            CreateMap<ProjectInvestment, ProjectInvestmentForResultDto>().ReverseMap();
+            CreateMap<ProjectInvestment, ProjectInvestmentForUpdateDto>().ReverseMap();
+
+            CreateMap<RecommendationArea, RecommendationAreaForCreationDto>().ReverseMap();
+            CreateMap<RecommendationArea, RecommendationAreaForUpdateDto>().ReverseMap();
+            CreateMap<RecommendationArea, RecommendationAreaForResultDto>().ReverseMap();
 
         }
     }
