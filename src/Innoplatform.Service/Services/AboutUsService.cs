@@ -1,17 +1,10 @@
 ﻿using AutoMapper;
 using Innoplatform.Data.IRepositories;
-using Innoplatform.Domain.Entities;
 using Innoplatform.Domain.Entities.About;
-using Innoplatform.Service.DTOs.AboutUsAssets;
 using Innoplatform.Service.DTOs.AboutUses;
 using Innoplatform.Service.Exceptions;
 using Innoplatform.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Innoplatform.Service.Services
 {
@@ -29,7 +22,7 @@ namespace Innoplatform.Service.Services
         public async Task<AboutUsResultDto> AddAsync(AboutUsForCreationDto dto)
         {
             var aboutUs = await _repository.SelectAll()
-                .Where( au => au.Title == dto.Title )
+                .Where(au => au.Title == dto.Title)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
             throw new InnoplatformException(404, "aboutUs is already exist");

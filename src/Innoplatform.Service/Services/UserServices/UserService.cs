@@ -10,7 +10,7 @@ using Innoplatform.Service.Interfaces;
 using Innoplatform.Service.Interfaces.IFileUploadServices;
 using Microsoft.EntityFrameworkCore;
 
-namespace Innoplatform.Service.Services.UseerServices;
+namespace Innoplatform.Service.Services.UserServices;
 
 public class UserService : IUserService
 {
@@ -19,7 +19,7 @@ public class UserService : IUserService
     private readonly IFileUploadService _fileUploadService;
 
     public UserService(
-        IMapper mapper, 
+        IMapper mapper,
         IRepository<User> userRepository,
         IFileUploadService fileUploadService)
     {
@@ -125,7 +125,7 @@ public class UserService : IUserService
         if (user is null)
             throw new InnoplatformException(404, "User not found");
 
-        if(user.Image != null)
+        if (user.Image != null)
         {
             await _fileUploadService.DeleteFileAsync(user.Image);
         }
