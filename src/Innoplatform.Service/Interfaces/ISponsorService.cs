@@ -2,7 +2,7 @@
 
 namespace Innoplatform.Service.Interfaces;
 
-public interface IUserService
+public interface ISponsorService
 {
     public Task<bool> RemoveAsync(long id);
     public Task<UserForResultDto> GetByIdAsync(long id);

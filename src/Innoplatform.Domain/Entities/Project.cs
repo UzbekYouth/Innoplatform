@@ -14,4 +14,6 @@ public class Project :Auditable
     public decimal CurrentFunding { get; set; }
     public decimal ExpectedFunding { get; set; }
     public DateTime ExpectedEndDate { get; set; }
+    public decimal Rating { get; set; }
+
 }
