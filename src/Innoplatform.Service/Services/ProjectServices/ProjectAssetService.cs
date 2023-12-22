@@ -106,7 +106,7 @@ public class ProjectAssetService : IProjectAssetService
         
         if (dto != null && dto.File != null)
         {
-            if(projectAsset != null)
+            if(projectAsset.File != null)
             {
                 await _fileUploadService.DeleteFileAsync(projectAsset.File);
             }

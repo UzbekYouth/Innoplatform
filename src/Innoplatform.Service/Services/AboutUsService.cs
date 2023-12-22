@@ -27,16 +27,7 @@ public class AboutUsService : IAboutUsService
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
-<<<<<<< HEAD
-        public async Task<AboutUsResultDto> AddAsync(AboutUsForCreationDto dto)
-        {
-            var aboutUs = await _repository.SelectAll()
-                .Where(au => au.Title == dto.Title)
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
-=======
         if (aboutUs is not null)
->>>>>>> 27c80209e3bc8fb4499a59b63cfedeb030565f12
             throw new InnoplatformException(404, "aboutUs is already exist");
 
         var mappedAboutUs = _mapper.Map<AboutUs>(dto);
