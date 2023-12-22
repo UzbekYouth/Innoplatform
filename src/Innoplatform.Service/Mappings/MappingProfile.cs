@@ -93,9 +93,9 @@ namespace Innoplatform.Service.Mappings
             CreateMap<RecommendationAsset, RecommendationAssetForUpdateDto>().ReverseMap();
             CreateMap<RecommendationAsset, RecommendationAssetForResultDto>().ReverseMap();
 
-            CreateMap<RecommendationArea, RecommondationAreaForCreationDto>().ReverseMap();
-            CreateMap<RecommendationArea, RecommondationAreaForResultDto>().ReverseMap();
-            CreateMap<RecommendationArea, RecommondationAreaForUpdateDto>().ReverseMap();
+            CreateMap<RecommendationArea, RecommendationAreaForCreationDto>().ReverseMap();
+            CreateMap<RecommendationArea, RecommendationAreaForResultDto>().ReverseMap();
+            CreateMap<RecommendationArea, RecommendationAreaForUpdateDto>().ReverseMap();
 
             CreateMap<Sponsor, SponsorForCreationDto>().ReverseMap();
             CreateMap<Sponsor, SponsorForUpdateDto>().ReverseMap();
