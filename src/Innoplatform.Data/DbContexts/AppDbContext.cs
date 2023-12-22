@@ -15,7 +15,6 @@ namespace Innoplatform.Data.DbContexts
         DbSet<Transaction> Transactions { get; set; }
         DbSet<User> Users { get; set; }
         DbSet<Application> Applications { get; set; }
-        DbSet<Auth> Auths { get; set; }
         DbSet<ProjectInvestment> ProjectInvestments { get; set; }
         DbSet<Project> Projects { get;set; }
         DbSet<ProjectAsset> ProjectAssets { get; set; }

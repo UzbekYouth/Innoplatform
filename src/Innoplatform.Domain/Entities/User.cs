@@ -1,4 +1,5 @@
 ﻿using Innoplatform.Domain.Commons;
+using Innoplatform.Domain.Enums;
 
 namespace Innoplatform.Domain.Entities;
 
@@ -14,5 +15,6 @@ public class User : Auditable
     public string PhoneNumber { get; set; }
     public string Address { get; set; }
     public string Hash { get; set; }
+    public Roles Role { get; set; } = Roles.User;
 
 }
