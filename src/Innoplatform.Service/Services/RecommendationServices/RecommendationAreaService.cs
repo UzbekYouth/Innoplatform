@@ -88,6 +88,6 @@ public class RecommendationAreaService : IRecommendationAreaService
         if (recommendationArea is null)
             throw new InnoplatformException(404, "Recommendation Area is not found");
 
-        return await _recommendationAreaRepository.DeleteAsync(id)
+        return await _recommendationAreaRepository.DeleteAsync(id);
     }
 }
