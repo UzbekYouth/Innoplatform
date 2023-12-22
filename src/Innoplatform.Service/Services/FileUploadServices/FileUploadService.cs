@@ -19,32 +19,43 @@ namespace Innoplatform.Service.Services.FileUploadServices
 
         public async Task<AssetForResultDto> FileUploadAsync(AssetForCreationDto dto)
         {
-            var wwwRootPath = Path.Combine(WebEnvironmentHost.WebRootPath, "Assets", dto.FolderPath);
-            var assetsFolderPath = Path.Combine(WebEnvironmentHost.WebRootPath, "Assets");
-            var assetPath = Path.Combine(assetsFolderPath, dto.FolderPath);
-
-            if (!Directory.Exists(assetsFolderPath))
+            if(dto.FormFile != null)
             {
-                Directory.CreateDirectory(assetsFolderPath);
+                var wwwRootPath = Path.Combine(WebEnvironmentHost.WebRootPath, "Assets", dto.FolderPath);
+                var assetsFolderPath = Path.Combine(WebEnvironmentHost.WebRootPath, "Assets");
+                var assetPath = Path.Combine(assetsFolderPath, dto.FolderPath);
+
+                if (!Directory.Exists(assetsFolderPath))
+                {
+                    Directory.CreateDirectory(assetsFolderPath);
+                }
+                if (!Directory.Exists(assetPath))
+                {
+                    Directory.CreateDirectory(assetPath);
+                }
+
+                var FileName = Guid.NewGuid().ToString("N") + Path.GetExtension(dto.FormFile.FileName);
+                var FullPath = Path.Combine(wwwRootPath, FileName);
+                using (var streamFile = File.OpenWrite(FullPath))
+                {
+                    await dto.FormFile.CopyToAsync(streamFile);
+                };
+
+                var result = new AssetForResultDto()
+                {
+                    AssetPath = Path.Combine("Assets", dto.FolderPath, FileName),
+                };
+
+                return result;
             }
-            if (!Directory.Exists(assetPath))
+            else
             {
-                Directory.CreateDirectory(assetPath);
+                var result = new AssetForResultDto()
+                {
+                    AssetPath = null,
+                };
+                return result;
             }
-
-            var FileName = Guid.NewGuid().ToString("N") + Path.GetExtension(dto.FormFile.FileName);
-            var FullPath = Path.Combine(wwwRootPath, FileName);
-            using (var streamFile = File.OpenWrite(FullPath))
-            {
-                await dto.FormFile.CopyToAsync(streamFile);
-            };
-
-            var result = new AssetForResultDto()
-            {
-                AssetPath = Path.Combine("Assets", dto.FolderPath, FileName),
-            };
-
-            return result;
 
         }
     }
