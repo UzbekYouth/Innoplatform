@@ -19,6 +19,11 @@ namespace Innoplatform.Data.DbContexts
         DbSet<ProjectInvestment> ProjectInvestments { get; set; }
         DbSet<Project> Projects { get;set; }
         DbSet<ProjectAsset> ProjectAssets { get; set; }
+        DbSet<AboutUsAsset> AboutUsAssets { get; set; }
+        DbSet<Recommendation> Recommendations { get; set; }
+        DbSet<RecommendationAsset> RecommendationAssets { get; set; }
+        DbSet<Sponsor> Sponsors { get; set;}
+        
 
     }
 }
