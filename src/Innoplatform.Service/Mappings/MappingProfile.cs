@@ -1,6 +1,12 @@
 ﻿
 using AutoMapper;
-using Innoplatform.Domain.Entities;
+using Innoplatform.Domain.Entities.About;
+using Innoplatform.Domain.Entities.Investments;
+using Innoplatform.Domain.Entities.Messagings;
+using Innoplatform.Domain.Entities.Recommendations;
+using Innoplatform.Domain.Entities.Sponsors;
+using Innoplatform.Domain.Entities.Transactions;
+using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Service.DTOs.AboutUsAssets;
 using Innoplatform.Service.DTOs.InvestmentAreas;
 using Innoplatform.Service.DTOs.Investments;

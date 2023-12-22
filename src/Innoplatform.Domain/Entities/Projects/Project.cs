@@ -1,9 +1,10 @@
 ﻿using Innoplatform.Domain.Commons;
+using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Domain.Enums;
 
-namespace Innoplatform.Domain.Entities;
+namespace Innoplatform.Domain.Entities.Projects;
 
-public class Project :Auditable
+public class Project : Auditable
 {
     public long UserId { get; set; }
     public User User { get; set; }

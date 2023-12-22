@@ -8,7 +8,7 @@ public class UserForResultDto
     public string Email { get; set; }
     public string Image { get; set; }
     public DateTime DateOfBirth { get; set; }
-    public decimal AccauntBalance { get; set; }
+    public decimal AccountBalance { get; set; }
     public string PhoneNumber { get; set; }
     public string Address { get; set; }
 

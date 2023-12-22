@@ -1,4 +1,6 @@
-﻿using Innoplatform.Domain.Entities;
+﻿using Innoplatform.Domain.Entities.Investments;
+using Innoplatform.Domain.Entities.Projects;
+using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Domain.Enums;
 
 namespace Innoplatform.Service.DTOs.ProjectInvestments

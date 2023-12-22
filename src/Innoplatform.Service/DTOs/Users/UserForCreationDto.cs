@@ -10,7 +10,7 @@ public class UserForCreationDto
     public string Password { get; set; }
     public IFormFile Image { get; set; }
     public DateTime DateOfBirth { get; set; }
-    public decimal AccauntBalance { get; set; }
+    public decimal AccountBalance { get; set; }
     public string PhoneNumber { get; set; }
     public string Address { get; set; }
 }
