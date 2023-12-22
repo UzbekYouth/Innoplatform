@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Innoplatform.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Innoplatform.Data.DbContexts
 {
@@ -6,7 +7,10 @@ namespace Innoplatform.Data.DbContexts
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         { }
-
-
+        DbSet<Application> Applications { get; set; }
+        DbSet<Auth> Auths { get; set; }
+        DbSet<ProjectInvestment> ProjectInvestments { get; set; }
+        DbSet<Project> Projects { get;set; }
+        DbSet<ProjectAsset> ProjectAssets { get; set; }
     }
 }
