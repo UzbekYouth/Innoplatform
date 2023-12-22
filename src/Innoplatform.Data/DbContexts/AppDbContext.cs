@@ -1,5 +1,6 @@
 ﻿using Innoplatform.Domain.Entities.About;
 using Innoplatform.Domain.Entities.Achievments;
+using Innoplatform.Domain.Entities.Educations;
 using Innoplatform.Domain.Entities.Investments;
 using Innoplatform.Domain.Entities.Mentors;
 using Innoplatform.Domain.Entities.Messagings;
@@ -69,6 +70,8 @@ namespace Innoplatform.Data.DbContexts
         //User
         public DbSet<User> Users { get; set; }
 
+        //Education
+        public DbSet<Education> Educations { get; set; }
 
         
 
