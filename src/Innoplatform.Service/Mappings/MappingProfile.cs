@@ -1,9 +1,12 @@
 ﻿
 using AutoMapper;
 using Innoplatform.Domain.Entities;
+using Innoplatform.Service.DTOs.AboutUsAssets;
 using Innoplatform.Service.DTOs.InvestmentAreas;
 using Innoplatform.Service.DTOs.Investments;
 using Innoplatform.Service.DTOs.Messages;
+using Innoplatform.Service.DTOs.RecommendationAsset;
+using Innoplatform.Service.DTOs.Sponsors;
 using Innoplatform.Service.DTOs.Transactions;
 using Innoplatform.Service.DTOs.Users;
 
@@ -31,6 +34,24 @@ namespace Innoplatform.Service.Mappings
 
             CreateMap<Transaction, TransactionForCreationDto>().ReverseMap();
             CreateMap<Transaction, TransactionForResultDto>().ReverseMap();
+
+            CreateMap<AboutUsAsset, AboutUsAssetForCreationDto>().ReverseMap();
+            CreateMap<AboutUsAsset, AboutUsAssetForUpdateDto>().ReverseMap();
+            CreateMap<AboutUsAsset, AboutUsAssetForResultDto>().ReverseMap();
+
+            CreateMap<RecommendationAsset, RecommendationAssetForCreationDto>().ReverseMap();
+            CreateMap<RecommendationAsset, RecommendationAssetForUpdateDto>().ReverseMap();
+            CreateMap<RecommendationAsset, RecommendationAssetForResultDto>().ReverseMap();
+
+            CreateMap<Sponsor, SponsorForCreationDto>().ReverseMap();
+            CreateMap<Sponsor, SponsorForUpdateDto>().ReverseMap();
+            CreateMap<Sponsor, SponsorForResultDto>().ReverseMap();
+
+            CreateMap<Recommendation, RecommendationAssetForCreationDto>().ReverseMap();
+            CreateMap<Recommendation, RecommendationAssetForUpdateDto>().ReverseMap();
+            CreateMap<Recommendation, RecommendationAssetForResultDto>().ReverseMap();
+
+
         }
     }
 }
