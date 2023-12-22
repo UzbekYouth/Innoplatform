@@ -1,5 +1,4 @@
-﻿using Innoplatform.Domain.Entities;
-
+﻿
 namespace Innoplatform.Service.DTOs.Messages;
 
 public class MessgingForUpdateDto
