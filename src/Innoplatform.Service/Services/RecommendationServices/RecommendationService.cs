@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Innoplatform.Data.IRepositories;
 using Innoplatform.Domain.Entities;
+using Innoplatform.Domain.Entities.Recommendations;
 using Innoplatform.Service.DTOs.Recommendations;
 using Innoplatform.Service.Exceptions;
 using Innoplatform.Service.Interfaces;

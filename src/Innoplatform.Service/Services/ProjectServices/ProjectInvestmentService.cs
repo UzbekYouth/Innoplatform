@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using Innoplatform.Data.IRepositories;
 using Innoplatform.Domain.Entities;
+using Innoplatform.Domain.Entities.Investments;
+using Innoplatform.Domain.Entities.Projects;
+using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Service.DTOs.ProjectInvestments;
 using Innoplatform.Service.Exceptions;
 using Innoplatform.Service.Interfaces;

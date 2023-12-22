@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using Innoplatform.Data.IRepositories;
 using Innoplatform.Domain.Entities;
+using Innoplatform.Domain.Entities.Recommendations;
 using Innoplatform.Service.DTOs.RecommendationAreas;
+using Innoplatform.Service.Exceptions;
 using Innoplatform.Service.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Innoplatform.Service.Services.RecommendationServices;
 
@@ -17,28 +20,74 @@ public class RecommendationAreaService : IRecommendationAreaService
         _recommendationAreaRepository = recommendationAreaRepository;
     }
 
-    public Task<RecommendationAreaForResultDto> AddAsync(RecommendationAreaForCreationDto dto)
+    public async Task<RecommendationAreaForResultDto> AddAsync(RecommendationAreaForCreationDto dto)
     {
-        throw new NotImplementedException();
+        var recommendationArea = await _recommendationAreaRepository.SelectAll()
+            .Where(r => r.IsDeleted == false && r.Area == dto.Area)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (recommendationArea is not null)
+            throw new InnoplatformException(409, "Recommendation area is already exist");
+
+        var mapped = _mapper.Map<RecommendationArea>(dto);
+
+        var result = await _recommendationAreaRepository.CreateAsync(mapped);
+
+        return _mapper.Map<RecommendationAreaForResultDto>(result);
     }
 
-    public Task<IEnumerable<RecommendationAreaForResultDto>> GetAllAsync()
+    public async Task<IEnumerable<RecommendationAreaForResultDto>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var recommendationAreas = await _recommendationAreaRepository.SelectAll()
+            .Where(r => r.IsDeleted == false)
+            .AsNoTracking()
+            .ToListAsync();
+
+        return _mapper.Map<IEnumerable<RecommendationAreaForResultDto>>(recommendationAreas);
     }
 
-    public Task<RecommendationAreaForResultDto> GetByIdAsync(long id)
+    public async Task<RecommendationAreaForResultDto> GetByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        var recommendationArea = await _recommendationAreaRepository.SelectAll()
+            .Where(r => r.IsDeleted == false && r.Id == id)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (recommendationArea is null)
+            throw new InnoplatformException(404, "Recommendation Area is not found");
+
+        return _mapper.Map<RecommendationAreaForResultDto>(recommendationArea);
     }
 
-    public Task<RecommendationAreaForResultDto> ModifyAsync(long id, RecommendationAreaForUpdateDto dto)
+    public async Task<RecommendationAreaForResultDto> ModifyAsync(long id, RecommendationAreaForUpdateDto dto)
     {
-        throw new NotImplementedException();
+        var recommendationArea = await _recommendationAreaRepository.SelectAll()
+            .Where(r => r.IsDeleted == false && r.Id == id)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (recommendationArea is null)
+            throw new InnoplatformException(404, "Recommendation Area is not found");
+
+        var mapped = _mapper.Map(dto, recommendationArea);
+        mapped.UpdatedAt = DateTime.UtcNow;
+
+        var result = await _recommendationAreaRepository.UpdateAsync(mapped);
+
+        return _mapper.Map<RecommendationAreaForResultDto>(result);
     }
 
-    public Task<bool> RemoveAsync(long id)
+    public async Task<bool> RemoveAsync(long id)
     {
-        throw new NotImplementedException();
+        var recommendationArea = await _recommendationAreaRepository.SelectAll()
+            .Where(r => r.IsDeleted == false && r.Id == id)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (recommendationArea is null)
+            throw new InnoplatformException(404, "Recommendation Area is not found");
+
+        return await _recommendationAreaRepository.DeleteAsync(id)
     }
 }

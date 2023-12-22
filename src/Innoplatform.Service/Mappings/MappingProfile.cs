@@ -3,6 +3,7 @@ using AutoMapper;
 using Innoplatform.Domain.Entities.About;
 using Innoplatform.Domain.Entities.Investments;
 using Innoplatform.Domain.Entities.Messagings;
+using Innoplatform.Domain.Entities.Projects;
 using Innoplatform.Domain.Entities.Recommendations;
 using Innoplatform.Domain.Entities.Sponsors;
 using Innoplatform.Domain.Entities.Transactions;
