@@ -4,6 +4,6 @@ namespace Innoplatform.Service.DTOs.AboutUsAssets;
 
 public class AboutUsAssetForCreationDto
 {
-    public long ApouteUsId { get; set; }
+    public long AbouteUsId { get; set; }
     public IFormFile Image { get; set; }
 }
