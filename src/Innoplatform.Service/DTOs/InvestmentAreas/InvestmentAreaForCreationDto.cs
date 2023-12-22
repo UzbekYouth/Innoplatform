@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 
-namespace Innoplatform.Service.DTOs.InvestmentAreas
+namespace Innoplatform.Service.DTOs.InvestmentAreas;
+
+public class InvestmentAreaForCreationDto
 {
-    internal class InvestmentAreaForCreationDto
-    {
-    }
+    public string Title { get; set; }
+    public IFormFile Image { get; set; }
 }
