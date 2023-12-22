@@ -1,38 +1,89 @@
-﻿using Innoplatform.Service.DTOs.InvestmentAreas;
+﻿using AutoMapper;
+using Innoplatform.Data.IRepositories;
+using Innoplatform.Domain.Entities.Investments;
+using Innoplatform.Service.DTOs.InvestmentAreas;
+using Innoplatform.Service.Exceptions;
 using Innoplatform.Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
-namespace Innoplatform.Service.Services
+namespace Innoplatform.Service.Services;
+
+public class InvestmentAreaService : IInvestmentAreaService
 {
-    public class InvestmentAreaService : IInvestmentAreaService
+    private readonly IMapper _mapper;
+    private readonly IRepository<InvestmentArea> _repository;
+
+    public InvestmentAreaService(IMapper mapper, IRepository<InvestmentArea> repository)
     {
-        public Task<InvestmentAreaForResultDto> AddAsync(InvestmentAreaForCreationDto dto)
-        {
-            throw new NotImplementedException();
-        }
+        _mapper = mapper;
+        _repository = repository;
+    }
+    public async Task<InvestmentAreaForResultDto> AddAsync(InvestmentAreaForCreationDto dto)
+    {
+        var entity = await _repository.SelectAll()
+        .Where(e => e.IsDeleted == false)
+        .Where(e => e.Title == dto.Title)
+        .AsNoTracking()
+        .FirstOrDefaultAsync();
+        if (entity is not null)
+            throw new InnoplatformException(400, "aboutUsAsset is already exist");
 
-        public Task<IEnumerable<InvestmentAreaForResultDto>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
+        var mappedEntity = _mapper.Map<InvestmentArea>(dto);
+        return _mapper.Map<InvestmentAreaForResultDto>(await _repository
+            .CreateAsync(mappedEntity));
+    }
 
-        public Task<InvestmentAreaForResultDto> GetByIdAsync(long id)
-        {
-            throw new NotImplementedException();
-        }
+    public async Task<IEnumerable<InvestmentAreaForResultDto>> GetAllAsync()
+    {
+        var entities = await _repository.SelectAll()
+        .Where(e => e.IsDeleted == false)
+        .ToListAsync();
 
-        public Task<InvestmentAreaForResultDto> ModifyAsync(long id, InvestmentAreaForUpdateDto dto)
-        {
-            throw new NotImplementedException();
-        }
+        return _mapper.Map<IEnumerable<InvestmentAreaForResultDto>>(entities);
+    }
 
-        public Task<bool> RemoveAsync(long id)
-        {
-            throw new NotImplementedException();
-        }
+    public async Task<InvestmentAreaForResultDto> GetByIdAsync(long id)
+    {
+        var entity = await _repository.SelectAll()
+        .Where(e => e.IsDeleted == false)
+        .Where(e => e.Id == id)
+        .AsNoTracking()
+        .FirstOrDefaultAsync();
+        if (entity is null)
+            throw new InnoplatformException(400, "aboutUsAsset is not found ");
+
+        var mappedEntity = _mapper.Map<InvestmentAreaForResultDto>(entity);
+
+        return mappedEntity;
+    }
+
+    public async Task<InvestmentAreaForResultDto> ModifyAsync(long id, InvestmentAreaForUpdateDto dto)
+    {
+        var entity = await _repository.SelectAll()
+            .Where(e => e.IsDeleted == false)
+            .Where(e => e.Id == id)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if (entity is null)
+            throw new InnoplatformException(400, "aboutUsAsset is not found");
+
+        var mappedEntity = _mapper.Map(dto, entity);
+        mappedEntity.UpdatedAt = DateTime.UtcNow;
+
+        var result = await _repository.UpdateAsync(mappedEntity);
+        return _mapper.Map<InvestmentAreaForResultDto>(result);
+    }
+
+    public async Task<bool> RemoveAsync(long id)
+    {
+        var entity = await _repository.SelectAll()
+        .Where(e => e.IsDeleted == false)
+        .Where(e => e.Id == id)
+        .AsNoTracking()
+        .FirstOrDefaultAsync();
+        if (entity == null)
+            throw new InnoplatformException(400, "investmentarea is not found");
+
+        return await _repository.DeleteAsync(id);
     }
 }

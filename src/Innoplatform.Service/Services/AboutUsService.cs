@@ -6,49 +6,97 @@ using Innoplatform.Service.Exceptions;
 using Innoplatform.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Innoplatform.Service.Services
+namespace Innoplatform.Service.Services;
+
+public class AboutUsService : IAboutUsService
 {
-    public class AboutUsService : IAboutUsService
+    private readonly IMapper _mapper;
+    private readonly IRepository<AboutUs> _repository;
+
+    public AboutUsService(IRepository<AboutUs> repository, IMapper mapper)
     {
-        private readonly IMapper _mapper;
-        private readonly IRepository<AboutUs> _repository;
+        _repository = repository;
+        _mapper = mapper;
+    }
 
-        public AboutUsService(IRepository<AboutUs> repository, IMapper mapper)
-        {
-            _repository = repository;
-            _mapper = mapper;
-        }
+    public async Task<AboutUsResultDto> AddAsync(AboutUsForCreationDto dto)
+    {
+        var aboutUs = await _repository.SelectAll()
+            .Where(au => au.Title == dto.Title)
+            .Where(e => e.IsDeleted == false)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
 
+<<<<<<< HEAD
         public async Task<AboutUsResultDto> AddAsync(AboutUsForCreationDto dto)
         {
             var aboutUs = await _repository.SelectAll()
                 .Where(au => au.Title == dto.Title)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
+=======
+        if (aboutUs is not null)
+>>>>>>> 27c80209e3bc8fb4499a59b63cfedeb030565f12
             throw new InnoplatformException(404, "aboutUs is already exist");
 
-            var mappedAboutUs = _mapper.Map<AboutUs>(dto);
-            return _mapper.Map<AboutUsResultDto>(await _repository.CreateAsync(mappedAboutUs));
-        }
+        var mappedAboutUs = _mapper.Map<AboutUs>(dto);
+        return _mapper.Map<AboutUsResultDto>(await _repository.CreateAsync(mappedAboutUs));
+    }
 
-        public Task<IEnumerable<AboutUsResultDto>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
+    public async Task<IEnumerable<AboutUsResultDto>> GetAllAsync()
+    {
+        var aboutUsList = await _repository.SelectAll()
+            .Where(e => e.IsDeleted == false)
+            .ToListAsync();
 
-        public Task<AboutUsResultDto> GetByIdAsync(long id)
-        {
-            throw new NotImplementedException();
-        }
+        return _mapper.Map<IEnumerable<AboutUsResultDto>>(aboutUsList);
+    }
 
-        public Task<AboutUsResultDto> ModifyAsync(long id, AboutUsForUpdateDto dto)
-        {
-            throw new NotImplementedException();
-        }
+    public async Task<AboutUsResultDto> GetByIdAsync(long id)
+    {
+        var aboutUs = await _repository.SelectAll()
+            .Where(e => e.IsDeleted == false)
+            .Where(au => au.Id == id)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
 
-        public Task<bool> RemoveAsync(long id)
-        {
-            throw new NotImplementedException();
-        }
+        if (aboutUs is null)
+            throw new InnoplatformException(409, "aboutUs is not found in this Id");
+
+        var mappedAboutUs = _mapper.Map<AboutUsResultDto>(aboutUs);
+        return mappedAboutUs;
+    }
+
+    public async Task<AboutUsResultDto> ModifyAsync(long id, AboutUsForUpdateDto dto)
+    {
+        var aboutUs = await _repository.SelectAll()
+            .Where(e => e.IsDeleted == false)
+            .Where(au => au.Id == id)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (aboutUs is null)
+            throw new InnoplatformException(409, "aboutUs is not found in this Id");
+
+        var mapped = _mapper.Map(dto, aboutUs);
+        mapped.UpdatedAt = DateTime.UtcNow;
+
+        var result = await _repository.UpdateAsync(mapped);
+
+        return _mapper.Map<AboutUsResultDto>(result);
+    }
+
+    public async Task<bool> RemoveAsync(long id)
+    {
+        var aboutUs = await _repository.SelectAll()
+            .Where(e => e.IsDeleted == false)
+            .Where(au => au.Id == id)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (aboutUs is null)
+            throw new InnoplatformException(409, "aboutUs is not found in this Id");
+
+        return await _repository.DeleteAsync(id);
     }
 }
