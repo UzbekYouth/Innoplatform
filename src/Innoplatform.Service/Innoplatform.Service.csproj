@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+=======
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+>>>>>>> b9ab772b2cd8fc51a057e05a43c6c76bb2dd50ae
   </ItemGroup>
 
 </Project>
