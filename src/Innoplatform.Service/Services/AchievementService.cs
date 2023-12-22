@@ -1,38 +1,60 @@
-﻿using Innoplatform.Service.DTOs.AchievementAssets;
+﻿using AutoMapper;
+using Innoplatform.Data.IRepositories;
+using Innoplatform.Domain.Entities.About;
+using Innoplatform.Domain.Entities.Achievments;
+using Innoplatform.Service.DTOs.AboutUsAssets;
+using Innoplatform.Service.DTOs.AchievementAssets;
+using Innoplatform.Service.Exceptions;
 using Innoplatform.Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
-namespace Innoplatform.Service.Services
+namespace Innoplatform.Service.Services;
+
+public class AchievementService : IAchievementService
 {
-    public class AchievementService : IAchievementService
+    private readonly IMapper _mapper;
+    private readonly IRepository<Achievement> _repository;
+
+    public AchievementService(IMapper mapper, IRepository<Achievement> repository)
     {
-        public Task<AchievementForResultDto> AddAsync(AchievementForCreationDto dto)
-        {
-            throw new NotImplementedException();
-        }
+        _mapper = mapper;
+        _repository = repository;
+    }
+    public async Task<AchievementForResultDto> AddAsync(AchievementForCreationDto dto)
+    {
+        var entity = await _repository.SelectAll()
+            .Where(e => e.Title == dto.Title)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if (entity is not null)
+            throw new InnoplatformException(400, "achievement is already exist");
 
-        public Task<IEnumerable<AchievementForResultDto>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
+        var mappedEntity = _mapper.Map<Achievement>(dto);
+        return _mapper.Map<AchievementForResultDto>(await _repository
+            .CreateAsync(mappedEntity));
+    }
 
-        public Task<AchievementForResultDto> GetByIdAsync(long id)
-        {
-            throw new NotImplementedException();
-        }
+    public async Task<IEnumerable<AchievementForResultDto>> GetAllAsync()
+    {
+        var entities = await _repository.SelectAll()
+            .Where(e => e.IsDeleted == false)
+            .ToListAsync();
 
-        public Task<AchievementForResultDto> ModifyAsync(long id, AchievementForUpdateDto dto)
-        {
-            throw new NotImplementedException();
-        }
+        return _mapper.Map<IEnumerable<AchievementForResultDto>>(entities);
+    }
 
-        public Task<bool> RemoveAsync(long id)
-        {
-            throw new NotImplementedException();
-        }
+    public Task<AchievementForResultDto> GetByIdAsync(long id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<AchievementForResultDto> ModifyAsync(long id, AchievementForUpdateDto dto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> RemoveAsync(long id)
+    {
+        throw new NotImplementedException();
     }
 }
