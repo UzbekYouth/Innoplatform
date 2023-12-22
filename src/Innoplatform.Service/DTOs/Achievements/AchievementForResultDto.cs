@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Innoplatform.Domain.Entities.Achievments;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,8 @@ namespace Innoplatform.Service.DTOs.AchievementAssets
 {
     public class AchievementForResultDto
     {
+        public long Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
     }
 }

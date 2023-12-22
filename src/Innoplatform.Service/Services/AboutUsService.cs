@@ -23,6 +23,7 @@ public class AboutUsService : IAboutUsService
     {
         var aboutUs = await _repository.SelectAll()
             .Where(au => au.Title == dto.Title)
+            .Where(e => e.IsDeleted == false)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
@@ -35,7 +36,9 @@ public class AboutUsService : IAboutUsService
 
     public async Task<IEnumerable<AboutUsResultDto>> GetAllAsync()
     {
-        var aboutUsList = await _repository.SelectAll().ToListAsync();
+        var aboutUsList = await _repository.SelectAll()
+            .Where(e => e.IsDeleted == false)
+            .ToListAsync();
 
         return _mapper.Map<IEnumerable<AboutUsResultDto>>(aboutUsList);
     }
@@ -43,6 +46,7 @@ public class AboutUsService : IAboutUsService
     public async Task<AboutUsResultDto> GetByIdAsync(long id)
     {
         var aboutUs = await _repository.SelectAll()
+            .Where(e => e.IsDeleted == false)
             .Where(au => au.Id == id)
             .AsNoTracking()
             .FirstOrDefaultAsync();
@@ -57,6 +61,7 @@ public class AboutUsService : IAboutUsService
     public async Task<AboutUsResultDto> ModifyAsync(long id, AboutUsForUpdateDto dto)
     {
         var aboutUs = await _repository.SelectAll()
+            .Where(e => e.IsDeleted == false)
             .Where(au => au.Id == id)
             .AsNoTracking()
             .FirstOrDefaultAsync();
@@ -75,6 +80,7 @@ public class AboutUsService : IAboutUsService
     public async Task<bool> RemoveAsync(long id)
     {
         var aboutUs = await _repository.SelectAll()
+            .Where(e => e.IsDeleted == false)
             .Where(au => au.Id == id)
             .AsNoTracking()
             .FirstOrDefaultAsync();
