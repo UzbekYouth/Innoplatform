@@ -1,4 +1,4 @@
-﻿namespace Innoplatform.Domain.Enum;
+﻿namespace Innoplatform.Domain.Enums;
 
 public enum ApplicationStatus
 {
