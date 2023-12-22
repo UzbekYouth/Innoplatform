@@ -28,7 +28,7 @@ public class ProjectAssetService : IProjectAssetService
         _projectRepository = projectRepository;
         _projectAssetRepository = projectAssetRepository;
     }
-    public async Task<ProjectAssetForResultDto> AddAsync(ProjectAssetForCreationDto dto)
+    public async Task<ProjectAssetForResultDto> AddAsync(OrganizationExtraDetailForCreationDto dto)
     {
         var project = await _projectRepository.SelectAll()
             .Where(p => p.IsDeleted == false && p.Id == dto.ProjectId)
