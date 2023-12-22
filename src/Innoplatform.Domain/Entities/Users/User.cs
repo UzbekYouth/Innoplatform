@@ -1,7 +1,7 @@
 ﻿using Innoplatform.Domain.Commons;
 using Innoplatform.Domain.Enums;
 
-namespace Innoplatform.Domain.Entities;
+namespace Innoplatform.Domain.Entities.Users;
 
 public class User : Auditable
 {

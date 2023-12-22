@@ -1,6 +1,7 @@
 ﻿using Innoplatform.Domain.Commons;
+using Innoplatform.Domain.Entities.Users;
 
-namespace Innoplatform.Domain.Entities;
+namespace Innoplatform.Domain.Entities.Messagings;
 
 public class Messaging : Auditable
 {

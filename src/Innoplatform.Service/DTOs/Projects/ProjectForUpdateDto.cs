@@ -1,12 +1,4 @@
-﻿using Innoplatform.Domain.Entities;
-using Innoplatform.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Innoplatform.Service.DTOs.Projects
+﻿namespace Innoplatform.Service.DTOs.Projects
 {
     public class ProjectForUpdateDto
     {

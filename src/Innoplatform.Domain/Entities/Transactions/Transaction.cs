@@ -1,7 +1,8 @@
 ﻿using Innoplatform.Domain.Commons;
+using Innoplatform.Domain.Entities.Users;
 using System.Transactions;
 
-namespace Innoplatform.Domain.Entities;
+namespace Innoplatform.Domain.Entities.Transactions;
 
 public class Transaction : Auditable
 {

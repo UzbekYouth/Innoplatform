@@ -1,4 +1,4 @@
-﻿using Innoplatform.Domain.Entities;
+﻿using Innoplatform.Domain.Entities.Achievments;
 using System;
 using System.Collections.Generic;
 using System.Linq;

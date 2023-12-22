@@ -1,6 +1,6 @@
 ﻿using Innoplatform.Domain.Commons;
 
-namespace Innoplatform.Domain.Entities
+namespace Innoplatform.Domain.Entities.Achievments
 {
     public class Achievement : Auditable
     {

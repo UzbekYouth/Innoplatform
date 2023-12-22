@@ -1,7 +1,9 @@
 ﻿using Innoplatform.Domain.Commons;
+using Innoplatform.Domain.Entities.Investments;
+using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Domain.Enums;
 
-namespace Innoplatform.Domain.Entities
+namespace Innoplatform.Domain.Entities.Projects
 {
     public class Application : Auditable
     {
