@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Innoplatform.Service.Interfaces
 {
-    internal interface IAuthService
+    public interface IAuthService
     {
     }
 }
