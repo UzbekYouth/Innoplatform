@@ -1,6 +1,6 @@
 ﻿namespace Innoplatform.Domain.Enums;
 
-public enum Status
+public enum InvestmentStatus
 {
     Active,
     Inactive

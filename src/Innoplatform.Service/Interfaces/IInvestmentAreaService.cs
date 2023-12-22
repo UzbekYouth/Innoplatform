@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Innoplatform.Service.DTOs.InvestmentAreas;
+using Innoplatform.Service.DTOs.Users;
 
-namespace Innoplatform.Service.Interfaces
+namespace Innoplatform.Service.Interfaces;
+
+public interface IInvestmentAreaService
 {
-    internal class IInvestmentAreaService
-    {
-    }
+    public Task<bool> RemoveAsync(long id);
+    public Task<InvestmentAreaForResultDto> GetByIdAsync(long id);
+    public Task<IEnumerable<InvestmentAreaForResultDto>> GetAllAsync();
+    public Task<InvestmentAreaForResultDto> AddAsync(InvestmentAreaForCreationDto dto);
+    public Task<InvestmentAreaForResultDto> ModifyAsync(long id, InvestmentAreaForUpdateDto dto);
 }

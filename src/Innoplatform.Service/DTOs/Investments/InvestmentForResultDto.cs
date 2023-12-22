@@ -14,5 +14,5 @@ public class InvestmentForResultDto
     public string Description { get; set; }
     public decimal MaxInvestmentAmount { get; set; }
     public decimal MinInvestmentAmount { get; set; }
-    public Status Status { get; set; }
+    public InvestmentStatus Status { get; set; }
 }

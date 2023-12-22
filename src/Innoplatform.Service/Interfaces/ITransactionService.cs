@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Innoplatform.Service.DTOs.Transactions;
+using Innoplatform.Service.DTOs.Users;
 
-namespace Innoplatform.Service.Interfaces
+namespace Innoplatform.Service.Interfaces;
+
+public interface ITransactionService
 {
-    internal class ITransactionService
-    {
-    }
+    public Task<bool> RemoveAsync(long id);
+    public Task<TransactionForResultDto> GetByIdAsync(long id);
+    public Task<IEnumerable<TransactionForResultDto>> GetAllAsync();
+    public Task<TransactionForResultDto> AddAsync(TransactionForCreationDto dto);
 }
