@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Innoplatform.Service.DTOs.InvestmentAreas;
 
-namespace Innoplatform.Service.DTOs.InvestmentAreas
+public class InvestmentAreaForResultDto
 {
-    internal class InvestmentAreaForResultDto
-    {
-    }
+    public long Id { get; set; }
+    public string Title { get; set; }
+    public string Image { get; set; }
 }

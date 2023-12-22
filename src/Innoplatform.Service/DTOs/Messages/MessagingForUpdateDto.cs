@@ -2,7 +2,7 @@
 
 namespace Innoplatform.Service.DTOs.Messages;
 
-public class MessagingForCreationDto
+public class MessagingForUpdateDto
 {
     public long SenderId { get; set; }
     public long RecipientId { get; set; }

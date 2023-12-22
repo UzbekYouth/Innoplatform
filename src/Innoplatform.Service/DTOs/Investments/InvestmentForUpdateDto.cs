@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Innoplatform.Domain.Entities;
+using Innoplatform.Domain.Enums;
 
-namespace Innoplatform.Service.DTOs.Investments
+namespace Innoplatform.Service.DTOs.Investments;
+
+public class InvestmentForUpdateDto
 {
-    internal class InvestmentForUpdateDto
-    {
-    }
+    public long InvestmentAreaId { get; set; }
+    public long UserId { get; set; }
+    public string Title { get; set; }
+    public string Latitude { get; set; }
+    public string Longitude { get; set; }
+    public string Description { get; set; }
+    public decimal MaxInvestmentAmount { get; set; }
+    public decimal MinInvestmentAmount { get; set; }
+    public Status Status { get; set; }
 }

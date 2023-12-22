@@ -1,9 +1,8 @@
-﻿using Innoplatform.Domain.Entities;
+﻿namespace Innoplatform.Service.DTOs.Messages;
 
-namespace Innoplatform.Service.DTOs.Messages;
-
-public class MessagingForCreationDto
+public class MessagingForResultDto
 {
+    public long Id { get; set; }
     public long SenderId { get; set; }
     public long RecipientId { get; set; }
     public string Message { get; set; }
