@@ -1,7 +1,5 @@
 ﻿using Innoplatform.Domain.Enums;
 
-namespace Innoplatform.Service.DTOs.Investments;
-
 public class InvestmentForCreationDto
 {
     public long InvestmentAreaId { get; set; }
