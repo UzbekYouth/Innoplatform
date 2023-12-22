@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Innoplatform.Service.DTOs.RecommendationAreas
 {
-    public class RecommondationAreaForCreationDto
+    public class RecommendationAreaForResultDto
     {
+        public long Id { get; set; }
         public string Area { get; set; }
     }
 }

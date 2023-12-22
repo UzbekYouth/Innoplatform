@@ -22,6 +22,7 @@ using Innoplatform.Service.DTOs.ProjectInvestments;
 using Innoplatform.Service.DTOs.Projects;
 using Innoplatform.Service.DTOs.RecommendationAreas;
 using Innoplatform.Service.DTOs.RecommendationAsset;
+using Innoplatform.Service.DTOs.Recommendations;
 using Innoplatform.Service.DTOs.Sponsors;
 using Innoplatform.Service.DTOs.Transactions;
 using Innoplatform.Service.DTOs.Users;
