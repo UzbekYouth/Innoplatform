@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Innoplatform.Service.DTOs.Registrations.UserRegistrations
+﻿namespace Innoplatform.Service.DTOs.Registrations.UserRegistrations
 {
-    internal class UserRegistrationForCreationDto
+    public class UserRegistrationForCreationDto
     {
     }
 }
