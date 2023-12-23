@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Innoplatform.Service\Innoplatform.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Assets\" />
+  </ItemGroup>
+
 </Project>
