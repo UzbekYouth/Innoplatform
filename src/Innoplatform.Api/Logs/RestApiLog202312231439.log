@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> abe91c2d73437d85b6fb78d2e2d47fa0361783c4
 2023-12-23 14:39:37.679 +05:00 [Error] [Microsoft.EntityFrameworkCore.Database.Command] [{ Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }] Failed executing DbCommand ("242"ms) [Parameters=["@p0='?' (DbType = Int64), @p1='?' (DbType = Int64), @p2='?' (DbType = DateTime), @p3='?', @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime)"], CommandType='Text', CommandTimeout='30']"
 ""INSERT INTO \"AboutUsAssets\" (\"AboutUsId\", \"AbouteUsId\", \"CreatedAt\", \"Image\", \"IsDeleted\", \"UpdatedAt\")
 VALUES (@p0, @p1, @p2, @p3, @p4, @p5)
@@ -9,7 +13,11 @@ RETURNING \"Id\";"
  ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table \"AboutUsAssets\" violates foreign key constraint \"FK_AboutUsAssets_AboutUs_AboutUsId\"
 
 DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+<<<<<<< HEAD
+=======
+=======
 
+>>>>>>> abe91c2d73437d85b6fb78d2e2d47fa0361783c4
 2023-12-23 14:39:09.943 +05:00 [Error] [Microsoft.EntityFrameworkCore.Database.Command] [{ Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }] Failed executing DbCommand ("332"ms) [Parameters=["@__dto_Email_0='?', @__dto_CallCenter_1='?', @__dto_Name_2='?'"], CommandType='Text', CommandTimeout='30']"
 ""SELECT o.\"Id\", o.\"Address\", o.\"CallCenter\", o.\"CreatedAt\", o.\"Description\", o.\"Email\", o.\"ImagePath\", o.\"IsDeleted\", o.\"Name\", o.\"Password\", o.\"PhoneNumber\", o.\"Role\", o.\"Salt\", o.\"UpdatedAt\", o.\"UserName\"
 FROM \"Organizations\" AS o
@@ -21,6 +29,10 @@ LIMIT 1"
 ""Npgsql.PostgresException (0x80004005): 42703: column o.Salt does not exist
 
 POSITION: 169
+<<<<<<< HEAD
+>>>>>>> d108839a2b950a7fd40a3b233594e641b8fd2b04
+=======
+>>>>>>> abe91c2d73437d85b6fb78d2e2d47fa0361783c4
    at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
@@ -29,6 +41,10 @@ POSITION: 169
    at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> abe91c2d73437d85b6fb78d2e2d47fa0361783c4
    at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
   Exception data:
     Severity: ERROR
@@ -54,6 +70,25 @@ Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving 
  ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table "AboutUsAssets" violates foreign key constraint "FK_AboutUsAssets_AboutUs_AboutUsId"
 
 DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+<<<<<<< HEAD
+=======
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column o.Salt does not exist
+    Position: 169
+    File: parse_relation.c
+    Line: 3718
+    Routine: errorMissingColumn"
+Npgsql.PostgresException (0x80004005): 42703: column o.Salt does not exist
+
+POSITION: 169
+>>>>>>> d108839a2b950a7fd40a3b233594e641b8fd2b04
+=======
+>>>>>>> abe91c2d73437d85b6fb78d2e2d47fa0361783c4
    at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
@@ -62,6 +97,10 @@ DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error
    at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> abe91c2d73437d85b6fb78d2e2d47fa0361783c4
    at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
   Exception data:
     Severity: ERROR
@@ -89,6 +128,27 @@ DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error
  ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table "AboutUsAssets" violates foreign key constraint "FK_AboutUsAssets_AboutUs_AboutUsId"
 
 DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+<<<<<<< HEAD
+=======
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column o.Salt does not exist
+    Position: 169
+    File: parse_relation.c
+    Line: 3718
+    Routine: errorMissingColumn
+
+
+2023-12-23 14:39:10.705 +05:00 [Error] [Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare] [] Npgsql.PostgresException (0x80004005): 42703: column o.Salt does not exist
+
+POSITION: 169
+>>>>>>> d108839a2b950a7fd40a3b233594e641b8fd2b04
+=======
+>>>>>>> abe91c2d73437d85b6fb78d2e2d47fa0361783c4
    at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
@@ -97,6 +157,10 @@ DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error
    at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> abe91c2d73437d85b6fb78d2e2d47fa0361783c4
    at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
   Exception data:
     Severity: ERROR
@@ -122,6 +186,18 @@ DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error
    at Innoplatform.Data.Repositories.Repository`1.CreateAsync(TEntity entity) in C:\Users\Hayotbahrom\Desktop\Pojects\Avalanche\Innoplatform\src\Innoplatform.Api\Repositories\Repository.cs:line 20
    at Innoplatform.Service.Services.AboutServices.AboutUsAssetService.AddAsync(AboutUsAssetForCreationDto dto) in C:\Users\Hayotbahrom\Desktop\Pojects\Avalanche\Innoplatform\src\Innoplatform.Service\Services\AboutServices\AboutUsAssetService.cs:line 51
    at Innoplatform.Api.Controllers.AboutControllers.AboutUsAssetsController.AddAsync(AboutUsAssetForCreationDto dto) in C:\Users\Hayotbahrom\Desktop\Pojects\Avalanche\Innoplatform\src\Innoplatform.Api\Controllers\AboutControllers\AboutUsAssetsController.cs:line 43
+<<<<<<< HEAD
+=======
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Innoplatform.Service.Services.OrganizationServices.OrganizationService.AddAsync(OrganizationForCreationDto dto) in C:\Users\sardorbek\Desktop\Hackaton\Innoplatform\src\Innoplatform.Service\Services\OrganizationServices\OrganizationService.cs:line 32
+   at Innoplatform.Api.Controllers.OrganizationControllers.OrganizationController.PostAsync(OrganizationForCreationDto dto) in C:\Users\sardorbek\Desktop\Hackaton\Innoplatform\src\Innoplatform.Api\Controllers\OrganizationControllers\OrganizationController.cs:line 49
+>>>>>>> d108839a2b950a7fd40a3b233594e641b8fd2b04
+=======
+>>>>>>> abe91c2d73437d85b6fb78d2e2d47fa0361783c4
    at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
@@ -133,6 +209,10 @@ DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error
    at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
    at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
    at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> abe91c2d73437d85b6fb78d2e2d47fa0361783c4
    at Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare.Invoke(HttpContext context) in C:\Users\Hayotbahrom\Desktop\Pojects\Avalanche\Innoplatform\src\Innoplatform.Api\Middlewares\ExceptionHandlerMiddleWare.cs:line 21
 
 
@@ -304,6 +384,10 @@ POSITION: 169
    at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
    at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
    at Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare.Invoke(HttpContext context) in C:\Users\Hayotbahrom\Desktop\Pojects\Avalanche\Innoplatform\src\Innoplatform.Api\Middlewares\ExceptionHandlerMiddleWare.cs:line 21
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> abe91c2d73437d85b6fb78d2e2d47fa0361783c4
    at Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare.Invoke(HttpContext context) in C:\Users\sardorbek\Desktop\Hackaton\Innoplatform\src\Innoplatform.Api\Middlewares\ExceptionHandlerMiddleWare.cs:line 21
   Exception data:
     Severity: ERROR
@@ -313,6 +397,10 @@ POSITION: 169
     File: parse_relation.c
     Line: 3718
     Routine: errorMissingColumn
+<<<<<<< HEAD
+>>>>>>> d108839a2b950a7fd40a3b233594e641b8fd2b04
+=======
+>>>>>>> abe91c2d73437d85b6fb78d2e2d47fa0361783c4
 
 
 

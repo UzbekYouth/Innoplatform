@@ -32,11 +32,35 @@ public class AboutUsAssetService : IAboutUsAssetService
     }
     public async Task<AboutUsAssetForResultDto> AddAsync(AboutUsAssetForCreationDto dto)
     {
+<<<<<<< HEAD
+<<<<<<< HEAD
+        var entity = await _repository.SelectAll()
+            .Where(e => e.IsDeleted == false)
+            .Where(e => e.AbouteUsId == dto.AbouteUsId)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if (entity is not null)
+            throw new InnoplatformException(400, "aboutUsAsset is already exist");
+
+        var existAsset = await _repository.SelectAll()
+            .Where(ea => ea.AbouteUsId == dto.AbouteUsId && ea.IsDeleted == false)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if (existAsset is null)
+            throw new InnoplatformException(400, "AboutUs is not found in this Id");
+
+=======
+=======
+>>>>>>> abe91c2d73437d85b6fb78d2e2d47fa0361783c4
         var CheckAboutUs = await this._aboutUsRepository.SelectAll().Where(e => e.Id == dto.AboutUsId && e.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
         if(dto.Image == null)
         {
             throw new InnoplatformException(400, "Image is null");
         }
+<<<<<<< HEAD
+>>>>>>> d108839a2b950a7fd40a3b233594e641b8fd2b04
+=======
+>>>>>>> abe91c2d73437d85b6fb78d2e2d47fa0361783c4
         var asset = new AssetForCreationDto
         {
             FolderPath = "AboutUsAssets",
