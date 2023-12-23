@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Innoplatform.Data.IRepositories;
+
 using Innoplatform.Domain.Entities;
 using Innoplatform.Domain.Entities.Organizations;
 using Innoplatform.Domain.Entities.Sponsors;
@@ -12,7 +13,6 @@ using Innoplatform.Service.Extensions;
 using Innoplatform.Service.Interfaces.IFileUploadServices;
 using Innoplatform.Service.Interfaces.IUserServices;
 using Microsoft.EntityFrameworkCore;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Innoplatform.Service.Services.UserServices;
 
@@ -59,7 +59,7 @@ public class UserService : IUserService
         var HashedPassword = PasswordHelper.Hash(dto.Password);
         mappedUser.Password = HashedPassword.Hash;
         mappedUser.Salt = HashedPassword.Salt;
-        
+
         mappedUser.Image = assetPath?.AssetPath;
 
         var createdUser = await _userRepository.CreateAsync(mappedUser);

@@ -1,5 +1,6 @@
 ﻿using Innoplatform.Domain.Entities.Organizations;
 using Innoplatform.Domain.Enums;
+using Innoplatform.Service.DTOs.Organizations;
 
 namespace Innoplatform.Service.DTOs.OrganizationInvestment;
 
@@ -8,6 +9,7 @@ public class OrganizationInvestmentForResultDto
     public long Id { get; set; }
     public string Title { get; set; }
     public long OrganizationId { get; set; }
+    public OrganizationForResultDto Organization { get; set; }
     public string InvestmentArea { get; set; }
     public string Description { get; set; }
     public decimal MaximumInvestmentAmount { get; set; }
