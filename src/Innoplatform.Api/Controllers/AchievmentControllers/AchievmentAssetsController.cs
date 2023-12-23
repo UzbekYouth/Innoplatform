@@ -8,9 +8,9 @@ namespace Innoplatform.Api.Controllers.AchievmentControllers;
 
 public class AchievmentAssetsController : BaseController
 {
-    private readonly IAchievementAssetService _service;
+    private readonly IAchievmentAssetService _service;
 
-    public AchievmentAssetsController(IAchievementAssetService achievmentAssetService)
+    public AchievmentAssetsController(IAchievmentAssetService achievmentAssetService)
     {
         _service = achievmentAssetService;
     }

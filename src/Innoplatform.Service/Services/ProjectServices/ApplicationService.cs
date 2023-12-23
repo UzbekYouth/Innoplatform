@@ -2,9 +2,11 @@
 using Innoplatform.Data.IRepositories;
 using Innoplatform.Domain.Entities.About;
 using Innoplatform.Domain.Entities.Projects;
+using Innoplatform.Service.Configuration;
 using Innoplatform.Service.DTOs.AboutUsAssets;
 using Innoplatform.Service.DTOs.Applications;
 using Innoplatform.Service.Exceptions;
+using Innoplatform.Service.Extensions;
 using Innoplatform.Service.Interfaces.IProjectServices;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,10 +40,11 @@ public class ApplicationService : IApplicationService
             .CreateAsync(mappedEntity));
     }
 
-    public async Task<IEnumerable<ApplicationForResultDto>> GetAllAsync()
+    public async Task<IEnumerable<ApplicationForResultDto>> GetAllAsync(PaginationParams @params)
     {
         var entities = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)
+            .ToPagedList(@params)
             .AsNoTracking()
             .ToListAsync();
 

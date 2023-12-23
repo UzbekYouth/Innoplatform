@@ -7,9 +7,9 @@ namespace Innoplatform.Api.Controllers.AchievmentControllers;
 
 public class AchievmentsController : BaseController
 {
-    private readonly IAchievementService _achievmentService;
+    private readonly IAchievmentService _achievmentService;
 
-    public AchievmentsController(IAchievementService achievmentService)
+    public AchievmentsController(IAchievmentService achievmentService)
     {
         _achievmentService = achievmentService;
     }

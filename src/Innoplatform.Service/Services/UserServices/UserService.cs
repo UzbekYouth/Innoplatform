@@ -3,9 +3,11 @@ using Innoplatform.Data.IRepositories;
 using Innoplatform.Domain.Entities;
 using Innoplatform.Domain.Entities.Sponsors;
 using Innoplatform.Domain.Entities.Users;
+using Innoplatform.Service.Configuration;
 using Innoplatform.Service.DTOs.Assets;
 using Innoplatform.Service.DTOs.Users;
 using Innoplatform.Service.Exceptions;
+using Innoplatform.Service.Extensions;
 using Innoplatform.Service.Interfaces.IFileUploadServices;
 using Innoplatform.Service.Interfaces.IUserServices;
 using Microsoft.EntityFrameworkCore;
@@ -53,10 +55,11 @@ public class UserService : IUserService
         return _mapper.Map<UserForResultDto>(createdUser);
     }
 
-    public async Task<IEnumerable<UserForResultDto>> GetAllAsync()
+    public async Task<IEnumerable<UserForResultDto>> GetAllAsync(PaginationParams @params)
     {
         var users = await _userRepository.SelectAll()
             .Where(u => u.IsDeleted == false)
+            .ToPagedList(@params)
             .AsNoTracking()
             .ToListAsync();
 

@@ -2,10 +2,12 @@
 using Innoplatform.Data.IRepositories;
 using Innoplatform.Domain.Entities.Organizations;
 using Innoplatform.Domain.Entities.Projects;
+using Innoplatform.Service.Configuration;
 using Innoplatform.Service.DTOs.Assets;
 using Innoplatform.Service.DTOs.Organizations;
 using Innoplatform.Service.DTOs.ProjectAssets;
 using Innoplatform.Service.Exceptions;
+using Innoplatform.Service.Extensions;
 using Innoplatform.Service.Interfaces.IFileUploadServices;
 using Innoplatform.Service.Interfaces.IOrganizationServices;
 using Microsoft.EntityFrameworkCore;
@@ -47,9 +49,9 @@ namespace Innoplatform.Service.Services.OrganizationServices
             return _mapper.Map<OrganizationForResultDto>(result);
         }
 
-        public async Task<IEnumerable<OrganizationForResultDto>> GetAllAsync()
+        public async Task<IEnumerable<OrganizationForResultDto>> GetAllAsync(PaginationParams @params)
         {
-            var result = await _repository.SelectAll().Where(o => o.IsDeleted == false).AsNoTracking().ToListAsync();
+            var result = await _repository.SelectAll().Where(o => o.IsDeleted == false).ToPagedList(@params).AsNoTracking().ToListAsync();
             return _mapper.Map<IEnumerable<OrganizationForResultDto>>(result);
         }
 
