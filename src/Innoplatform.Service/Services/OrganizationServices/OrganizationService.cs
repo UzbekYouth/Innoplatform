@@ -91,7 +91,10 @@ namespace Innoplatform.Service.Services.OrganizationServices
 
         public async Task<OrganizationForResultDto> GetByIdAsync(long id)
         {
-            var result = await _repository.SelectAll().Where(o => o.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
+            var result = await _repository.SelectAll()
+                .Where(o => o.IsDeleted == false && o.Id == id)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
             if (result == null)
             {
                 throw new InnoplatformException(404, "Not Found");

@@ -60,11 +60,11 @@ public class UserService : IUserService
         return _mapper.Map<UserForResultDto>(createdUser);
     }
 
-    public async Task<bool> ChangePasswordAsync(long Id, UserPasswordForChangeDto dto)
+    public async Task<bool> ChangePasswordAsync(long id, UserPasswordForChangeDto dto)
     {
         var data = await _userRepository
                         .SelectAll()
-                        .Where(e => e.Id == Id && e.IsDeleted == false)
+                        .Where(e => e.Id == id && e.IsDeleted == false)
                         .FirstOrDefaultAsync();
         if (data == null || PasswordHelper.Verify(dto.OldPassword, data.Salt, data.Password) == false)
         {
