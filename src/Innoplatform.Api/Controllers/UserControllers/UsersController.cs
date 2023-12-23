@@ -1,4 +1,5 @@
 ﻿using Innoplatform.Api.Models;
+using Innoplatform.Service.Configuration;
 using Innoplatform.Service.DTOs.Educations;
 using Innoplatform.Service.DTOs.Users;
 using Innoplatform.Service.Interfaces.IUserServices;
@@ -16,13 +17,13 @@ public class UsersController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllAsync()
+    public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams @params)
     {
         var response = new Response
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await _service.GetAllAsync()
+            Data = await _service.GetAllAsync(@params)
         };
         return Ok(response);
     }

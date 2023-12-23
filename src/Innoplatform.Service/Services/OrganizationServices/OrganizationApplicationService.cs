@@ -3,8 +3,10 @@ using Innoplatform.Data.IRepositories;
 using Innoplatform.Domain.Entities.Organizations;
 using Innoplatform.Domain.Entities.Projects;
 using Innoplatform.Domain.Entities.Users;
+using Innoplatform.Service.Configuration;
 using Innoplatform.Service.DTOs.OrganizationApplications;
 using Innoplatform.Service.Exceptions;
+using Innoplatform.Service.Extensions;
 using Innoplatform.Service.Interfaces.IOrganizationServices;
 using Microsoft.EntityFrameworkCore;
 
@@ -74,10 +76,11 @@ public class OrganizationApplicationService : IOrganizationApplicationService
         return _mapper.Map<OrganizationApplicationForResultDto>(createdOrganizationApplication);
     }
 
-    public async Task<IEnumerable<OrganizationApplicationForResultDto>> GetAllAsync()
+    public async Task<IEnumerable<OrganizationApplicationForResultDto>> GetAllAsync(PaginationParams @params)
     {
         var organizationApplications = await _organizationApplicationRepository.SelectAll()
             .Where(oa => oa.IsDeleted == false)
+            .ToPagedList(@params)
             .AsNoTracking()
             .ToListAsync();
 

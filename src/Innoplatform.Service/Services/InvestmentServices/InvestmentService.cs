@@ -2,9 +2,11 @@
 using Innoplatform.Data.IRepositories;
 using Innoplatform.Domain.Entities.About;
 using Innoplatform.Domain.Entities.Investments;
+using Innoplatform.Service.Configuration;
 using Innoplatform.Service.DTOs.AboutUsAssets;
 using Innoplatform.Service.DTOs.Investments;
 using Innoplatform.Service.Exceptions;
+using Innoplatform.Service.Extensions;
 using Innoplatform.Service.Interfaces.IInvestmentServices;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,10 +39,12 @@ public class InvestmentService : IInvestmentService
             .CreateAsync(mappedEntity));
     }
 
-    public async Task<IEnumerable<InvestmentForResultDto>> GetAllAsync()
+    public async Task<IEnumerable<InvestmentForResultDto>> GetAllAsync(PaginationParams @params)
     {
         var entities = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)
+            .ToPagedList(@params)
+            .AsNoTracking()
             .ToListAsync();
 
         return _mapper.Map<IEnumerable<InvestmentForResultDto>>(entities);
