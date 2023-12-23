@@ -44,8 +44,8 @@ namespace Innoplatform.Api.Extensions
             services.AddScoped<IAboutUsAssetService, AboutUsAssetService>();
 
             //Achievement services
-            services.AddScoped<IAchievmentService, AchievementService>();
-            services.AddScoped<IAchievmentAssetService, AchievementAssetService>();
+            services.AddScoped<IAchievementService, AchievementService>();
+            services.AddScoped<IAchievementAssetService, AchievementAssetService>();
 
             // Auth service
             services.AddScoped<IAuthService, AuthService>();
