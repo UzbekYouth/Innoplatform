@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Innoplatform.Service.Services.AchievmentServices;
 
-public class AchievementAssetService : IAchievmentAssetService
+public class AchievementAssetService : IAchievementAssetService
 {
     private readonly IMapper _mapper;
     private readonly IRepository<AchievementAsset> _repository;

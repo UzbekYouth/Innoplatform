@@ -1,16 +1,15 @@
 ﻿using Innoplatform.Api.Models;
 using Innoplatform.Service.DTOs.AchievementAssets;
 using Innoplatform.Service.Interfaces.IAchievmentServices;
-using Innoplatform.Service.Services.AchievmentServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Innoplatform.Api.Controllers.AchievmentControllers;
 
 public class AchievmentAssetsController : BaseController
 {
-    private readonly IAchievmentAssetService _service;
+    private readonly IAchievementAssetService _service;
 
-    public AchievmentAssetsController(IAchievmentAssetService achievmentAssetService)
+    public AchievmentAssetsController(IAchievementAssetService achievmentAssetService)
     {
         _service = achievmentAssetService;
     }

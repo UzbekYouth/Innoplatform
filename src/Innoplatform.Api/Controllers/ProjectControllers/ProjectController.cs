@@ -1,4 +1,5 @@
 ﻿using Innoplatform.Api.Models;
+using Innoplatform.Service.Configuration;
 using Innoplatform.Service.DTOs.Messages;
 using Innoplatform.Service.DTOs.Projects;
 using Innoplatform.Service.Interfaces.IProjectServices;
@@ -17,13 +18,13 @@ namespace Innoplatform.Api.Controllers.ProjectControllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams @params)
         {
             var response = new Response()
             {
                 StatusCode = 200,
                 Message = "Success",
-                Data = await _service.GetAllAsync()
+                Data = await _service.GetAllAsync(@params)
             };
             return Ok(response);
         }

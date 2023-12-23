@@ -3,8 +3,10 @@ using Innoplatform.Data.IRepositories;
 using Innoplatform.Domain.Entities;
 using Innoplatform.Domain.Entities.Projects;
 using Innoplatform.Domain.Entities.Users;
+using Innoplatform.Service.Configuration;
 using Innoplatform.Service.DTOs.Projects;
 using Innoplatform.Service.Exceptions;
+using Innoplatform.Service.Extensions;
 using Innoplatform.Service.Interfaces.IProjectServices;
 using Microsoft.EntityFrameworkCore;
 
@@ -49,10 +51,11 @@ public class ProjectService : IProjectService
         return _mapper.Map<ProjectForResultDto>(createdProject);
     }
 
-    public async Task<IEnumerable<ProjectForResultDto>> GetAllAsync()
+    public async Task<IEnumerable<ProjectForResultDto>> GetAllAsync(PaginationParams @params)
     {
         var projects = await _projectRepository.SelectAll()
             .Where(p => p.IsDeleted == false)
+            .ToPagedList(@params)
             .AsNoTracking()
             .ToListAsync();
 

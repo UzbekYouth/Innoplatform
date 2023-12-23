@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Innoplatform.Service.Services.AchievmentServices;
 
-public class AchievementService : IAchievmentService
+public class AchievementService : IAchievementService
 {
     private readonly IMapper _mapper;
     private readonly IRepository<Achievement> _repository;
