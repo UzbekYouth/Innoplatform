@@ -1,7 +1,15 @@
-﻿namespace Innoplatform.Service.DTOs.AboutUses;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class AboutUsForUpdateDto
+namespace Innoplatform.Service.DTOs.AboutUses
 {
-    public string Title { get; set; }
-    public string Description { get; set; }
+    public class AboutUsForUpdateDto
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+    }
 }

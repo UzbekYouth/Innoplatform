@@ -48,6 +48,7 @@ namespace Innoplatform.Service.Services.OrganizationServices
 
             var MappedData = _mapper.Map<Organization>(dto);
             var HashedPassword = PasswordHelper.Hash(dto.Password);
+
             MappedData.Password = HashedPassword.Hash;
             MappedData.Salt = HashedPassword.Salt;
             MappedData.ImagePath = assetPath?.AssetPath;
