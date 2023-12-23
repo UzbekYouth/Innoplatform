@@ -39,14 +39,6 @@ public class RecommendationAssetService : IRecommendationAssetService
         if (recommendation is null)
             throw new InnoplatformException(404, "Recommendation is not found");
 
-        var recommendationAsset = await _recommendationAssetRepository.SelectAll()
-            .Where(r => r.IsDeleted == false && r.RecommendationId == dto.RecommendationId)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-
-        if (recommendationAsset is not null)
-            throw new InnoplatformException(409, "Recommendation asset is already exist");
-
         var asset = new AssetForCreationDto
         {
             FolderPath = "Recommendations",

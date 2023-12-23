@@ -22,8 +22,7 @@ public class AboutUsService : IAboutUsService
     public async Task<AboutUsForResultDto> AddAsync(AboutUsForCreationDto dto)
     {
         var aboutUs = await _repository.SelectAll()
-            .Where(au => au.Title == dto.Title)
-            .Where(e => e.IsDeleted == false)
+            .Where(au => au.Title == dto.Title && au.IsDeleted == false)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
@@ -31,13 +30,15 @@ public class AboutUsService : IAboutUsService
             throw new InnoplatformException(404, "aboutUs is already exist");
 
         var mappedAboutUs = _mapper.Map<AboutUs>(dto);
-        return _mapper.Map<AboutUsForResultDto>(await _repository.CreateAsync(mappedAboutUs));
+        var result = await _repository.CreateAsync(mappedAboutUs);
+        return _mapper.Map<AboutUsForResultDto>(result);
     }
 
     public async Task<IEnumerable<AboutUsForResultDto>> GetAllAsync()
     {
         var aboutUsList = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)
+            .Include(e => e.AboutUsAssets)
             .ToListAsync();
 
         return _mapper.Map<IEnumerable<AboutUsForResultDto>>(aboutUsList);
@@ -46,8 +47,8 @@ public class AboutUsService : IAboutUsService
     public async Task<AboutUsForResultDto> GetByIdAsync(long id)
     {
         var aboutUs = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .Where(au => au.Id == id)
+            .Where(e => e.IsDeleted == false && e.Id == id)
+            .Include(e => e.AboutUsAssets)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
@@ -61,8 +62,7 @@ public class AboutUsService : IAboutUsService
     public async Task<AboutUsForResultDto> ModifyAsync(long id, AboutUsForUpdateDto dto)
     {
         var aboutUs = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .Where(au => au.Id == id)
+            .Where(e => e.IsDeleted == false && e.Id == id)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
@@ -79,9 +79,8 @@ public class AboutUsService : IAboutUsService
 
     public async Task<bool> RemoveAsync(long id)
     {
-        var aboutUs = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .Where(au => au.Id == id)
+        var aboutUs = await this._repository.SelectAll()
+            .Where(e => e.IsDeleted == false && e.Id == id)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
