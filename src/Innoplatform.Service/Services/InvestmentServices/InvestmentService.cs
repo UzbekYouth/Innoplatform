@@ -24,6 +24,13 @@ public class InvestmentService : IInvestmentService
     }
     public async Task<InvestmentForResultDto> AddAsync(InvestmentForCreationDto dto)
     {
+        var existInvestmentArea = await _repository.SelectAll()
+            .Where(ei => ei.InvestmentAreaId == dto.InvestmentAreaId && ei.IsDeleted == false)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if (existInvestmentArea == null)
+            throw new InnoplatformException(404, "InvestmentArea is not found in this ID");
+
         var entity = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)
             .Where(e => e.UserId == dto.UserId &&
@@ -44,7 +51,11 @@ public class InvestmentService : IInvestmentService
         var entities = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)
             .Include(e => e.InvestmentArea)
+<<<<<<< HEAD
             .Include(e => e.User)   
+=======
+            .Include(e => e.User)
+>>>>>>> a69aa455dc3b48c068099841f72905c9dcb4b4ee
             .ToPagedList(@params)
             .AsNoTracking()
             .ToListAsync();
@@ -55,7 +66,12 @@ public class InvestmentService : IInvestmentService
     public async Task<InvestmentForResultDto> GetByIdAsync(long id)
     {
         var entity = await _repository.SelectAll()
+<<<<<<< HEAD
             .Where(e => e.IsDeleted == false && e.Id == id)
+=======
+            .Where(e => e.IsDeleted == false)
+            .Where(e => e.Id == id)
+>>>>>>> a69aa455dc3b48c068099841f72905c9dcb4b4ee
             .Include(e => e.InvestmentArea)
             .Include(e => e.User)
             .AsNoTracking()

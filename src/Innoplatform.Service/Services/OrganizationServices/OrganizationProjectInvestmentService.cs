@@ -40,7 +40,11 @@ namespace Innoplatform.Service.Services.OrganizationServices
 
             if (check is not null)
                 throw new InnoplatformException(409, "Organization project investment already exists");
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> a69aa455dc3b48c068099841f72905c9dcb4b4ee
             var application = await _applicationRepository.SelectAll()
                 .Where(a => a.IsDeleted == false && a.Id == dto.ApplicationId)
                 .AsNoTracking()
@@ -48,6 +52,7 @@ namespace Innoplatform.Service.Services.OrganizationServices
 
             if (application is null)
                 throw new InnoplatformException(404, "Application not found");
+<<<<<<< HEAD
 
             var organization = await _organizationRepository.SelectAll()
                 .Where(o => o.IsDeleted == false && o.Id == dto.OrganizationId)
@@ -73,6 +78,21 @@ namespace Innoplatform.Service.Services.OrganizationServices
             if (investmentArea is null)
                 throw new InnoplatformException(404, "Investment area not found");
 
+=======
+            
+            var organization = await _organizationRepository.SelectAll().Where(o => o.IsDeleted == false && o.Id == dto.OrganizationId).AsNoTracking().FirstOrDefaultAsync();
+            if (organization is null)
+                throw new InnoplatformException(404, "Organization not found");
+            
+            var user = await _userRepository.SelectAll().Where(u => u.IsDeleted == false && u.Id == dto.UserId).AsNoTracking().FirstOrDefaultAsync();
+            if (user is null)
+                throw new InnoplatformException(404, "User not found");
+            
+            var investmentArea = await _investmentAreaRepository.SelectAll().Where(i => i.IsDeleted == false && i.Id == dto.InvestmentAreaId).AsNoTracking().FirstOrDefaultAsync();
+            if (investmentArea is null)
+                throw new InnoplatformException(404, "Investment area not found");
+            
+>>>>>>> a69aa455dc3b48c068099841f72905c9dcb4b4ee
             var mappedOrganizationProjectInvestment = _mapper.Map<OrganizationProjectInvestment>(dto);
 
             var createdOrganizationProjectInvestment = await _organizationProjectInvestmentRepository.CreateAsync(mappedOrganizationProjectInvestment);
