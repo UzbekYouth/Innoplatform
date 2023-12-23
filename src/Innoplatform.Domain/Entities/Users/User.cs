@@ -14,7 +14,7 @@ public class User : Auditable
     public decimal AccountBalance { get; set; }
     public string PhoneNumber { get; set; }
     public string Address { get; set; }
-    public string Hash { get; set; }
+    public string Salt { get; set; }
     public Roles Role { get; set; } = Roles.User;
 
 }

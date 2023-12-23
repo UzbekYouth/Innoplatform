@@ -1,17 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using System.Net.Http;
 
 namespace Innoplatform.Service.Extensions;
 
-public class HttpContextHelper
+public static class HttpContextHelper
 {
     public static IHttpContextAccessor Accessor { get; set; }
     public static HttpContext HttpContext => Accessor?.HttpContext;
     public static IHeaderDictionary ResponseHeaders => HttpContext?.Response?.Headers;
     public static long? UserId => GetClaimValueAsLong("Id");
-    public static string Email => GetClaimValue("email");
-    public static int? LibraryBranchId => GetClaimValueAsInt("LibraryBranchId");
-    public static string UserRole => GetClaimValue("role");
+    public static string UserRole => GetClaimValue("Role");
 
     private static long? GetClaimValueAsLong(string claimType)
     {
