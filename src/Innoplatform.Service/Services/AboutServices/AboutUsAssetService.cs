@@ -37,6 +37,13 @@ public class AboutUsAssetService : IAboutUsAssetService
         if (entity is not null)
             throw new InnoplatformException(400, "aboutUsAsset is already exist");
 
+        var existAsset = await _repository.SelectAll()
+            .Where(ea => ea.AbouteUsId == dto.AbouteUsId && ea.IsDeleted == false)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if (existAsset is null)
+            throw new InnoplatformException(400, "AboutUs is not found in this Id");
+
         var asset = new AssetForCreationDto
         {
             FolderPath = "AboutUsAssets",
