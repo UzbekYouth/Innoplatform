@@ -1,7 +1,18 @@
 ﻿using AutoMapper;
 using Innoplatform.Data.IRepositories;
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 using Innoplatform.Domain.Entities;
+using Innoplatform.Domain.Entities.Organizations;
 using Innoplatform.Domain.Entities.Sponsors;
+>>>>>>> af1f154b207947e95e89e86b3468ee31b6e05bd4
+=======
+
+using Innoplatform.Domain.Entities;
+using Innoplatform.Domain.Entities.Organizations;
+using Innoplatform.Domain.Entities.Sponsors;
+>>>>>>> 0e8cecf0f4a89881b72cfcbbedf45555e5745f50
 using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Service.Configuration;
 using Innoplatform.Service.DTOs.Assets;
@@ -11,7 +22,6 @@ using Innoplatform.Service.Extensions;
 using Innoplatform.Service.Interfaces.IFileUploadServices;
 using Innoplatform.Service.Interfaces.IUserServices;
 using Microsoft.EntityFrameworkCore;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Innoplatform.Service.Services.UserServices;
 
@@ -19,6 +29,7 @@ public class UserService : IUserService
 {
     private readonly IMapper _mapper;
     private readonly IRepository<User> _userRepository;
+    private readonly IRepository<Organization> _organizationRepository;
     private readonly IFileUploadService _fileUploadService;
 
     public UserService(
@@ -32,6 +43,11 @@ public class UserService : IUserService
     }
     public async Task<UserForResultDto> AddAsync(UserForCreationDto dto)
     {
+        var orgChecking = await _organizationRepository.SelectAll().Where(e => e.PhoneNumber == dto.PhoneNumber && e.Email == dto.Email && e.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
+        if(orgChecking == null) 
+        {
+            throw new InnoplatformException(400, "This data is exist");
+        }
         var user = await _userRepository.SelectAll()
             .Where(u => u.IsDeleted == false && u.Email == dto.Email && u.PhoneNumber == dto.PhoneNumber)
             .AsNoTracking()
@@ -52,7 +68,7 @@ public class UserService : IUserService
         var HashedPassword = PasswordHelper.Hash(dto.Password);
         mappedUser.Password = HashedPassword.Hash;
         mappedUser.Salt = HashedPassword.Salt;
-        
+
         mappedUser.Image = assetPath?.AssetPath;
 
         var createdUser = await _userRepository.CreateAsync(mappedUser);
