@@ -2,6 +2,7 @@
 using Innoplatform.Data.IRepositories;
 using Innoplatform.Domain.Entities.Organizations;
 using Innoplatform.Domain.Entities.Projects;
+using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Service.Configuration;
 using Innoplatform.Service.DTOs.Assets;
 using Innoplatform.Service.DTOs.Organizations;
@@ -18,6 +19,7 @@ namespace Innoplatform.Service.Services.OrganizationServices
     public class OrganizationService : IOrganizationService
     {
         private readonly IRepository<Organization> _repository;
+        private readonly IRepository<User> _userRepository;
         private readonly IFileUploadService _fileUploadService;
         private readonly IMapper _mapper;
         public OrganizationService(IRepository<Organization> repository, IMapper mapper, IFileUploadService fileUploadService)
@@ -29,8 +31,13 @@ namespace Innoplatform.Service.Services.OrganizationServices
 
         public async Task<OrganizationForResultDto> AddAsync(OrganizationForCreationDto dto)
         {
+            var UserPhoneChecking = await _userRepository.SelectAll().Where(e => e.PhoneNumber == dto.PhoneNumber && e.Email == dto.Email && e.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
+            if (UserPhoneChecking == null)
+            {
+                throw new InnoplatformException(400, "This Data is exist");
+            }
             var Checking = await _repository.SelectAll()
-                .Where(o => o.Email == dto.Email && o.CallCenter == dto.CallCenter && o.Name == dto.Name && o.IsDeleted == false)
+                .Where(o => o.Email == dto.Email && o.UserName == dto.UserName && o.CallCenter == dto.CallCenter && o.Name == dto.Name && o.IsDeleted == false)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
 
@@ -48,6 +55,7 @@ namespace Innoplatform.Service.Services.OrganizationServices
 
             var MappedData = _mapper.Map<Organization>(dto);
             var HashedPassword = PasswordHelper.Hash(dto.Password);
+
             MappedData.Password = HashedPassword.Hash;
             MappedData.Salt = HashedPassword.Salt;
             MappedData.ImagePath = assetPath?.AssetPath;
