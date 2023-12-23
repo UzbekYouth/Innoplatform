@@ -6,5 +6,5 @@ public class RecommendationAssetForResultDto
 {
     public long Id { get; set; }
     public long RecommendationId { get; set; }
-    public IFormFile Media { get; set; }
+    public string Media { get; set; }
 }

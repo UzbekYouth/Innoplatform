@@ -3,6 +3,7 @@ using System;
 using Innoplatform.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Innoplatform.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231223111410_RecommendationMigration")]
+    partial class RecommendationMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,6 +64,9 @@ namespace Innoplatform.Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<long>("AboutUsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("AbouteUsId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreatedAt")
@@ -1169,7 +1175,7 @@ namespace Innoplatform.Data.Migrations
             modelBuilder.Entity("Innoplatform.Domain.Entities.About.AboutUsAsset", b =>
                 {
                     b.HasOne("Innoplatform.Domain.Entities.About.AboutUs", "AboutUs")
-                        .WithMany("AboutUsAssets")
+                        .WithMany()
                         .HasForeignKey("AboutUsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1498,11 +1504,6 @@ namespace Innoplatform.Data.Migrations
                     b.Navigation("FromUser");
 
                     b.Navigation("ToUser");
-                });
-
-            modelBuilder.Entity("Innoplatform.Domain.Entities.About.AboutUs", b =>
-                {
-                    b.Navigation("AboutUsAssets");
                 });
 #pragma warning restore 612, 618
         }

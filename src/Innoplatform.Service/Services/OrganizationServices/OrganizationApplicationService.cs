@@ -80,6 +80,9 @@ public class OrganizationApplicationService : IOrganizationApplicationService
     {
         var organizationApplications = await _organizationApplicationRepository.SelectAll()
             .Where(oa => oa.IsDeleted == false)
+            .Include(oa => oa.User)
+            .Include(oa => oa.Project)
+            .Include(oa => oa.Organization)
             .ToPagedList(@params)
             .AsNoTracking()
             .ToListAsync();
@@ -91,10 +94,13 @@ public class OrganizationApplicationService : IOrganizationApplicationService
     {
         var organizationApplication = await _organizationApplicationRepository.SelectAll()
             .Where(oa => oa.IsDeleted == false && oa.Id == id)
+            .Include(oa => oa.User)
+            .Include(oa => oa.Project)
+            .Include(oa => oa.Organization)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
-        if (organizationApplication is not null)
+        if (organizationApplication is null)
             throw new InnoplatformException(404, "Organization application not found");
 
         return _mapper.Map<OrganizationApplicationForResultDto>(organizationApplication);

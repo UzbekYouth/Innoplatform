@@ -6,6 +6,7 @@ namespace Innoplatform.Service.DTOs.OrganizationInvestmentInvitations;
 
 public class OrganizationInvestmentInvitationForCreationDto
 {
+    public long Id { get; set; }
     public long OrganizationId { get; set; }
     public long ProjectId { get; set; }
     public string Title { get; set; }

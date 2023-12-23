@@ -29,6 +29,11 @@ public class RecommendationAssetService : IRecommendationAssetService
         _recommendationRepository = recommendationRepository;
         _recommendationAssetRepository = recommendationAssetRepository;
     }
+
+    // addAsync method fix error
+
+
+
     public async Task<RecommendationAssetForResultDto> AddAsync(RecommendationAssetForCreationDto dto)
     {
         var recommendation = await _recommendationRepository.SelectAll()
@@ -41,7 +46,7 @@ public class RecommendationAssetService : IRecommendationAssetService
 
         var asset = new AssetForCreationDto
         {
-            FolderPath = "Recommendations",
+            FolderPath = "RecommendationAssets",
             FormFile = dto.Media
         };
 

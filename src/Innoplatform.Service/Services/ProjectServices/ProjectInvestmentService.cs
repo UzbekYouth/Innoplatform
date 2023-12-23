@@ -99,6 +99,11 @@ public class ProjectInvestmentService : IProjectInvestmentService
     {
         var projectInvestments = await _projectInvestmentRepository.SelectAll()
             .Where(p => p.IsDeleted == false)
+            .Include(p => p.Project)
+            .Include(p => p.User)
+            .Include(p => p.Investment)
+            .Include(p => p.Application)
+            .Include(p => p.InvestmentArea)
             .AsNoTracking()
             .ToListAsync();
 
@@ -109,6 +114,11 @@ public class ProjectInvestmentService : IProjectInvestmentService
     {
         var projectInvestment = await _projectInvestmentRepository.SelectAll()
             .Where(p => p.IsDeleted == false && p.Id == id)
+            .Include(p => p.Project)
+            .Include(p => p.User)
+            .Include(p => p.Investment)
+            .Include(p => p.Application)
+            .Include(p => p.InvestmentArea)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 

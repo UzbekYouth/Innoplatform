@@ -80,7 +80,11 @@ namespace Innoplatform.Service.Services.OrganizationServices
 
         public async Task<IEnumerable<OrganizationForResultDto>> GetAllAsync(PaginationParams @params)
         {
-            var result = await _repository.SelectAll().Where(o => o.IsDeleted == false).ToPagedList(@params).AsNoTracking().ToListAsync();
+            var result = await _repository.SelectAll()
+                .Where(o => o.IsDeleted == false)
+                .ToPagedList(@params)
+                .AsNoTracking()
+                .ToListAsync();
             return _mapper.Map<IEnumerable<OrganizationForResultDto>>(result);
         }
 

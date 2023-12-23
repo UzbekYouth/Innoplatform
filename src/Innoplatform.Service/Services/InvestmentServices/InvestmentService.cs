@@ -62,8 +62,7 @@ public class InvestmentService : IInvestmentService
     public async Task<InvestmentForResultDto> GetByIdAsync(long id)
     {
         var entity = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .Where(e => e.Id == id)
+            .Where(e => e.IsDeleted == false && e.Id == id)
             .Include(e => e.InvestmentArea)
             .Include(e => e.User)
             .AsNoTracking()

@@ -26,13 +26,18 @@ public class MessagingService : IMessagingService
         return _mapper.Map<MessagingForResultDto>(result);
     }
 
-    public async Task<IEnumerable<MessagingForResultDto>> GetAllAsync()
-    {
-        var entities = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .ToListAsync();
-        return _mapper.Map<IEnumerable<MessagingForResultDto>>(entities);
-    }
+  
+
+        public async Task<IEnumerable<MessagingForResultDto>> GetAllAsync()
+        {
+            var entities = await _repository.SelectAll()
+                .Where(e => e.IsDeleted == false)
+                .Include(e => e.Sender)
+                .ToListAsync();
+
+            return _mapper.Map<IEnumerable<MessagingForResultDto>>(entities);
+        }
+
 
     public async Task<MessagingForResultDto> GetByIdAsync(long id)
     {

@@ -67,7 +67,7 @@ namespace Innoplatform.Api.Controllers.ProjectControllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync([FromForm(Name = "id")] long id, [FromBody] ProjectAssetForUpdateDto dto)
+        public async Task<IActionResult> PutAsync([FromRoute(Name = "id")] long id, [FromForm] ProjectAssetForUpdateDto dto)
         {
             var response = new Response()
             {

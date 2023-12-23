@@ -44,6 +44,8 @@ public class TransactionService : ITransactionService
     {
         var transactions = await _transactionRepository.SelectAll()
             .Where(r => r.IsDeleted == false)
+            .Include(r => r.FromUser)
+            .Include(r => r.ToUser)
             .AsNoTracking()
             .ToListAsync();
 
@@ -54,6 +56,8 @@ public class TransactionService : ITransactionService
     {
         var transaction = await _transactionRepository.SelectAll()
             .Where(r => r.IsDeleted == false && r.Id == id)
+            .Include(r => r.FromUser)
+            .Include(r => r.ToUser)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 

@@ -37,64 +37,114 @@ namespace Innoplatform.Service.Services.OrganizationServices
                 .Where(o => o.IsDeleted == false && o.ApplicationId == dto.ApplicationId)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
+
             if (check is not null)
                 throw new InnoplatformException(409, "Organization project investment already exists");
-            
             var application = await _applicationRepository.SelectAll()
                 .Where(a => a.IsDeleted == false && a.Id == dto.ApplicationId)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
+
             if (application is null)
                 throw new InnoplatformException(404, "Application not found");
-            
-            var organization = await _organizationRepository.SelectAll().Where(o => o.IsDeleted == false && o.Id == dto.OrganizationId).AsNoTracking().FirstOrDefaultAsync();
+
+            var organization = await _organizationRepository.SelectAll()
+                .Where(o => o.IsDeleted == false && o.Id == dto.OrganizationId)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
             if (organization is null)
                 throw new InnoplatformException(404, "Organization not found");
-            
-            var user = await _userRepository.SelectAll().Where(u => u.IsDeleted == false && u.Id == dto.UserId).AsNoTracking().FirstOrDefaultAsync();
-            if (user is null)
+
+            var user = await _userRepository.SelectAll()
+                .Where(u => u.IsDeleted == false && u.Id == dto.UserId)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
+                if (user is null)
                 throw new InnoplatformException(404, "User not found");
-            
-            var investmentArea = await _investmentAreaRepository.SelectAll().Where(i => i.IsDeleted == false && i.Id == dto.InvestmentAreaId).AsNoTracking().FirstOrDefaultAsync();
+
+            var investmentArea = await _investmentAreaRepository.SelectAll()
+                .Where(i => i.IsDeleted == false && i.Id == dto.InvestmentAreaId)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
             if (investmentArea is null)
                 throw new InnoplatformException(404, "Investment area not found");
+
+            
             
             var mappedOrganizationProjectInvestment = _mapper.Map<OrganizationProjectInvestment>(dto);
+
             var createdOrganizationProjectInvestment = await _organizationProjectInvestmentRepository.CreateAsync(mappedOrganizationProjectInvestment);
+
             return _mapper.Map<OrganizationProjectInvestmentForResultDto>(createdOrganizationProjectInvestment);
 
         }
         public async Task<IEnumerable<OrganizationProjectInvestmentForResultDto>> GetAllAsync()
         {
-            var organizationProjectInvestments = await _organizationProjectInvestmentRepository.SelectAll().Where(o => o.IsDeleted == false).AsNoTracking().ToListAsync();
+            var organizationProjectInvestments = await _organizationProjectInvestmentRepository.SelectAll()
+                .Where(o => o.IsDeleted == false)
+                .Include(o => o.Application)
+                .Include(o => o.Organization)
+                .Include(o => o.User)
+                .Include(o => o.Investment)
+                .AsNoTracking()
+                .ToListAsync();
+
+            if (organizationProjectInvestments is null)
+                throw new InnoplatformException(404, "Organization project investment not found");
+
             return _mapper.Map<IEnumerable<OrganizationProjectInvestmentForResultDto>>(organizationProjectInvestments);
         }
 
         public async Task<OrganizationProjectInvestmentForResultDto> GetByIdAsync(long id)
         {
-            var organizationProjectInvestment = await _organizationProjectInvestmentRepository.SelectAll().Where(o => o.IsDeleted == false && o.Id == id).AsNoTracking().FirstOrDefaultAsync();
+            var organizationProjectInvestment = await _organizationProjectInvestmentRepository.SelectAll()
+                .Where(o => o.IsDeleted == false && o.Id == id)
+                .Include(o => o.Application)
+                .Include(o => o.Organization)
+                .Include(o => o.User)
+                .Include(o => o.Investment)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
             if (organizationProjectInvestment is null)
                 throw new InnoplatformException(404, "Organization project investment not found");
+
             return _mapper.Map<OrganizationProjectInvestmentForResultDto>(organizationProjectInvestment);
 
         }
 
         public async Task<OrganizationProjectInvestmentForResultDto> ModifyAsync(long id, OrganizationProjectInvestmentForUpdateDto dto)
         {
-            var organizationProjectInvestment = await _organizationProjectInvestmentRepository.SelectAll().Where(o => o.IsDeleted == false && o.Id == id).AsNoTracking().FirstOrDefaultAsync();
+            var organizationProjectInvestment = await _organizationProjectInvestmentRepository.SelectAll()
+                .Where(o => o.IsDeleted == false && o.Id == id)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
+            if (organizationProjectInvestment is null)
+                throw new InnoplatformException(404, "Organization project investment not found");
+
+
             var mappedData = _mapper.Map(dto, organizationProjectInvestment);
+            mappedData.UpdatedAt = DateTime.UtcNow;
+
             var updatedOrganizationProjectInvestment = await _organizationProjectInvestmentRepository.UpdateAsync(mappedData);
+
             return _mapper.Map<OrganizationProjectInvestmentForResultDto>(updatedOrganizationProjectInvestment);
         }
 
         public async Task<bool> RemoveAsync(long id)
         {
-            var organizationProjectInvestment = await _organizationProjectInvestmentRepository.SelectAll().Where(o => o.IsDeleted == false && o.Id == id).FirstOrDefaultAsync();
+            var organizationProjectInvestment = await _organizationProjectInvestmentRepository.SelectAll()
+                .Where(o => o.IsDeleted == false && o.Id == id)
+                .FirstOrDefaultAsync();
+
             if (organizationProjectInvestment is null)
                 throw new InnoplatformException(404, "Organization project investment not found");
-            var deletedOrganizationProjectInvestment = await _organizationProjectInvestmentRepository.DeleteAsync(id);
-            return deletedOrganizationProjectInvestment;
 
+             return await _organizationProjectInvestmentRepository.DeleteAsync(id);
         }
     }
 }
