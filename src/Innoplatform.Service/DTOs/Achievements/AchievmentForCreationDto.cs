@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Innoplatform.Service.DTOs.AchievementAssets
 {
-    public class AchievementForUpdateDto
+    public class AchievmentForCreationDto
     {
         public string Title { get; set; }
         public string Description { get; set; }

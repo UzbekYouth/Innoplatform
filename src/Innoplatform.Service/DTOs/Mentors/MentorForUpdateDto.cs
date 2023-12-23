@@ -9,7 +9,6 @@ namespace Innoplatform.Service.DTOs.Mentors
 {
     public class MentorForUpdateDto
     {
-        public long Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public IFormFile Image { get; set; }

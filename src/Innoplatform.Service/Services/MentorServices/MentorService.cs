@@ -66,7 +66,7 @@ namespace Innoplatform.Service.Services.MentorServices
             return mappedEntity;
         }
 
-        public async Task<MentorForResultDto> ModifyAsync(long id, MentorForCreationDto dto)
+        public async Task<MentorForResultDto> ModifyAsync(long id, MentorForUpdateDto dto)
         {
             var entity = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)

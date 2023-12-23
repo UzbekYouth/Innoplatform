@@ -14,6 +14,6 @@ namespace Innoplatform.Service.Interfaces.IMentorServices
         Task<MentorForResultDto> GetByIdAsync(long id);
         Task<IEnumerable<MentorForResultDto>> GetAllAsync();
         Task<MentorForResultDto> AddAsync(MentorForCreationDto dto);
-        Task<MentorForResultDto> ModifyAsync(long id, MentorForCreationDto dto);
+        Task<MentorForResultDto> ModifyAsync(long id, MentorForUpdateDto dto);
     }
 }

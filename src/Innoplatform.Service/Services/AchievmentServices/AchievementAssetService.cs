@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Innoplatform.Service.Services.AchievmentServices;
 
-public class AchievementAssetService : IAchievementAssetService
+public class AchievementAssetService : IAchievmentAssetService
 {
     private readonly IMapper _mapper;
     private readonly IRepository<AchievementAsset> _repository;
@@ -19,7 +19,7 @@ public class AchievementAssetService : IAchievementAssetService
         _mapper = mapper;
     }
 
-    public async Task<AchievementAssetsForResultDto> AddAsync(AchievementAssetsForCreationDto dto)
+    public async Task<AchievmentAssetsForResultDto> AddAsync(AchievmentAssetsForCreationDto dto)
     {
         var entity = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)
@@ -32,19 +32,19 @@ public class AchievementAssetService : IAchievementAssetService
 
         var result = await _repository.CreateAsync(mappedEntity);
 
-        return _mapper.Map<AchievementAssetsForResultDto>(result);
+        return _mapper.Map<AchievmentAssetsForResultDto>(result);
     }
 
-    public async Task<IEnumerable<AchievementAssetsForResultDto>> GetAllAsync()
+    public async Task<IEnumerable<AchievmentAssetsForResultDto>> GetAllAsync()
     {
         var entites = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)
             .ToListAsync();
 
-        return _mapper.Map<IEnumerable<AchievementAssetsForResultDto>>(entites);
+        return _mapper.Map<IEnumerable<AchievmentAssetsForResultDto>>(entites);
     }
 
-    public async Task<AchievementAssetsForResultDto> GetByIdAsync(long id)
+    public async Task<AchievmentAssetsForResultDto> GetByIdAsync(long id)
     {
         var entity = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)
@@ -54,12 +54,12 @@ public class AchievementAssetService : IAchievementAssetService
         if (entity == null)
             throw new InnoplatformException(400, "achievementAsset is not found");
 
-        var mappedEntity = _mapper.Map<AchievementAssetsForResultDto>(entity);
+        var mappedEntity = _mapper.Map<AchievmentAssetsForResultDto>(entity);
 
         return mappedEntity;
     }
 
-    public async Task<AchievementAssetsForResultDto> ModifyAsync(long id, AchievementAssetsForUpdateDto dto)
+    public async Task<AchievmentAssetsForResultDto> ModifyAsync(long id, AchievmentAssetsForUpdateDto dto)
     {
         var entity = await _repository.SelectAll()
             .Where(e => e.AchievementId == id)
@@ -73,7 +73,7 @@ public class AchievementAssetService : IAchievementAssetService
         mappedEntity.UpdatedAt = DateTime.UtcNow;
 
         var result = await _repository.UpdateAsync(mappedEntity);
-        return _mapper.Map<AchievementAssetsForResultDto>(result);
+        return _mapper.Map<AchievmentAssetsForResultDto>(result);
     }
 
     public async Task<bool> RemoveAsync(long id)

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Innoplatform.Service.Services.AchievmentServices;
 
-public class AchievementService : IAchievementService
+public class AchievementService : IAchievmentService
 {
     private readonly IMapper _mapper;
     private readonly IRepository<Achievement> _repository;
@@ -20,7 +20,7 @@ public class AchievementService : IAchievementService
         _mapper = mapper;
         _repository = repository;
     }
-    public async Task<AchievementForResultDto> AddAsync(AchievementForCreationDto dto)
+    public async Task<AchievmentForResultDto> AddAsync(AchievmentForCreationDto dto)
     {
         var entity = await _repository.SelectAll()
             .Where(e => e.Title == dto.Title)
@@ -30,25 +30,25 @@ public class AchievementService : IAchievementService
             throw new InnoplatformException(400, "achievement is already exist");
 
         var mappedEntity = _mapper.Map<Achievement>(dto);
-        return _mapper.Map<AchievementForResultDto>(await _repository
+        return _mapper.Map<AchievmentForResultDto>(await _repository
             .CreateAsync(mappedEntity));
     }
 
-    public async Task<IEnumerable<AchievementForResultDto>> GetAllAsync()
+    public async Task<IEnumerable<AchievmentForResultDto>> GetAllAsync()
     {
         var entities = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)
             .ToListAsync();
 
-        return _mapper.Map<IEnumerable<AchievementForResultDto>>(entities);
+        return _mapper.Map<IEnumerable<AchievmentForResultDto>>(entities);
     }
 
-    public Task<AchievementForResultDto> GetByIdAsync(long id)
+    public Task<AchievmentForResultDto> GetByIdAsync(long id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<AchievementForResultDto> ModifyAsync(long id, AchievementForUpdateDto dto)
+    public Task<AchievmentForResultDto> ModifyAsync(long id, AchievmentForUpdateDto dto)
     {
         throw new NotImplementedException();
     }
