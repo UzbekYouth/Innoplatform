@@ -26,15 +26,8 @@ public class MessagingService : IMessagingService
         return _mapper.Map<MessagingForResultDto>(result);
     }
 
-    public async Task<IEnumerable<MessagingForResultDto>> GetAllAsync()
-    {
-        var entities = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .ToListAsync();
-        return _mapper.Map<IEnumerable<MessagingForResultDto>>(entities);
-    }
+  
 
-<<<<<<< HEAD
         public async Task<IEnumerable<MessagingForResultDto>> GetAllAsync()
         {
             var entities = await _repository.SelectAll()
@@ -45,15 +38,7 @@ public class MessagingService : IMessagingService
             return _mapper.Map<IEnumerable<MessagingForResultDto>>(entities);
         }
 
-        public async Task<MessagingForResultDto> GetByIdAsync(long id)
-        {
-            var entity = await _repository.SelectAll()
-                .Where(e => e.IsDeleted == false)
-                .Include(e => e.Sender)
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
-            var mappedEntity = _mapper.Map<MessagingForResultDto>(entity);
-=======
+
     public async Task<MessagingForResultDto> GetByIdAsync(long id)
     {
         var entity = await _repository.SelectAll()
@@ -64,7 +49,6 @@ public class MessagingService : IMessagingService
 
         return mappedEntity;
     }
->>>>>>> a69aa455dc3b48c068099841f72905c9dcb4b4ee
 
     public async Task<MessagingForResultDto> ModifyAsync(long id, MessagingForUpdateDto dto)
     {

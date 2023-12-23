@@ -44,18 +44,10 @@ public class ApplicationService : IApplicationService
     {
         var entities = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)
-<<<<<<< HEAD
             .Include(e => e.InvestmentArea)
             .Include(e => e.Investment)
             .Include(e => e.Project)
             .Include(e => e.User)
-=======
-            .Include(e => e.User)
-            .Include(e => e.Project)
-            .Include(e => e.Investment)
-            .ThenInclude(e => e.User)
-            .Include(e => e.InvestmentArea)
->>>>>>> a69aa455dc3b48c068099841f72905c9dcb4b4ee
             .ToPagedList(@params)
             .AsNoTracking()
             .ToListAsync();
@@ -67,18 +59,10 @@ public class ApplicationService : IApplicationService
     {
         var entity = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false && e.Id == id)
-<<<<<<< HEAD
             .Include(e => e.InvestmentArea)
             .Include(e => e.Investment)
             .Include(e => e.Project)
             .Include(e => e.User)
-=======
-            .Include(e => e.User)
-            .Include(e => e.Project)
-            .Include(e => e.Investment)
-            .ThenInclude(e => e.User)
-            .Include(e => e.InvestmentArea)
->>>>>>> a69aa455dc3b48c068099841f72905c9dcb4b4ee
             .AsNoTracking()
             .FirstOrDefaultAsync();
         if (entity is null)
