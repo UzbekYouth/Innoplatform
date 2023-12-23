@@ -4,7 +4,7 @@ using Innoplatform.Domain.Entities.Organizations;
 using Innoplatform.Domain.Entities.Projects;
 using Innoplatform.Service.DTOs.OrganizationInvestmentInvitations;
 using Innoplatform.Service.Exceptions;
-using Innoplatform.Service.Interfaces;
+using Innoplatform.Service.Interfaces.IOrganizationServices;
 using Microsoft.EntityFrameworkCore;
 
 namespace Innoplatform.Service.Services.OrganizationServices;

@@ -18,10 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Innoplatform.Data\Innoplatform.Data.csproj" />
     <ProjectReference Include="..\Innoplatform.Service\Innoplatform.Service.csproj" />
   </ItemGroup>
