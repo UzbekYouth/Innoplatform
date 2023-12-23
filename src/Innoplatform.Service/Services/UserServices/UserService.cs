@@ -11,6 +11,7 @@ using Innoplatform.Service.Extensions;
 using Innoplatform.Service.Interfaces.IFileUploadServices;
 using Innoplatform.Service.Interfaces.IUserServices;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Innoplatform.Service.Services.UserServices;
 
@@ -48,11 +49,36 @@ public class UserService : IUserService
         var assetPath = await _fileUploadService.FileUploadAsync(asset);
 
         var mappedUser = _mapper.Map<User>(dto);
+        var HashedPassword = PasswordHelper.Hash(dto.Password);
+        mappedUser.Password = HashedPassword.Hash;
+        mappedUser.Salt = HashedPassword.Salt;
+        
         mappedUser.Image = assetPath?.AssetPath;
 
         var createdUser = await _userRepository.CreateAsync(mappedUser);
 
         return _mapper.Map<UserForResultDto>(createdUser);
+    }
+
+    public async Task<bool> ChangePasswordAsync(long Id, UserPasswordForChangeDto dto)
+    {
+        var data = await _userRepository
+                        .SelectAll()
+                        .Where(e => e.Id == Id && e.IsDeleted == false)
+                        .FirstOrDefaultAsync();
+        if (data == null || PasswordHelper.Verify(dto.OldPassword, data.Salt, data.Password) == false)
+        {
+            throw new InnoplatformException(400, "User or Password is Incorrect");
+        }
+        else if (dto.NewPassword != dto.ConfirmPassword)
+        {
+            throw new InnoplatformException(400, "New Password and Confirm Password does not Match");
+        }
+        var HashedPassword = PasswordHelper.Hash(dto.ConfirmPassword);
+        data.Salt = HashedPassword.Salt;
+        data.Password = HashedPassword.Hash;
+        await _userRepository.UpdateAsync(data);
+        return true;
     }
 
     public async Task<IEnumerable<UserForResultDto>> GetAllAsync(PaginationParams @params)
