@@ -1,25 +1,14 @@
-2023-12-23 14:41:40.385 +05:00 [Error] [Microsoft.EntityFrameworkCore.Database.Command] [{ Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }] Failed executing DbCommand ("0"ms) [Parameters=["@p0='?' (DbType = Int64), @p1='?' (DbType = Int64), @p2='?' (DbType = DateTime), @p3='?', @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTime)"], CommandType='Text', CommandTimeout='30']"
-""INSERT INTO \"AboutUsAssets\" (\"AboutUsId\", \"AbouteUsId\", \"CreatedAt\", \"Image\", \"IsDeleted\", \"UpdatedAt\")
-VALUES (@p0, @p1, @p2, @p3, @p4, @p5)
+2023-12-23 14:50:08.533 +05:00 [Error] [Microsoft.EntityFrameworkCore.Database.Command] [{ Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }] Failed executing DbCommand ("239"ms) [Parameters=["@p0='?' (DbType = Int64), @p1='?' (DbType = DateTime), @p2='?' (DbType = Boolean), @p3='?', @p4='?' (DbType = DateTime)"], CommandType='Text', CommandTimeout='30']"
+""INSERT INTO \"AchievementAssets\" (\"AchievementId\", \"CreatedAt\", \"IsDeleted\", \"Media\", \"UpdatedAt\")
+VALUES (@p0, @p1, @p2, @p3, @p4)
 RETURNING \"Id\";"
 
 
-2023-12-23 14:41:40.391 +05:00 [Error] [Microsoft.EntityFrameworkCore.Update] [{ Id: 10000, Name: "Microsoft.EntityFrameworkCore.Update.SaveChangesFailed" }] An exception occurred in the database while saving changes for context type '"Innoplatform.Data.DbContexts.AppDbContext"'."
+2023-12-23 14:50:08.541 +05:00 [Error] [Microsoft.EntityFrameworkCore.Update] [{ Id: 10000, Name: "Microsoft.EntityFrameworkCore.Update.SaveChangesFailed" }] An exception occurred in the database while saving changes for context type '"Innoplatform.Data.DbContexts.AppDbContext"'."
 ""Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
- ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table \"AboutUsAssets\" violates foreign key constraint \"FK_AboutUsAssets_AboutUs_AboutUsId\"
+ ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table \"AchievementAssets\" violates foreign key constraint \"FK_AchievementAssets_Achievements_AchievementId\"
 
 DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
-2023-12-23 14:41:10.428 +05:00 [Error] [Microsoft.EntityFrameworkCore.Database.Command] [{ Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }] Failed executing DbCommand ("334"ms) [Parameters=["@__dto_Email_0='?', @__dto_CallCenter_1='?', @__dto_Name_2='?'"], CommandType='Text', CommandTimeout='30']"
-""SELECT o.\"Id\", o.\"Address\", o.\"CallCenter\", o.\"CreatedAt\", o.\"Description\", o.\"Email\", o.\"ImagePath\", o.\"IsDeleted\", o.\"Name\", o.\"Password\", o.\"PhoneNumber\", o.\"Role\", o.\"Salt\", o.\"UpdatedAt\", o.\"UserName\"
-FROM \"Organizations\" AS o
-WHERE o.\"Email\" = @__dto_Email_0 AND o.\"CallCenter\" = @__dto_CallCenter_1 AND o.\"Name\" = @__dto_Name_2 AND NOT (o.\"IsDeleted\")
-LIMIT 1"
-
-
-2023-12-23 14:41:10.581 +05:00 [Error] [Microsoft.EntityFrameworkCore.Query] [{ Id: 10100, Name: "Microsoft.EntityFrameworkCore.Query.QueryIterationFailed" }] An exception occurred while iterating over the results of a query for context type '"Innoplatform.Data.DbContexts.AppDbContext"'."
-""Npgsql.PostgresException (0x80004005): 42703: column o.Salt does not exist
-
-POSITION: 169
    at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
@@ -32,11 +21,11 @@ POSITION: 169
   Exception data:
     Severity: ERROR
     SqlState: 23503
-    MessageText: insert or update on table \"AboutUsAssets\" violates foreign key constraint \"FK_AboutUsAssets_AboutUs_AboutUsId\"
+    MessageText: insert or update on table \"AchievementAssets\" violates foreign key constraint \"FK_AchievementAssets_Achievements_AchievementId\"
     Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
     SchemaName: public
-    TableName: AboutUsAssets
-    ConstraintName: FK_AboutUsAssets_AboutUs_AboutUsId
+    TableName: AchievementAssets
+    ConstraintName: FK_AchievementAssets_Achievements_AchievementId
     File: ri_triggers.c
     Line: 2619
     Routine: ri_ReportViolation
@@ -50,24 +39,9 @@ POSITION: 169
    at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)"
 Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
- ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table "AboutUsAssets" violates foreign key constraint "FK_AboutUsAssets_AboutUs_AboutUsId"
+ ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table "AchievementAssets" violates foreign key constraint "FK_AchievementAssets_Achievements_AchievementId"
 
 DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
-
-   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
-   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
-  Exception data:
-    Severity: ERROR
-    SqlState: 42703
-    MessageText: column o.Salt does not exist
-    Position: 169
-    File: parse_relation.c
-    Line: 3718
-    Routine: errorMissingColumn"
-Npgsql.PostgresException (0x80004005): 42703: column o.Salt does not exist
-
-POSITION: 169
    at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
@@ -80,11 +54,11 @@ POSITION: 169
   Exception data:
     Severity: ERROR
     SqlState: 23503
-    MessageText: insert or update on table "AboutUsAssets" violates foreign key constraint "FK_AboutUsAssets_AboutUs_AboutUsId"
+    MessageText: insert or update on table "AchievementAssets" violates foreign key constraint "FK_AchievementAssets_Achievements_AchievementId"
     Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
     SchemaName: public
-    TableName: AboutUsAssets
-    ConstraintName: FK_AboutUsAssets_AboutUs_AboutUsId
+    TableName: AchievementAssets
+    ConstraintName: FK_AchievementAssets_Achievements_AchievementId
     File: ri_triggers.c
     Line: 2619
     Routine: ri_ReportViolation
@@ -99,28 +73,10 @@ POSITION: 169
    at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
 
 
-2023-12-23 14:41:40.569 +05:00 [Error] [Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare] [] Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
- ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table "AboutUsAssets" violates foreign key constraint "FK_AboutUsAssets_AboutUs_AboutUsId"
+2023-12-23 14:50:08.772 +05:00 [Error] [Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare] [] Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table "AchievementAssets" violates foreign key constraint "FK_AchievementAssets_Achievements_AchievementId"
 
 DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
-
-   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
-   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
-  Exception data:
-    Severity: ERROR
-    SqlState: 42703
-    MessageText: column o.Salt does not exist
-    Position: 169
-    File: parse_relation.c
-    Line: 3718
-    Routine: errorMissingColumn
-
-
-2023-12-23 14:41:10.829 +05:00 [Error] [Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare] [] Npgsql.PostgresException (0x80004005): 42703: column o.Salt does not exist
-
-POSITION: 169
-
    at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
@@ -129,16 +85,15 @@ POSITION: 169
    at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
-
    at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
   Exception data:
     Severity: ERROR
     SqlState: 23503
-    MessageText: insert or update on table "AboutUsAssets" violates foreign key constraint "FK_AboutUsAssets_AboutUs_AboutUsId"
+    MessageText: insert or update on table "AchievementAssets" violates foreign key constraint "FK_AchievementAssets_Achievements_AchievementId"
     Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
     SchemaName: public
-    TableName: AboutUsAssets
-    ConstraintName: FK_AboutUsAssets_AboutUs_AboutUsId
+    TableName: AchievementAssets
+    ConstraintName: FK_AchievementAssets_Achievements_AchievementId
     File: ri_triggers.c
     Line: 2619
     Routine: ri_ReportViolation
@@ -153,17 +108,8 @@ POSITION: 169
    at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
    at Innoplatform.Data.Repositories.Repository`1.CreateAsync(TEntity entity) in C:\Users\Hayotbahrom\Desktop\Pojects\Avalanche\Innoplatform\src\Innoplatform.Api\Repositories\Repository.cs:line 20
-   at Innoplatform.Service.Services.AboutServices.AboutUsAssetService.AddAsync(AboutUsAssetForCreationDto dto) in C:\Users\Hayotbahrom\Desktop\Pojects\Avalanche\Innoplatform\src\Innoplatform.Service\Services\AboutServices\AboutUsAssetService.cs:line 51
-   at Innoplatform.Api.Controllers.AboutControllers.AboutUsAssetsController.AddAsync(AboutUsAssetForCreationDto dto) in C:\Users\Hayotbahrom\Desktop\Pojects\Avalanche\Innoplatform\src\Innoplatform.Api\Controllers\AboutControllers\AboutUsAssetsController.cs:line 43
-
-   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
-   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
-   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
-   at Innoplatform.Service.Services.OrganizationServices.OrganizationService.AddAsync(OrganizationForCreationDto dto) in C:\Users\sardorbek\Desktop\Hackaton\Innoplatform\src\Innoplatform.Service\Services\OrganizationServices\OrganizationService.cs:line 32
-   at Innoplatform.Api.Controllers.OrganizationControllers.OrganizationController.PostAsync(OrganizationForCreationDto dto) in C:\Users\sardorbek\Desktop\Hackaton\Innoplatform\src\Innoplatform.Api\Controllers\OrganizationControllers\OrganizationController.cs:line 49
-
+   at Innoplatform.Service.Services.AchievmentServices.AchievementAssetService.AddAsync(AchievmentAssetsForCreationDto dto) in C:\Users\Hayotbahrom\Desktop\Pojects\Avalanche\Innoplatform\src\Innoplatform.Service\Services\AchievmentServices\AchievementAssetService.cs:line 44
+   at Innoplatform.Api.Controllers.AchievmentControllers.AchievmentAssetsController.AddAsync(AchievmentAssetsForCreationDto dto) in C:\Users\Hayotbahrom\Desktop\Pojects\Avalanche\Innoplatform\src\Innoplatform.Api\Controllers\AchievmentControllers\AchievmentAssetsController.cs:line 44
    at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
@@ -175,19 +121,7 @@ POSITION: 169
    at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
    at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
    at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
-
    at Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare.Invoke(HttpContext context) in C:\Users\Hayotbahrom\Desktop\Pojects\Avalanche\Innoplatform\src\Innoplatform.Api\Middlewares\ExceptionHandlerMiddleWare.cs:line 21
-
-   at Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare.Invoke(HttpContext context) in C:\Users\sardorbek\Desktop\Hackaton\Innoplatform\src\Innoplatform.Api\Middlewares\ExceptionHandlerMiddleWare.cs:line 21
-  Exception data:
-    Severity: ERROR
-    SqlState: 42703
-    MessageText: column o.Salt does not exist
-    Position: 169
-    File: parse_relation.c
-    Line: 3718
-    Routine: errorMissingColumn
-
 
 
 

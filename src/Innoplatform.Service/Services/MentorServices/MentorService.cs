@@ -42,12 +42,12 @@ public class MentorService : IMentorService
 
         var assetPath = await _fileUploadService.FileUploadAsync(asset);
 
-        var mapped = _mapper.Map<Mentor>(dto);
-        mapped.Image = assetPath?.AssetPath;
+        var mappedMentor = _mapper.Map<Mentor>(dto);
+        mappedMentor.Image = assetPath?.AssetPath;
 
-        var mappedEntity = _mapper.Map<Mentor>(dto);
-        return _mapper.Map<MentorForResultDto>(await _repository
-            .CreateAsync(mappedEntity));
+        var result = await _repository.CreateAsync(mappedMentor);
+
+        return _mapper.Map<MentorForResultDto>(result);
     }
 
     public async Task<IEnumerable<MentorForResultDto>> GetAllAsync()

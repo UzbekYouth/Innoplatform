@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Innoplatform.Data.IRepositories;
 using Innoplatform.Domain.Entities.About;
 using Innoplatform.Domain.Entities.Sponsors;
