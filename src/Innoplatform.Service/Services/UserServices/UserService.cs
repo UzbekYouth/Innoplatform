@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Innoplatform.Data.IRepositories;
 using Innoplatform.Domain.Entities;
+using Innoplatform.Domain.Entities.Organizations;
 using Innoplatform.Domain.Entities.Sponsors;
 using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Service.Configuration;
@@ -19,6 +20,7 @@ public class UserService : IUserService
 {
     private readonly IMapper _mapper;
     private readonly IRepository<User> _userRepository;
+    private readonly IRepository<Organization> _organizationRepository;
     private readonly IFileUploadService _fileUploadService;
 
     public UserService(
@@ -32,6 +34,11 @@ public class UserService : IUserService
     }
     public async Task<UserForResultDto> AddAsync(UserForCreationDto dto)
     {
+        var orgChecking = await _organizationRepository.SelectAll().Where(e => e.PhoneNumber == dto.PhoneNumber && e.Email == dto.Email && e.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
+        if(orgChecking == null) 
+        {
+            throw new InnoplatformException(400, "This data is exist");
+        }
         var user = await _userRepository.SelectAll()
             .Where(u => u.IsDeleted == false && u.Email == dto.Email && u.PhoneNumber == dto.PhoneNumber)
             .AsNoTracking()
