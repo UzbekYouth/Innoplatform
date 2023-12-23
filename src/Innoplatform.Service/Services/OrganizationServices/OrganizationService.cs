@@ -29,12 +29,15 @@ namespace Innoplatform.Service.Services.OrganizationServices
 
         public async Task<OrganizationForResultDto> AddAsync(OrganizationForCreationDto dto)
         {
-            var Checking = await _repository.SelectAll().Where(o => o.Email == dto.Email && o.CallCenter == dto.CallCenter && o.Name == dto.Name && o.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
+            var Checking = await _repository.SelectAll()
+                .Where(o => o.Email == dto.Email && o.CallCenter == dto.CallCenter && o.Name == dto.Name && o.IsDeleted == false)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
             if (Checking != null)
             {
                 throw new InnoplatformException(400, "This organization is exist");
             }
-            var MappedData = _mapper.Map<Organization>(dto);
             var asset = new AssetForCreationDto
             {
                 FolderPath = "Organizations",
@@ -42,6 +45,9 @@ namespace Innoplatform.Service.Services.OrganizationServices
             };
 
             var assetPath = await _fileUploadService.FileUploadAsync(asset);
+
+            var MappedData = _mapper.Map<Organization>(dto);
+
             MappedData.ImagePath = assetPath?.AssetPath;
 
             var result = await _repository.CreateAsync(MappedData);
