@@ -68,6 +68,7 @@ public class RecommendationService : IRecommendationService
     {
         var recommendations = await _recommendationRepository.SelectAll()
             .Where(r => r.IsDeleted == false)
+            .Include(r => r.RecommendationArea)
             .AsNoTracking()
             .ToListAsync();
 
@@ -78,6 +79,7 @@ public class RecommendationService : IRecommendationService
     {
         var recommendation = await _recommendationRepository.SelectAll()
             .Where(r => r.IsDeleted == false && r.Id == id)
+            .Include(r => r.RecommendationArea)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 

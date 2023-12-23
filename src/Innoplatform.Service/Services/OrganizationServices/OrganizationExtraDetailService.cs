@@ -55,6 +55,7 @@ public class OrganizationExtraDetailService : IOrganizationExtraDetailService
     {
         var organizationExtraDetails = await _organizationExtraDetailRepository.SelectAll()
             .Where(o => o.IsDeleted == false)
+            .Include(o => o.Organization)
             .AsNoTracking()
             .ToListAsync();
 
@@ -65,6 +66,7 @@ public class OrganizationExtraDetailService : IOrganizationExtraDetailService
     {
         var organizationExtraDetail = await _organizationExtraDetailRepository.SelectAll()
             .Where(o => o.IsDeleted == false && o.Id == id)
+            .Include(o => o.Organization)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 

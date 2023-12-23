@@ -37,7 +37,9 @@ namespace Innoplatform.Service.Services.MessagingServices
         {
             var entities = await _repository.SelectAll()
                 .Where(e => e.IsDeleted == false)
+                .Include(e => e.Sender)
                 .ToListAsync();
+
             return _mapper.Map<IEnumerable<MessagingForResultDto>>(entities);
         }
 
@@ -45,6 +47,7 @@ namespace Innoplatform.Service.Services.MessagingServices
         {
             var entity = await _repository.SelectAll()
                 .Where(e => e.IsDeleted == false)
+                .Include(e => e.Sender)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
             var mappedEntity = _mapper.Map<MessagingForResultDto>(entity);

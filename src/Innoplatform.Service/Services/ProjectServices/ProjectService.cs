@@ -55,6 +55,7 @@ public class ProjectService : IProjectService
     {
         var projects = await _projectRepository.SelectAll()
             .Where(p => p.IsDeleted == false)
+            .Include(p => p.User)
             .ToPagedList(@params)
             .AsNoTracking()
             .ToListAsync();
@@ -66,6 +67,7 @@ public class ProjectService : IProjectService
     {
         var project = await _projectRepository.SelectAll()
             .Where(p => p.IsDeleted == false && p.Id == id)
+            .Include(p => p.User)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 

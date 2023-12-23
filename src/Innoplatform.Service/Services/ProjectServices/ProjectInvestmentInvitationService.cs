@@ -30,14 +30,18 @@ namespace Innoplatform.Service.Services.ProjectServices
                 .Where(u => u.IsDeleted == false && u.Id == dto.UserId)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
+
             if(CheckUser is null)
                 throw new InnoplatformException(404, "User not found");
+
             var CheckProject = await _projectRepository.SelectAll()
                 .Where(p => p.IsDeleted == false && p.Id == dto.ProjectId)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
+
             if(CheckProject is null)
                 throw new InnoplatformException(404, "Project not found");
+
             var mappedProjectInvestmentInvitation = _mapper.Map<ProjectInvestmentInvitation>(dto);
             var createdProjectInvestmentInvitation = await _repository.CreateAsync(mappedProjectInvestmentInvitation);
             return _mapper.Map<ProjectInvestmentInvitationForResultDto>(createdProjectInvestmentInvitation);
@@ -48,6 +52,8 @@ namespace Innoplatform.Service.Services.ProjectServices
         {
             var projectInvestmentInvitations = await _repository.SelectAll()
                 .Where(p => p.IsDeleted == false)
+                .Include(p => p.Project)
+                .Include(p => p.User)
                 .AsNoTracking()
                 .ToListAsync();
             return _mapper.Map<IEnumerable<ProjectInvestmentInvitationForResultDto>>(projectInvestmentInvitations);
@@ -57,6 +63,8 @@ namespace Innoplatform.Service.Services.ProjectServices
         {
             var Check = await _repository.SelectAll()
                 .Where(p => p.IsDeleted == false && p.Id == id)
+                .Include(p => p.Project)
+                .Include(p => p.User)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
             if(Check is null)

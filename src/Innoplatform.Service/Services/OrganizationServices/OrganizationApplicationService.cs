@@ -80,6 +80,9 @@ public class OrganizationApplicationService : IOrganizationApplicationService
     {
         var organizationApplications = await _organizationApplicationRepository.SelectAll()
             .Where(oa => oa.IsDeleted == false)
+            .Include(oa => oa.User)
+            .Include(oa => oa.Project)
+            .Include(oa => oa.Organization)
             .ToPagedList(@params)
             .AsNoTracking()
             .ToListAsync();
@@ -91,6 +94,9 @@ public class OrganizationApplicationService : IOrganizationApplicationService
     {
         var organizationApplication = await _organizationApplicationRepository.SelectAll()
             .Where(oa => oa.IsDeleted == false && oa.Id == id)
+            .Include(oa => oa.User)
+            .Include(oa => oa.Project)
+            .Include(oa => oa.Organization)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 

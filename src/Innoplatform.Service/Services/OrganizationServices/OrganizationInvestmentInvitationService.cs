@@ -66,6 +66,8 @@ public class OrganizationInvestmentInvitationService : IOrganizationInvestmentIn
     {
         var organizationInvestmentInvitations = await _organizationInvestmentInvitationRepository.SelectAll()
             .Where(o => o.IsDeleted == false)
+            .Include(o => o.Project)
+            .Include(o => o.Organization)
             .AsNoTracking()
             .ToListAsync();
 
@@ -76,6 +78,8 @@ public class OrganizationInvestmentInvitationService : IOrganizationInvestmentIn
     {
         var organizationInvestmentInvitation = await _organizationInvestmentInvitationRepository.SelectAll()
             .Where(o => o.IsDeleted == false && o.Id == id)
+            .Include(o => o.Project)
+            .Include(o => o.Organization)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 

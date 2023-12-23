@@ -45,13 +45,21 @@ namespace Innoplatform.Service.Services.OrganizationServices
 
         public async Task<IEnumerable<OrganizationInvestmentForResultDto>> GetAllAsync()
         {
-            var result = await this._repository.SelectAll().Where(o => o.IsDeleted == false).AsNoTracking().ToListAsync();
+            var result = await this._repository.SelectAll()
+                .Where(o => o.IsDeleted == false)
+                .Include(o => o.Organization)
+                .AsNoTracking()
+                .ToListAsync();
             return this.mapper.Map<IEnumerable<OrganizationInvestmentForResultDto>>(result);
         }
 
         public async Task<OrganizationInvestmentForResultDto> GetByIdAsync(long id)
         {
-            var result = await this._repository.SelectAll().Where(o => o.Id == id && o.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
+            var result = await this._repository.SelectAll()
+                .Where(o => o.Id == id && o.IsDeleted == false)
+                .Include(o => o.Organization)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
 
             if (result == null)
                 throw new InnoplatformException(404, "Organization Investment is not found");

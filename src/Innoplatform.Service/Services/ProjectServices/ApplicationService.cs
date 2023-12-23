@@ -44,6 +44,10 @@ public class ApplicationService : IApplicationService
     {
         var entities = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)
+            .Include(e => e.InvestmentArea)
+            .Include(e => e.Investment)
+            .Include(e => e.Project)
+            .Include(e => e.User)
             .ToPagedList(@params)
             .AsNoTracking()
             .ToListAsync();
@@ -54,8 +58,11 @@ public class ApplicationService : IApplicationService
     public async Task<ApplicationForResultDto> GetByIdAsync(long id)
     {
         var entity = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .Where(e => e.Id == id)
+            .Where(e => e.IsDeleted == false && e.Id == id)
+            .Include(e => e.InvestmentArea)
+            .Include(e => e.Investment)
+            .Include(e => e.Project)
+            .Include(e => e.User)
             .AsNoTracking()
             .FirstOrDefaultAsync();
         if (entity is null)

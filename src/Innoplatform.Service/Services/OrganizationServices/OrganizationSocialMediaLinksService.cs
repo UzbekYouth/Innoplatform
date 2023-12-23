@@ -50,13 +50,21 @@ namespace Innoplatform.Service.Services.OrganizationServices
 
         public async Task<IEnumerable<OrganizationSocialMediaLinkForResultDto>> GetAllAsync()
         {
-            var result = await _repository.SelectAll().Where(o => o.IsDeleted == false).AsNoTracking().ToListAsync();
+            var result = await _repository.SelectAll()
+                .Where(o => o.IsDeleted == false)
+                .Include(r => r.Organization)
+                .AsNoTracking()
+                .ToListAsync();
             return _mapper.Map<IEnumerable<OrganizationSocialMediaLinkForResultDto>>(result);
         }
 
         public async Task<OrganizationSocialMediaLinkForResultDto> GetByIdAsync(long id)
         {
-            var result = await _repository.SelectAll().Where(o => o.Id == id && o.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
+            var result = await _repository.SelectAll()
+                .Where(o => o.Id == id && o.IsDeleted == false)
+                .Include(r => r.Organization)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
             if (result == null)
             {
                 throw new InnoplatformException(404, "Not Found");

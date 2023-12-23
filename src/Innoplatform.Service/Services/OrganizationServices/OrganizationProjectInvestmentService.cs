@@ -84,6 +84,10 @@ namespace Innoplatform.Service.Services.OrganizationServices
         {
             var organizationProjectInvestments = await _organizationProjectInvestmentRepository.SelectAll()
                 .Where(o => o.IsDeleted == false)
+                .Include(o => o.Application)
+                .Include(o => o.Organization)
+                .Include(o => o.User)
+                .Include(o => o.Investment)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -97,6 +101,10 @@ namespace Innoplatform.Service.Services.OrganizationServices
         {
             var organizationProjectInvestment = await _organizationProjectInvestmentRepository.SelectAll()
                 .Where(o => o.IsDeleted == false && o.Id == id)
+                .Include(o => o.Application)
+                .Include(o => o.Organization)
+                .Include(o => o.User)
+                .Include(o => o.Investment)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
 
