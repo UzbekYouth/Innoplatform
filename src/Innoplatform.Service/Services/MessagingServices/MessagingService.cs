@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Innoplatform.Data.IRepositories;
 using Innoplatform.Domain.Entities.Messagings;
+using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Service.DTOs.Messages;
 using Innoplatform.Service.Exceptions;
 using Innoplatform.Service.Interfaces;
@@ -12,14 +13,27 @@ public class MessagingService : IMessagingService
 {
     private readonly IMapper _mapper;
     private readonly IRepository<Messaging> _repository;
+    private readonly IRepository<User> _userRepository;
 
-    public MessagingService(IMapper mapper, IRepository<Messaging> repository)
+    public MessagingService(
+        IMapper mapper, 
+        IRepository<Messaging> repository,
+        IRepository<User> userRepository)
     {
         _mapper = mapper;
         _repository = repository;
+        _userRepository = userRepository;
     }
     public async Task<MessagingForResultDto> AddAsync(MessagingForCreationDto dto)
     {
+        var user = await _userRepository.SelectAll()
+            .Where(e => e.IsDeleted == false && e.Id == dto.SenderId)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (user is null)
+            throw new InnoplatformException(400, "user is not found");
+
         var mapperEntity = _mapper.Map<Messaging>(dto);
         var result = await _repository.CreateAsync(mapperEntity);
 
@@ -53,9 +67,12 @@ public class MessagingService : IMessagingService
     public async Task<MessagingForResultDto> ModifyAsync(long id, MessagingForUpdateDto dto)
     {
         var entity = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
+            .Where(e => e.IsDeleted == false && e.Id == id)
             .AsNoTracking()
             .FirstOrDefaultAsync();
+
+        if (entity == null)
+            throw new InnoplatformException(400, "Messaging is empty");
 
         var mappedEntity = _mapper.Map(dto, entity);
         mappedEntity.UpdatedAt = DateTime.UtcNow;
