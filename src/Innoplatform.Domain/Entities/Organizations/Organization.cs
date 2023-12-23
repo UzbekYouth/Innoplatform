@@ -15,6 +15,6 @@ namespace Innoplatform.Domain.Entities.Organizations
         public string Password { get; set; }
         public string Salt { get; set; }
         public string Address { get; set; }
-        public Roles Role { get; set; }
+        public Roles Role { get; set; } = Roles.Organization;
     }
 }

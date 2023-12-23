@@ -40,10 +40,6 @@ namespace Innoplatform.Service.Services.AuthServices
             .AsNoTracking()
             .FirstOrDefaultAsync();
             // write other logic here
-            if (user == null)
-            {
-                throw new InnoplatformException(400, "User not found");
-            }   
             if(user != null)
             {
                 var hashedPassword = PasswordHelper.Verify(dto.Password, user.Salt, user.Password);

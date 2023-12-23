@@ -9,6 +9,18 @@ RETURNING \"Id\";"
  ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table \"AboutUsAssets\" violates foreign key constraint \"FK_AboutUsAssets_AboutUs_AboutUsId\"
 
 DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+
+2023-12-23 14:39:09.943 +05:00 [Error] [Microsoft.EntityFrameworkCore.Database.Command] [{ Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }] Failed executing DbCommand ("332"ms) [Parameters=["@__dto_Email_0='?', @__dto_CallCenter_1='?', @__dto_Name_2='?'"], CommandType='Text', CommandTimeout='30']"
+""SELECT o.\"Id\", o.\"Address\", o.\"CallCenter\", o.\"CreatedAt\", o.\"Description\", o.\"Email\", o.\"ImagePath\", o.\"IsDeleted\", o.\"Name\", o.\"Password\", o.\"PhoneNumber\", o.\"Role\", o.\"Salt\", o.\"UpdatedAt\", o.\"UserName\"
+FROM \"Organizations\" AS o
+WHERE o.\"Email\" = @__dto_Email_0 AND o.\"CallCenter\" = @__dto_CallCenter_1 AND o.\"Name\" = @__dto_Name_2 AND NOT (o.\"IsDeleted\")
+LIMIT 1"
+
+
+2023-12-23 14:39:10.113 +05:00 [Error] [Microsoft.EntityFrameworkCore.Query] [{ Id: 10100, Name: "Microsoft.EntityFrameworkCore.Query.QueryIterationFailed" }] An exception occurred while iterating over the results of a query for context type '"Innoplatform.Data.DbContexts.AppDbContext"'."
+""Npgsql.PostgresException (0x80004005): 42703: column o.Salt does not exist
+
+POSITION: 169
    at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
@@ -137,6 +149,21 @@ RETURNING \"Id\";"
  ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table \"AboutUsAssets\" violates foreign key constraint \"FK_AboutUsAssets_AboutUs_AboutUsId\"
 
 DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column o.Salt does not exist
+    Position: 169
+    File: parse_relation.c
+    Line: 3718
+    Routine: errorMissingColumn"
+Npgsql.PostgresException (0x80004005): 42703: column o.Salt does not exist
+
+POSITION: 169
    at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
@@ -205,6 +232,24 @@ DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error
  ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table "AboutUsAssets" violates foreign key constraint "FK_AboutUsAssets_AboutUs_AboutUsId"
 
 DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column o.Salt does not exist
+    Position: 169
+    File: parse_relation.c
+    Line: 3718
+    Routine: errorMissingColumn
+
+
+2023-12-23 14:39:10.705 +05:00 [Error] [Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare] [] Npgsql.PostgresException (0x80004005): 42703: column o.Salt does not exist
+
+POSITION: 169
+
    at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
    at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
@@ -238,6 +283,15 @@ DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error
    at Innoplatform.Data.Repositories.Repository`1.CreateAsync(TEntity entity) in C:\Users\Hayotbahrom\Desktop\Pojects\Avalanche\Innoplatform\src\Innoplatform.Api\Repositories\Repository.cs:line 20
    at Innoplatform.Service.Services.AboutServices.AboutUsAssetService.AddAsync(AboutUsAssetForCreationDto dto) in C:\Users\Hayotbahrom\Desktop\Pojects\Avalanche\Innoplatform\src\Innoplatform.Service\Services\AboutServices\AboutUsAssetService.cs:line 51
    at Innoplatform.Api.Controllers.AboutControllers.AboutUsAssetsController.AddAsync(AboutUsAssetForCreationDto dto) in C:\Users\Hayotbahrom\Desktop\Pojects\Avalanche\Innoplatform\src\Innoplatform.Api\Controllers\AboutControllers\AboutUsAssetsController.cs:line 43
+
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Innoplatform.Service.Services.OrganizationServices.OrganizationService.AddAsync(OrganizationForCreationDto dto) in C:\Users\sardorbek\Desktop\Hackaton\Innoplatform\src\Innoplatform.Service\Services\OrganizationServices\OrganizationService.cs:line 32
+   at Innoplatform.Api.Controllers.OrganizationControllers.OrganizationController.PostAsync(OrganizationForCreationDto dto) in C:\Users\sardorbek\Desktop\Hackaton\Innoplatform\src\Innoplatform.Api\Controllers\OrganizationControllers\OrganizationController.cs:line 49
+
    at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
@@ -250,6 +304,15 @@ DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error
    at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
    at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
    at Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare.Invoke(HttpContext context) in C:\Users\Hayotbahrom\Desktop\Pojects\Avalanche\Innoplatform\src\Innoplatform.Api\Middlewares\ExceptionHandlerMiddleWare.cs:line 21
+   at Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare.Invoke(HttpContext context) in C:\Users\sardorbek\Desktop\Hackaton\Innoplatform\src\Innoplatform.Api\Middlewares\ExceptionHandlerMiddleWare.cs:line 21
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column o.Salt does not exist
+    Position: 169
+    File: parse_relation.c
+    Line: 3718
+    Routine: errorMissingColumn
 
 
 

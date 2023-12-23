@@ -29,12 +29,15 @@ namespace Innoplatform.Service.Services.OrganizationServices
 
         public async Task<OrganizationForResultDto> AddAsync(OrganizationForCreationDto dto)
         {
-            var Checking = await _repository.SelectAll().Where(o => o.Email == dto.Email && o.CallCenter == dto.CallCenter && o.Name == dto.Name && o.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
+            var Checking = await _repository.SelectAll()
+                .Where(o => o.Email == dto.Email && o.CallCenter == dto.CallCenter && o.Name == dto.Name && o.IsDeleted == false)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
             if (Checking != null)
             {
                 throw new InnoplatformException(400, "This organization is exist");
             }
-            var MappedData = _mapper.Map<Organization>(dto);
             var asset = new AssetForCreationDto
             {
                 FolderPath = "Organizations",
@@ -42,11 +45,37 @@ namespace Innoplatform.Service.Services.OrganizationServices
             };
 
             var assetPath = await _fileUploadService.FileUploadAsync(asset);
+
+            var MappedData = _mapper.Map<Organization>(dto);
+            var HashedPassword = PasswordHelper.Hash(dto.Password);
+            MappedData.Password = HashedPassword.Hash;
+            MappedData.Salt = HashedPassword.Salt;
             MappedData.ImagePath = assetPath?.AssetPath;
 
             var result = await _repository.CreateAsync(MappedData);
 
             return _mapper.Map<OrganizationForResultDto>(result);
+        }
+
+        public async Task<bool> ChangePasswordAsync(long Id, OrganizationPasswordForChangeDto dto)
+        {
+            var data = await _repository
+                        .SelectAll()
+                        .Where(e => e.Id == Id && e.IsDeleted == false)
+                        .FirstOrDefaultAsync();
+            if (data == null || PasswordHelper.Verify(dto.OldPassword, data.Salt, data.Password) == false)
+            {
+                throw new InnoplatformException(400, "User or Password is Incorrect");
+            }
+            else if (dto.NewPassword != dto.ConfirmPassword)
+            {
+                throw new InnoplatformException(400, "New Password and Confirm Password does not Match");
+            }
+            var HashedPassword = PasswordHelper.Hash(dto.ConfirmPassword);
+            data.Salt = HashedPassword.Salt;
+            data.Password = HashedPassword.Hash;
+            await _repository.UpdateAsync(data);
+            return true;
         }
 
         public async Task<IEnumerable<OrganizationForResultDto>> GetAllAsync(PaginationParams @params)
@@ -73,8 +102,6 @@ namespace Innoplatform.Service.Services.OrganizationServices
                 throw new InnoplatformException(404, "Not Found");
             }
             var MappedData = _mapper.Map(dto, Checking);
-
-
 
             if (dto != null && dto.ImagePath != null)
             {

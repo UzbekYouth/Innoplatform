@@ -7,48 +7,61 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Serilog;
 
-namespace Innoplatform.Api
+
+
+
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddCustomService();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddJwtService(builder.Configuration);
+builder.Services.AddSwaggerService();
+
+//DB
+
+builder.Services.AddDbContext<AppDbContext>(option
+=> option.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
+
+builder.Services.AddCors(options =>
 {
-    public class Program
+    options.AddPolicy("AllowAll", builder =>
     {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            builder.Services.AddCustomService();
-            builder.Services.AddDbContext<AppDbContext>(option
-            => option.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
-            );
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
-            // Logger
-            var logger = new LoggerConfiguration()
-              .ReadFrom.Configuration(builder.Configuration)
-              .Enrich.FromLogContext()
-              .CreateLogger();
-            builder.Logging.ClearProviders();
-            builder.Logging.AddSerilog(logger);
 
-            //Cycle solution
-            builder.Services.AddControllers().AddNewtonsoftJson(options =>
-            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+// Logger
+var logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 
-            var app = builder.Build();
-            WebEnvironmentHost.WebRootPath = Path.GetFullPath("wwwroot");
+//Cycle solution
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-            app.UseCors("AllowAll");
-            app.UseHttpsRedirection();
-            app.UseMiddleware<ExceptionHandlerMiddleWare>();
-            app.UseStaticFiles();
-            app.UseAuthorization();
-            app.MapControllers();
-            app.Run();
-        }
-    }
+var app = builder.Build();
+WebEnvironmentHost.WebRootPath = Path.GetFullPath("wwwroot");
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+app.UseCors("AllowAll");
+app.UseHttpsRedirection();
+app.UseMiddleware<ExceptionHandlerMiddleWare>();
+app.UseStaticFiles();
+app.UseAuthorization();
+app.MapControllers();
+app.Run();
