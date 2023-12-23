@@ -47,9 +47,9 @@ public class InvestmentAreaService : IInvestmentAreaService
         var mapped = _mapper.Map<InvestmentArea>(dto);
         mapped.Image = assetPath?.AssetPath;
 
-        var mappedEntity = _mapper.Map<InvestmentArea>(dto);
+        //var mappedEntity = _mapper.Map<InvestmentArea>(dto);
         return _mapper.Map<InvestmentAreaForResultDto>(await _repository
-            .CreateAsync(mappedEntity));
+            .CreateAsync(mapped));
     }
 
     public async Task<IEnumerable<InvestmentAreaForResultDto>> GetAllAsync()

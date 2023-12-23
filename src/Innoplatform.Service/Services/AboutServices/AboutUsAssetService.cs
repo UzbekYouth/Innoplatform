@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Innoplatform.Data.IRepositories;
 using Innoplatform.Domain.Entities.About;
 using Innoplatform.Domain.Entities.Sponsors;
@@ -33,7 +33,7 @@ public class AboutUsAssetService : IAboutUsAssetService
     public async Task<AboutUsAssetForResultDto> AddAsync(AboutUsAssetForCreationDto dto)
     {
         var CheckAboutUs = await this._aboutUsRepository.SelectAll().Where(e => e.Id == dto.AboutUsId && e.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
-        if(dto.Image == null)
+        if (dto.Image == null)
         {
             throw new InnoplatformException(400, "Image is null");
         }
@@ -84,7 +84,7 @@ public class AboutUsAssetService : IAboutUsAssetService
 
         var mappedEntity = _mapper.Map(dto, entity);
         mappedEntity.UpdatedAt = DateTime.UtcNow;
-        
+
         if (dto != null && dto.Image != null)
         {
             if (entity != null)
@@ -106,11 +106,12 @@ public class AboutUsAssetService : IAboutUsAssetService
             mappedEntity.Image = entity.Image;
         }
 
-       // var result = await _repository.UpdateAsync(entity);
+        // var result = await _repository.UpdateAsync(entity);
 
         var result = await _repository.UpdateAsync(mappedEntity);
         return _mapper.Map<AboutUsAssetForResultDto>(result);
     }
+
 
     public async Task<bool> RemoveAsync(long id)
     {
@@ -120,7 +121,7 @@ public class AboutUsAssetService : IAboutUsAssetService
             .FirstOrDefaultAsync();
         if (entity == null)
             throw new InnoplatformException(400, "aboutUsAsset is not found");
-        
+
         if (entity.Image != null)
             await _fileUploadService.DeleteFileAsync(entity.Image);
 
