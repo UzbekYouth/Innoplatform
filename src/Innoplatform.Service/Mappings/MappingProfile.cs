@@ -116,7 +116,7 @@ namespace Innoplatform.Service.Mappings
             CreateMap<Education, EducationForResultDto>().ReverseMap();
 
             CreateMap<OrganizationExtraDetails, OrganizationExtraDetailForResultDto>().ReverseMap();
-            CreateMap<OrganizationExtraDetails, OrganizationExtraDetailsForCreationDto>().ReverseMap();
+            CreateMap<OrganizationExtraDetails, OrganizationExtraDetailForCreationDto>().ReverseMap();
             CreateMap<OrganizationExtraDetails, OrganizationExtraDetailForUpdateDto>().ReverseMap();
 
             CreateMap<OrganizationApplication, OrganizationApplicationForCreationDto>().ReverseMap();
