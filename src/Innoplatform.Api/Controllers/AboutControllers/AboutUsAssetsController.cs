@@ -26,7 +26,7 @@ public class AboutUsAssetsController : BaseController
         return Ok(response);
     }
     [HttpGet("{Id}")]
-    public async Task<IActionResult> GetByIdAsync([FromRoute(Name = "id")] long Id)
+    public async Task<IActionResult> GetByIdAsync([FromRoute] long Id)
     {
         var response = new Response()
         {
@@ -50,7 +50,7 @@ public class AboutUsAssetsController : BaseController
     }
 
     [HttpPut("{Id}")]
-    public async Task<IActionResult> UpdateAsync([FromRoute(Name = "id")] long Id, [FromForm] AboutUsAssetForUpdateDto dto)
+    public async Task<IActionResult> UpdateAsync([FromRoute] long Id, [FromForm] AboutUsAssetForUpdateDto dto)
     {
         var response = new Response()
         {
@@ -62,7 +62,7 @@ public class AboutUsAssetsController : BaseController
     }
 
     [HttpDelete("{Id}")]
-    public async Task<IActionResult> DeleteAsync([FromRoute(Name = "id")] long Id)
+    public async Task<IActionResult> DeleteAsync([FromRoute] long Id)
     {
         var response = new Response()
         {
