@@ -5,8 +5,8 @@ using Innoplatform.Domain.Entities.Sponsors;
 using Innoplatform.Service.DTOs.Assets;
 using Innoplatform.Service.DTOs.Sponsors;
 using Innoplatform.Service.Exceptions;
-using Innoplatform.Service.Interfaces;
 using Innoplatform.Service.Interfaces.IFileUploadServices;
+using Innoplatform.Service.Interfaces.ISponsorServices;
 using Microsoft.EntityFrameworkCore;
 
 namespace Innoplatform.Service.Services.SponsorServices;

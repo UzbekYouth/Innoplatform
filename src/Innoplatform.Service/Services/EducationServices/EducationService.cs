@@ -5,7 +5,7 @@ using Innoplatform.Domain.Entities.Projects;
 using Innoplatform.Service.DTOs.Assets;
 using Innoplatform.Service.DTOs.Educations;
 using Innoplatform.Service.Exceptions;
-using Innoplatform.Service.Interfaces;
+using Innoplatform.Service.Interfaces.IEducationServices;
 using Innoplatform.Service.Interfaces.IFileUploadServices;
 using Microsoft.EntityFrameworkCore;
 

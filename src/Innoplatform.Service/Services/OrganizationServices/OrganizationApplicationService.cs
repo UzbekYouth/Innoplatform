@@ -5,7 +5,7 @@ using Innoplatform.Domain.Entities.Projects;
 using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Service.DTOs.OrganizationApplications;
 using Innoplatform.Service.Exceptions;
-using Innoplatform.Service.Interfaces;
+using Innoplatform.Service.Interfaces.IOrganizationServices;
 using Microsoft.EntityFrameworkCore;
 
 namespace Innoplatform.Service.Services.OrganizationServices;

@@ -4,7 +4,7 @@ using Innoplatform.Domain.Entities.Transactions;
 using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Service.DTOs.Transactions;
 using Innoplatform.Service.Exceptions;
-using Innoplatform.Service.Interfaces;
+using Innoplatform.Service.Interfaces.ITransactionServices;
 using Microsoft.EntityFrameworkCore;
 namespace Innoplatform.Service.Services.TransactionServices;
 

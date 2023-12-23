@@ -6,8 +6,8 @@ using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Service.DTOs.Assets;
 using Innoplatform.Service.DTOs.Users;
 using Innoplatform.Service.Exceptions;
-using Innoplatform.Service.Interfaces;
 using Innoplatform.Service.Interfaces.IFileUploadServices;
+using Innoplatform.Service.Interfaces.IUserServices;
 using Microsoft.EntityFrameworkCore;
 
 namespace Innoplatform.Service.Services.UserServices;
