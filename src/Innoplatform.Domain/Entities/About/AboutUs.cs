@@ -6,5 +6,6 @@ namespace Innoplatform.Domain.Entities.About
     {
         public string Title { get; set; }
         public string Description { get; set; }
+        public IEnumerable<AboutUsAsset> AboutUsAssets { get; set; }
     }
 }

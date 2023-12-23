@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Innoplatform.Data.IRepositories;
 using Innoplatform.Domain.Entities.About;
 using Innoplatform.Domain.Entities.Sponsors;
@@ -16,34 +16,27 @@ public class AboutUsAssetService : IAboutUsAssetService
 {
     private readonly IMapper _mapper;
     private readonly IRepository<AboutUsAsset> _repository;
+    private readonly IRepository<AboutUs> _aboutUsRepository;
     private readonly IFileUploadService _fileUploadService;
 
     public AboutUsAssetService(
-        IMapper mapper, 
+        IMapper mapper,
         IRepository<AboutUsAsset> repository,
-        IFileUploadService fileUploadService)
+        IFileUploadService fileUploadService,
+        IRepository<AboutUs> aboutUsRepository)
     {
         _mapper = mapper;
         _repository = repository;
         _fileUploadService = fileUploadService;
+        _aboutUsRepository = aboutUsRepository;
     }
     public async Task<AboutUsAssetForResultDto> AddAsync(AboutUsAssetForCreationDto dto)
     {
-        var entity = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .Where(e => e.AbouteUsId == dto.AbouteUsId)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-        if (entity is not null)
-            throw new InnoplatformException(400, "aboutUsAsset is already exist");
-
-        var existAsset = await _repository.SelectAll()
-            .Where(ea => ea.AbouteUsId == dto.AbouteUsId && ea.IsDeleted == false)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-        if (existAsset is null)
-            throw new InnoplatformException(400, "AboutUs is not found in this Id");
-
+        var CheckAboutUs = await this._aboutUsRepository.SelectAll().Where(e => e.Id == dto.AboutUsId && e.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
+        if(dto.Image == null)
+        {
+            throw new InnoplatformException(400, "Image is null");
+        }
         var asset = new AssetForCreationDto
         {
             FolderPath = "AboutUsAssets",
@@ -55,8 +48,8 @@ public class AboutUsAssetService : IAboutUsAssetService
         var mappedEntity = _mapper.Map<AboutUsAsset>(dto);
         mappedEntity.Image = assetPath?.AssetPath;
 
-        return _mapper.Map<AboutUsAssetForResultDto>(await _repository
-            .CreateAsync(mappedEntity));
+        var result = await _repository.CreateAsync(mappedEntity);
+        return _mapper.Map<AboutUsAssetForResultDto>(result);
     }
 
     public async Task<IEnumerable<AboutUsAssetForResultDto>> GetAllAsync()
@@ -71,23 +64,19 @@ public class AboutUsAssetService : IAboutUsAssetService
     public async Task<AboutUsAssetForResultDto> GetByIdAsync(long id)
     {
         var entity = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .Where(e => e.AbouteUsId == id)
+            .Where(e => e.Id == id && e.IsDeleted == false)
             .AsNoTracking()
             .FirstOrDefaultAsync();
         if (entity == null)
             throw new InnoplatformException(404, "aboutUsAsset is not found");
 
-        var mappedEntity = _mapper.Map<AboutUsAssetForResultDto>(entity);
-
-        return mappedEntity;
+        return _mapper.Map<AboutUsAssetForResultDto>(entity);
     }
 
     public async Task<AboutUsAssetForResultDto> ModifyAsync(long id, AboutUsAssetForUpdateDto dto)
     {
         var entity = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .Where(e => e.AbouteUsId == id)
+            .Where(e => e.IsDeleted == false && e.Id == id)
             .AsNoTracking()
             .FirstOrDefaultAsync();
         if (entity == null)
@@ -126,15 +115,14 @@ public class AboutUsAssetService : IAboutUsAssetService
     public async Task<bool> RemoveAsync(long id)
     {
         var entity = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .Where(e => e.AbouteUsId == id)
+            .Where(e => e.IsDeleted == false && e.Id == id)
             .AsNoTracking()
             .FirstOrDefaultAsync();
         if (entity == null)
             throw new InnoplatformException(400, "aboutUsAsset is not found");
         
         if (entity.Image != null)
-            await _fileUploadService.DeleteFileAsync (entity.Image);
+            await _fileUploadService.DeleteFileAsync(entity.Image);
 
         return await _repository.DeleteAsync(id);
     }
