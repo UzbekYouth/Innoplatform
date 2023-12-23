@@ -15,7 +15,7 @@ namespace Innoplatform.Domain.Entities.Organizations
         public long ApplicationId { get; set; }
         public Application Application { get; set; }
         public long InvestmentAreaId { get; set; }
-        public InvestmentArea Investment { get; set; }
+        public InvestmentArea InvestmentArea { get; set; }
         public long InvestmentAmount { get; set; }
         public ProjectInvestmentStatus Status { get; set; }
         public DateTime InvestmentDate { get; set; }
