@@ -1,6 +1,5 @@
 ﻿using Innoplatform.Api.Models;
 using Innoplatform.Service.Configuration;
-using Innoplatform.Service.DTOs.Educations;
 using Innoplatform.Service.DTOs.Users;
 using Innoplatform.Service.Interfaces.IUserServices;
 using Microsoft.AspNetCore.Mvc;
@@ -64,6 +63,15 @@ public class UsersController : BaseController
         };
         return Ok(response);
     }
+
+    [HttpPut("ChangePassword/{id}")]
+    public async Task<IActionResult> PutPasswordAsync([FromRoute(Name = "id")] long Id, [FromForm] UserPasswordForChangeDto dto)
+        => Ok(new Response
+        {
+            StatusCode = 200,
+            Message = "Success",
+            Data = await _service.ChangePasswordAsync(Id, dto)
+        });
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAsync([FromRoute(Name = "id")] long id)

@@ -79,5 +79,14 @@ namespace Innoplatform.Api.Controllers.OrganizationControllers
             };
             return Ok(response);
         }
+
+        [HttpPut("ChangePassword/{id}")]
+        public async Task<IActionResult> PutChangePasswordAsync([FromRoute(Name = "id")] long id, [FromForm] OrganizationPasswordForChangeDto dto)
+            => Ok(new Response
+            {
+                StatusCode = 200,
+                Message = "Success",
+                Data = await _service.ChangePasswordAsync(id, dto)
+            });
     }
 }
