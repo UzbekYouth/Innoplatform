@@ -53,7 +53,7 @@ public class AchievmentAssetsController : BaseController
 
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAsync([FromRoute(Name = "id")] long id, [FromForm] AchievmentAssetsForUpdateDto dto)
+    public async Task<IActionResult> UpdateAsync([FromRoute(Name = "id")] long id, [FromForm] AchievementAssetsForUpdateDto dto)
     {
         var response = new Response
         {

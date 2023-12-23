@@ -1,4 +1,5 @@
 ﻿using Innoplatform.Domain.Entities.Achievments;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace Innoplatform.Service.DTOs.AchievementAssets
 {
-    public class AchievmentAssetsForResultDto
+    public class AchievementForCreationDto
     {
-        public long Id { get; set; }
-        public Achievement Achievement { get; set; }
-        public string Media { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
     }
 }

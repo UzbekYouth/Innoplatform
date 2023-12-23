@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Innoplatform.Service.DTOs.AchievementAssets
 {
-    public class AchievmentAssetsForUpdateDto
+    public class AchievementAssetsForUpdateDto
     {
         public long AchievementId { get; set; }
         public IFormFile Media { get; set; }

@@ -11,9 +11,9 @@ namespace Innoplatform.Service.Interfaces.IAchievmentServices
     public interface IAchievmentService
     {
         Task<bool> RemoveAsync(long id);
-        Task<AchievmentForResultDto> GetByIdAsync(long id);
-        Task<IEnumerable<AchievmentForResultDto>> GetAllAsync();
-        Task<AchievmentForResultDto> AddAsync(AchievmentForCreationDto dto);
-        Task<AchievmentForResultDto> ModifyAsync(long id, AchievmentForUpdateDto dto);
+        Task<AchievementForResultDto> GetByIdAsync(long id);
+        Task<IEnumerable<AchievementForResultDto>> GetAllAsync();
+        Task<AchievementForResultDto> AddAsync(AchievementForCreationDto dto);
+        Task<AchievementForResultDto> ModifyAsync(long id, AchievementForUpdateDto dto);
     }
 }

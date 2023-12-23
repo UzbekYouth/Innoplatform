@@ -1,4 +1,5 @@
-﻿using Innoplatform.Service.DTOs.ProjectAssets;
+﻿using Innoplatform.Service.DTOs.OrganizationExtraDetails;
+using Innoplatform.Service.DTOs.ProjectAssets;
 using Innoplatform.Service.DTOs.Projects;
 
 namespace Innoplatform.Service.Interfaces.IProjectServices;

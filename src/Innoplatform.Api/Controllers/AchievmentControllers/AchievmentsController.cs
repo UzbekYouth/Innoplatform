@@ -39,7 +39,7 @@ public class AchievmentsController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddAsync([FromBody] AchievmentForCreationDto dto)
+    public async Task<IActionResult> AddAsync([FromBody] AchievementForCreationDto dto)
     {
         var response = new Response
         {
@@ -52,7 +52,7 @@ public class AchievmentsController : BaseController
 
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAsync([FromRoute(Name = "id")] long id, [FromBody] AchievmentForUpdateDto dto)
+    public async Task<IActionResult> UpdateAsync([FromRoute(Name = "id")] long id, [FromBody] AchievementForUpdateDto dto)
     {
         var response = new Response
         {

@@ -44,13 +44,13 @@ namespace Innoplatform.Service.Mappings
             CreateMap<AboutUsAsset, AboutUsAssetForResultDto>().ReverseMap();
             CreateMap<AboutUsAsset, AboutUsAssetForUpdateDto>().ReverseMap();
 
-            CreateMap<Achievement, AchievmentForCreationDto>().ReverseMap();
-            CreateMap<Achievement, AchievmentForResultDto>().ReverseMap();
-            CreateMap<Achievement, AchievmentForUpdateDto>().ReverseMap();
+            CreateMap<Achievement, AchievementForCreationDto>().ReverseMap();
+            CreateMap<Achievement, AchievementForResultDto>().ReverseMap();
+            CreateMap<Achievement, AchievementForUpdateDto>().ReverseMap();
 
             CreateMap<AchievementAsset, AchievmentAssetsForCreationDto>().ReverseMap();
-            CreateMap<AchievementAsset, AchievmentAssetsForResultDto>().ReverseMap();
-            CreateMap<AchievementAsset, AchievmentAssetsForUpdateDto>().ReverseMap();
+            CreateMap<AchievementAsset, AchievementAssetsForResultDto>().ReverseMap();
+            CreateMap<AchievementAsset, AchievementAssetsForUpdateDto>().ReverseMap();
 
             CreateMap<Application, ApplicationForCreationDto>().ReverseMap();
             CreateMap<Application, ApplicationForResultDto>().ReverseMap();
@@ -115,8 +115,8 @@ namespace Innoplatform.Service.Mappings
             CreateMap<Education, EducationForUpdateDto>().ReverseMap();
             CreateMap<Education, EducationForResultDto>().ReverseMap();
 
-            CreateMap<OrganizationExtraDetails, OrganizationExtraDetailForResultDto>().ReverseMap();
             CreateMap<OrganizationExtraDetails, OrganizationExtraDetailForCreationDto>().ReverseMap();
+            CreateMap<OrganizationExtraDetails, OrganizationExtraDetailForResultDto>().ReverseMap();
             CreateMap<OrganizationExtraDetails, OrganizationExtraDetailForUpdateDto>().ReverseMap();
 
             CreateMap<OrganizationApplication, OrganizationApplicationForCreationDto>().ReverseMap();
