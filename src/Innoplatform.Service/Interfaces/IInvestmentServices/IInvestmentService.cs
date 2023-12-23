@@ -1,4 +1,5 @@
-﻿using Innoplatform.Service.DTOs.Investments;
+﻿using Innoplatform.Service.Configuration;
+using Innoplatform.Service.DTOs.Investments;
 using Innoplatform.Service.DTOs.Users;
 
 namespace Innoplatform.Service.Interfaces.IInvestmentServices;
