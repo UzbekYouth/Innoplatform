@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Innoplatform.Service.DTOs.AboutUses;
 
-namespace Innoplatform.Service.DTOs.AboutUses
+public class AboutUsForUpdateDto
 {
-    public class AboutUsForUpdateDto
-    {
-        public string Title { get; set; }
-        public string Description { get; set; }
-    }
+    public string Title { get; set; }
+    public string Description { get; set; }
 }
