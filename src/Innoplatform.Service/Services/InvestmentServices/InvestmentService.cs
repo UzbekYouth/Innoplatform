@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using Innoplatform.Data.IRepositories;
-using Innoplatform.Domain.Entities.About;
 using Innoplatform.Domain.Entities.Investments;
+using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Service.Configuration;
-using Innoplatform.Service.DTOs.AboutUsAssets;
 using Innoplatform.Service.DTOs.Investments;
 using Innoplatform.Service.Exceptions;
 using Innoplatform.Service.Extensions;
@@ -15,21 +14,39 @@ namespace Innoplatform.Service.Services.InvestmentServices;
 public class InvestmentService : IInvestmentService
 {
     private readonly IMapper _mapper;
+    private readonly IRepository<User> _userRepository;
     private readonly IRepository<Investment> _repository;
+    private readonly IRepository<InvestmentArea> _investmentAreaRepository;
 
-    public InvestmentService(IMapper mapper, IRepository<Investment> repository)
+
+    public InvestmentService(
+        IMapper mapper, 
+        IRepository<User> userRepository,
+        IRepository<InvestmentArea> investmentAreaRepository,
+        IRepository<Investment> repository)
     {
         _mapper = mapper;
         _repository = repository;
+        _userRepository = userRepository;
+        _investmentAreaRepository = investmentAreaRepository;
     }
     public async Task<InvestmentForResultDto> AddAsync(InvestmentForCreationDto dto)
     {
-        var existInvestmentArea = await _repository.SelectAll()
-            .Where(ei => ei.InvestmentAreaId == dto.InvestmentAreaId && ei.IsDeleted == false)
+
+        var existInvestmentArea = await _investmentAreaRepository.SelectAll()
+            .Where(ei => ei.Id == dto.InvestmentAreaId && ei.IsDeleted == false)
             .AsNoTracking()
             .FirstOrDefaultAsync();
         if (existInvestmentArea == null)
-            throw new InnoplatformException(404, "InvestmentArea is not found in this ID");
+            throw new InnoplatformException(404, "InvestmentArea is not found");
+
+        var user = await _userRepository.SelectAll()
+            .Where(u => u.IsDeleted == false && u.Id == dto.UserId)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (user is null)
+           throw new InnoplatformException(404, "User not found");
 
         var entity = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)
@@ -40,6 +57,9 @@ public class InvestmentService : IInvestmentService
             .FirstOrDefaultAsync();
         if (entity is not null)
             throw new InnoplatformException(400, "investment is already exist");
+
+        if ((dto.MaxInvestmentAmount <= dto.MinInvestmentAmount) || dto.MaxInvestmentAmount < 0 || dto.MinInvestmentAmount < 0)
+            throw new InnoplatformException(400, "MaxInvestmentAmount must be greater than MinInvestmentAmount, and both must be greater than zero");
 
         var mappedEntity = _mapper.Map<Investment>(dto);
         return _mapper.Map<InvestmentForResultDto>(await _repository
@@ -84,6 +104,25 @@ public class InvestmentService : IInvestmentService
             .FirstOrDefaultAsync();
         if (entity == null)
             throw new InnoplatformException(404, "investment is not found");
+
+        var existInvestmentArea = await _investmentAreaRepository.SelectAll()
+              .Where(ei => ei.Id == dto.InvestmentAreaId && ei.IsDeleted == false)
+              .AsNoTracking()
+              .FirstOrDefaultAsync();
+        if (existInvestmentArea == null)
+            throw new InnoplatformException(404, "InvestmentArea is not found");
+
+        var user = await _userRepository.SelectAll()
+            .Where(u => u.IsDeleted == false && u.Id == dto.UserId)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (user is null)
+            throw new InnoplatformException(404, "User not found");
+
+        if ((dto.MaxInvestmentAmount <= dto.MinInvestmentAmount) || dto.MaxInvestmentAmount < 0 || dto.MinInvestmentAmount < 0)
+            throw new InnoplatformException(400, "MaxInvestmentAmount must be greater than MinInvestmentAmount, and both must be greater than zero");
+
 
         var mappedEntity = _mapper.Map(dto, entity);
         mappedEntity.UpdatedAt = DateTime.UtcNow;

@@ -1,17 +1,13 @@
-2023-12-23 20:13:57.583 +05:00 [Error] [Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare] [] AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
-
-Mapping types:
-AsyncStateMachineBox`1 -> OrganizationInvestmentInvitationForResultDto
-System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1[[Innoplatform.Domain.Entities.Organizations.OrganizationInvestmentInvitation, Innoplatform.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Innoplatform.Data.Repositories.Repository`1+<UpdateAsync>d__7[[Innoplatform.Domain.Entities.Organizations.OrganizationInvestmentInvitation, Innoplatform.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], Innoplatform.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -> Innoplatform.Service.DTOs.OrganizationInvestmentInvitations.OrganizationInvestmentInvitationForResultDto
-   at lambda_method921(Closure, Object, OrganizationInvestmentInvitationForResultDto, ResolutionContext)
-   at Innoplatform.Service.Services.OrganizationServices.OrganizationInvestmentInvitationService.ModifyAsync(Int64 id, OrganizationInvestmentInvitationForUpdateDto dto)
-   at Innoplatform.Api.Controllers.OrganizationControllers.OrganizationInvestmentInvitationController.PutAsync(Int64 id, OrganizationInvestmentInvitationForUpdateDto dto) in C:\Users\sardorbek\Desktop\Hackaton\Innoplatform\src\Innoplatform.Api\Controllers\OrganizationControllers\OrganizationInvestmentInvitationController.cs:line 73
+2023-12-24 00:01:01.614 +05:00 [Error] [Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare] [] System.NullReferenceException: Object reference not set to an instance of an object.
+   at Innoplatform.Service.Services.ProjectServices.ApplicationService.AddAsync(ApplicationForCreationDto dto) in C:\Users\sardorbek\Desktop\Hackaton\Innoplatform\src\Innoplatform.Service\Services\ProjectServices\ApplicationService.cs:line 39
+   at Innoplatform.Api.Controllers.ProjectControllers.ApplicationController.PostAsync(ApplicationForCreationDto dto) in C:\Users\sardorbek\Desktop\Hackaton\Innoplatform\src\Innoplatform.Api\Controllers\ProjectControllers\ApplicationController.cs:line 48
    at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
    at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
