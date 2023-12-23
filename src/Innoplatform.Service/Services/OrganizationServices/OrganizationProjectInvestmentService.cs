@@ -88,7 +88,7 @@ namespace Innoplatform.Service.Services.OrganizationServices
                 .Include(o => o.Application)
                 .Include(o => o.Organization)
                 .Include(o => o.User)
-                .Include(o => o.Investment)
+                .Include(o => o.InvestmentArea)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -105,7 +105,7 @@ namespace Innoplatform.Service.Services.OrganizationServices
                 .Include(o => o.Application)
                 .Include(o => o.Organization)
                 .Include(o => o.User)
-                .Include(o => o.Investment)
+                .Include(o => o.InvestmentArea)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
 
