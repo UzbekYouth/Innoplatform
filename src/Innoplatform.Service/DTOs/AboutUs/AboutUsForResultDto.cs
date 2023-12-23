@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Innoplatform.Service.DTOs.AboutUses
 {
-    public class AboutUsResultDto
+    public class AboutUsForResultDto
     {
         public long Id { get; set; }
         public string Title { get; set; }

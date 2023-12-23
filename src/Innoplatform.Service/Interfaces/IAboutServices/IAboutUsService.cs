@@ -5,9 +5,9 @@ namespace Innoplatform.Service.Interfaces.IAboutServices
     public interface IAboutUsService
     {
         public Task<bool> RemoveAsync(long id);
-        public Task<AboutUsResultDto> GetByIdAsync(long id);
-        public Task<IEnumerable<AboutUsResultDto>> GetAllAsync();
-        public Task<AboutUsResultDto> AddAsync(AboutUsForCreationDto dto);
-        public Task<AboutUsResultDto> ModifyAsync(long id, AboutUsForUpdateDto dto);
+        public Task<AboutUsForResultDto> GetByIdAsync(long id);
+        public Task<IEnumerable<AboutUsForResultDto>> GetAllAsync();
+        public Task<AboutUsForResultDto> AddAsync(AboutUsForCreationDto dto);
+        public Task<AboutUsForResultDto> ModifyAsync(long id, AboutUsForUpdateDto dto);
     }
 }
