@@ -6,6 +6,6 @@ public class RecommendationForUpdateDto
 {
     public string Title { get; set; }
     public IFormFile Image { get; set; }
-    public long RecomedationAreaId { get; set; }
+    public long RecommendationAreaId { get; set; }
     public string Description { get; set; }
 }

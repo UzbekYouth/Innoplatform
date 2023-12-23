@@ -94,7 +94,7 @@ public class OrganizationApplicationService : IOrganizationApplicationService
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
-        if (organizationApplication is not null)
+        if (organizationApplication is null)
             throw new InnoplatformException(404, "Organization application not found");
 
         return _mapper.Map<OrganizationApplicationForResultDto>(organizationApplication);

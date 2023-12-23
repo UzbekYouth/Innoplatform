@@ -28,7 +28,7 @@ namespace Innoplatform.Api.Middlewares
                     StatusCode = ex.statusCode,
                     Message = ex.Message,
                 });
-            }
+            } 
             catch (Exception ex)
             {
                 this._logger.LogError($"{ex}\n\n");

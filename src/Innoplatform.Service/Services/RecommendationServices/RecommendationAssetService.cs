@@ -29,6 +29,11 @@ public class RecommendationAssetService : IRecommendationAssetService
         _recommendationRepository = recommendationRepository;
         _recommendationAssetRepository = recommendationAssetRepository;
     }
+
+    // addAsync method fix error
+
+
+
     public async Task<RecommendationAssetForResultDto> AddAsync(RecommendationAssetForCreationDto dto)
     {
         var recommendation = await _recommendationRepository.SelectAll()
@@ -39,17 +44,9 @@ public class RecommendationAssetService : IRecommendationAssetService
         if (recommendation is null)
             throw new InnoplatformException(404, "Recommendation is not found");
 
-        var recommendationAsset = await _recommendationAssetRepository.SelectAll()
-            .Where(r => r.IsDeleted == false && r.RecommendationId == dto.RecommendationId)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-
-        if (recommendationAsset is not null)
-            throw new InnoplatformException(409, "Recommendation asset is already exist");
-
         var asset = new AssetForCreationDto
         {
-            FolderPath = "Recommendations",
+            FolderPath = "RecommendationAssets",
             FormFile = dto.Media
         };
 

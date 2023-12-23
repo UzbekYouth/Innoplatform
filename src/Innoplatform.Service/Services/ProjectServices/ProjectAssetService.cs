@@ -38,14 +38,6 @@ public class ProjectAssetService : IProjectAssetService
         if (project is null)
             throw new InnoplatformException(404, "Project not found");
 
-        var projectAsset = await _projectAssetRepository.SelectAll()
-            .Where(p => p.IsDeleted == false && p.ProjectId == dto.ProjectId)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-
-        if (projectAsset is not null)
-            throw new InnoplatformException(409, "Project already has an asset");
-
         var asset = new AssetForCreationDto
         {
             FolderPath = "Projects",

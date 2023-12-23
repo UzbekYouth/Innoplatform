@@ -7,6 +7,6 @@ public class RecommendationForResultDto
     public long Id { get; set; }
     public string Title { get; set; }
     public string Image { get; set; }
-    public long RecomedationAreaId { get; set; }
+    public long RecommendationAreaId { get; set; }
     public string Description { get; set; }
 }

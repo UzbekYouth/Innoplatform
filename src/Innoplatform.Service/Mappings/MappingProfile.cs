@@ -25,6 +25,7 @@ using Innoplatform.Service.DTOs.OrganizationApplications;
 using Innoplatform.Service.DTOs.OrganizationExtraDetails;
 using Innoplatform.Service.DTOs.OrganizationInvestment;
 using Innoplatform.Service.DTOs.OrganizationInvestmentInvitations;
+using Innoplatform.Service.DTOs.OrganizationProjectInvestments;
 using Innoplatform.Service.DTOs.Organizations;
 using Innoplatform.Service.DTOs.OrganizationSocialMediaLinks;
 using Innoplatform.Service.DTOs.ProjectAssets;
@@ -33,6 +34,7 @@ using Innoplatform.Service.DTOs.ProjectInvestments;
 using Innoplatform.Service.DTOs.Projects;
 using Innoplatform.Service.DTOs.RecommendationAreas;
 using Innoplatform.Service.DTOs.RecommendationAsset;
+using Innoplatform.Service.DTOs.Recommendations;
 using Innoplatform.Service.DTOs.Sponsors;
 using Innoplatform.Service.DTOs.Transactions;
 using Innoplatform.Service.DTOs.Users;
@@ -123,13 +125,19 @@ public class MappingProfile : Profile
         CreateMap<OrganizationSocialMediaLink, OrganizationSocialMediaLinkForResultDto>().ReverseMap();
         CreateMap<OrganizationSocialMediaLink, OrganizationSocialMediaLinkForUpdateDto>().ReverseMap();
 
+        //OrganizationProjectInvestment
+
+        CreateMap<OrganizationProjectInvestment, OrganizationProjectInvestmentForCreationDto>().ReverseMap();
+        CreateMap<OrganizationProjectInvestment, OrganizationProjectInvestmentForResultDto>().ReverseMap();
+        CreateMap<OrganizationProjectInvestment, OrganizationProjectInvestmentForUpdateDto>().ReverseMap();
+
         //Project
         CreateMap<Project, ProjectForCreationDto>().ReverseMap();
         CreateMap<Project, ProjectForResultDto>().ReverseMap();
         CreateMap<Project, ProjectForUpdateDto>().ReverseMap();
 
         //ProjectAsset
-        CreateMap<ProjectAsset, OrganizationExtraDetailForCreationDto>().ReverseMap();
+        CreateMap<ProjectAsset, ProjectAssetForCreationDto>().ReverseMap();
         CreateMap<ProjectAsset, ProjectAssetForResultDto>().ReverseMap();
         CreateMap<ProjectAsset, ProjectAssetForUpdateDto>().ReverseMap();
 
@@ -154,9 +162,9 @@ public class MappingProfile : Profile
         CreateMap<RecommendationArea, RecommendationAreaForUpdateDto>().ReverseMap();
 
         //Recommondation
-        CreateMap<Recommendation, RecommendationAssetForCreationDto>().ReverseMap();
-        CreateMap<Recommendation, RecommendationAssetForUpdateDto>().ReverseMap();
-        CreateMap<Recommendation, RecommendationAssetForResultDto>().ReverseMap();
+        CreateMap<Recommendation, RecommendationForCreationDto>().ReverseMap();
+        CreateMap<Recommendation, RecommendationForUpdateDto>().ReverseMap();
+        CreateMap<Recommendation, RecommendationForResultDto>().ReverseMap();
 
         //Sponsor
         CreateMap<Sponsor, SponsorForCreationDto>().ReverseMap();
