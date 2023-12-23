@@ -28,7 +28,7 @@ public class ProjectAssetService : IProjectAssetService
         _projectRepository = projectRepository;
         _projectAssetRepository = projectAssetRepository;
     }
-    public async Task<ProjectAssetForResultDto> AddAsync(OrganizationExtraDetailForCreationDto dto)
+    public async Task<ProjectAssetForResultDto> AddAsync(ProjectAssetForCreationDto dto)
     {
         var project = await _projectRepository.SelectAll()
             .Where(p => p.IsDeleted == false && p.Id == dto.ProjectId)
@@ -86,14 +86,6 @@ public class ProjectAssetService : IProjectAssetService
 
     public async Task<ProjectAssetForResultDto> ModifyAsync(long id, ProjectAssetForUpdateDto dto)
     {
-        var project = _projectRepository.SelectAll()
-            .Where(p => p.IsDeleted == false && p.Id == dto.ProjectId)
-            .AsNoTracking()
-            .FirstOrDefault();
-
-        if (project == null)
-            throw new InnoplatformException(404, "Project not found");
-
         var projectAsset = _projectAssetRepository.SelectAll()
             .Where(p => p.IsDeleted == false && p.Id == id)
             .AsNoTracking()

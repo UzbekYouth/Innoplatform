@@ -1,87 +1,116 @@
 ﻿using AutoMapper;
 using Innoplatform.Data.IRepositories;
-using Innoplatform.Domain.Entities.About;
 using Innoplatform.Domain.Entities.Mentors;
-using Innoplatform.Service.DTOs.AboutUsAssets;
+using Innoplatform.Service.DTOs.Assets;
 using Innoplatform.Service.DTOs.Mentors;
 using Innoplatform.Service.Exceptions;
+using Innoplatform.Service.Interfaces.IFileUploadServices;
 using Innoplatform.Service.Interfaces.IMentorServices;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Innoplatform.Service.Services.MentorServices
+namespace Innoplatform.Service.Services;
+public class MentorService : IMentorService
 {
-    public class MentorService : IMentorService
+    private readonly IMapper _mapper;
+    private readonly IRepository<Mentor> _repository;
+    private readonly IFileUploadService _fileUploadService;
+
+    public MentorService(IMapper mapper,
+        IRepository<Mentor> repository,
+        IFileUploadService fileUploadService)
     {
-        private readonly IMapper _mapper;
-        private readonly IRepository<Mentor> _repository;
+        _mapper = mapper;
+        _repository = repository;
+        _fileUploadService = fileUploadService;
+    }
+    public async Task<MentorForResultDto> AddAsync(MentorForCreationDto dto)
+    {
+        var entity = await _repository.SelectAll()
+        .Where(e => e.IsDeleted == false)
+        .Where(e => e.FirstName.ToLower() == dto.FirstName.ToLower() &&
+                    e.LastName.ToLower() == dto.LastName.ToLower() &&
+                    e.Position == dto.Position)
+        .AsNoTracking()
+        .FirstOrDefaultAsync();
+        if (entity is not null)
+            throw new InnoplatformException(400, "mentor is already exist");
 
-        public MentorService(IMapper mapper, IRepository<Mentor> repository)
+        var asset = new AssetForCreationDto
         {
-            _mapper = mapper;
-            _repository = repository;
-        }
-        public async Task<MentorForResultDto> AddAsync(MentorForCreationDto dto)
+            FolderPath = "Mentors",
+            FormFile = dto.Image
+        };
+
+        var assetPath = await _fileUploadService.FileUploadAsync(asset);
+
+        var mapped = _mapper.Map<Mentor>(dto);
+        mapped.Image = assetPath?.AssetPath;
+
+        var mappedEntity = _mapper.Map<Mentor>(dto);
+        return _mapper.Map<MentorForResultDto>(await _repository
+            .CreateAsync(mappedEntity));
+    }
+
+    public async Task<IEnumerable<MentorForResultDto>> GetAllAsync()
+    {
+        var entities = await _repository.SelectAll()
+        .Where(e => e.IsDeleted == false)
+        .ToListAsync();
+
+        return _mapper.Map<IEnumerable<MentorForResultDto>>(entities);
+    }
+
+    public async Task<MentorForResultDto> GetByIdAsync(long id)
+    {
+        var entity = await _repository.SelectAll()
+        .Where(e => e.IsDeleted == false)
+        .Where(e => e.Id == id)
+        .AsNoTracking()
+        .FirstOrDefaultAsync();
+        if (entity == null)
+            throw new InnoplatformException(404, "mentor is not found");
+
+        var mappedEntity = _mapper.Map<MentorForResultDto>(entity);
+
+        return mappedEntity;
+    }
+
+    public async Task<MentorForResultDto> ModifyAsync(long id, MentorForCreationDto dto)
+    {
+        var entity = await _repository.SelectAll()
+        .Where(e => e.IsDeleted == false)
+        .Where(e => e.Id == id)
+        .AsNoTracking()
+        .FirstOrDefaultAsync();
+        if (entity == null)
+            throw new InnoplatformException(404, "mentor is not found");
+
+        var mappedEntity = _mapper.Map(dto, entity);
+        mappedEntity.UpdatedAt = DateTime.UtcNow;
+
+        if (dto != null && dto.Image != null)
         {
-            var entity = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .Where(e => e.FirstName.ToLower() == dto.FirstName.ToLower() &&
-                        e.LastName.ToLower() == dto.LastName.ToLower() &&
-                        e.Position == dto.Position)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-            if (entity is not null)
-                throw new InnoplatformException(400, "mentor is already exist");
+            if (entity != null)
+            {
+                await _fileUploadService.DeleteFileAsync(entity.Image);
+            }
+            var asset = new AssetForCreationDto
+            {
+                FolderPath = "Mentors",
+                FormFile = dto.Image
+            };
 
-            var mappedEntity = _mapper.Map<Mentor>(dto);
-            return _mapper.Map<MentorForResultDto>(await _repository
-                .CreateAsync(mappedEntity));
+            var assetPath = await _fileUploadService.FileUploadAsync(asset);
+            mappedEntity.Image = assetPath?.AssetPath;
         }
-
-        public async Task<IEnumerable<MentorForResultDto>> GetAllAsync()
+        else
         {
-            var entities = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .ToListAsync();
-
-            return _mapper.Map<IEnumerable<MentorForResultDto>>(entities);
+            mappedEntity.Image = mappedEntity.Image;
         }
 
-        public async Task<MentorForResultDto> GetByIdAsync(long id)
-        {
-            var entity = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .Where(e => e.Id == id)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-            if (entity == null)
-                throw new InnoplatformException(404, "mentor is not found");
+        var result = await _repository.UpdateAsync(mappedEntity);
+        return _mapper.Map<MentorForResultDto>(result);
+    }
 
-            var mappedEntity = _mapper.Map<MentorForResultDto>(entity);
-
-            return mappedEntity;
-        }
-
-        public async Task<MentorForResultDto> ModifyAsync(long id, MentorForCreationDto dto)
-        {
-            var entity = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .Where(e => e.Id == id)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-            if (entity == null)
-                throw new InnoplatformException(404, "mentor is not found");
-
-            var mappedEntity = _mapper.Map(dto, entity);
-            mappedEntity.UpdatedAt = DateTime.UtcNow;
-
-            var result = await _repository.UpdateAsync(mappedEntity);
-            return _mapper.Map<MentorForResultDto>(result);
-        }
 
         public async Task<bool> RemoveAsync(long id)
         {
@@ -95,5 +124,4 @@ namespace Innoplatform.Service.Services.MentorServices
 
             return await _repository.DeleteAsync(id);
         }
-    }
 }

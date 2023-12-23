@@ -8,6 +8,6 @@ public interface IProjectAssetService
     public Task<bool> RemoveAsync(long id);
     public Task<ProjectAssetForResultDto> GetByIdAsync(long id);
     public Task<IEnumerable<ProjectAssetForResultDto>> GetAllAsync();
-    public Task<ProjectAssetForResultDto> AddAsync(OrganizationExtraDetailForCreationDto dto);
+    public Task<ProjectAssetForResultDto> AddAsync(ProjectAssetForCreationDto dto);
     public Task<ProjectAssetForResultDto> ModifyAsync(long id, ProjectAssetForUpdateDto dto);
 }
