@@ -30,13 +30,6 @@ public class AchievementAssetService : IAchievmentAssetService
 
     public async Task<AchievementAssetsForResultDto> AddAsync(AchievmentAssetsForCreationDto dto)
     {
-        var entity = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .Where(e => e.AchievementId == dto.AchievementId)
-            .FirstOrDefaultAsync();
-        if (entity is not null)
-            throw new InnoplatformException(404, "achievementAsset is already exist");
-       
         var asset = new AssetForCreationDto
         {
             FolderPath = "AchievementAsset",
@@ -48,9 +41,7 @@ public class AchievementAssetService : IAchievmentAssetService
         var mapped = _mapper.Map<AchievementAsset>(dto);
         mapped.Media = assetPath?.AssetPath;
 
-        var mappedEntity = _mapper.Map<AchievementAsset>(dto);
-
-        var result = await _repository.CreateAsync(mappedEntity);
+        var result = await _repository.CreateAsync(mapped);
 
         return _mapper.Map<AchievementAssetsForResultDto>(result);
     }
@@ -59,6 +50,7 @@ public class AchievementAssetService : IAchievmentAssetService
     {
         var entites = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)
+            .AsNoTracking()
             .ToListAsync();
 
         return _mapper.Map<IEnumerable<AchievementAssetsForResultDto>>(entites);
@@ -67,8 +59,7 @@ public class AchievementAssetService : IAchievmentAssetService
     public async Task<AchievementAssetsForResultDto> GetByIdAsync(long id)
     {
         var entity = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .Where(e => e.AchievementId == id)
+            .Where(e => e.IsDeleted == false && e.Id == id)
             .AsNoTracking()
             .FirstOrDefaultAsync();
         if (entity == null)
@@ -82,7 +73,7 @@ public class AchievementAssetService : IAchievmentAssetService
     public async Task<AchievementAssetsForResultDto> ModifyAsync(long id, AchievementAssetsForUpdateDto dto)
     {
         var entity = await _repository.SelectAll()
-            .Where(e => e.AchievementId == id)
+            .Where(e => e.AchievementId == dto.AchievementId)
             .Where(e => e.IsDeleted == false)
             .AsNoTracking()
             .FirstOrDefaultAsync();
@@ -120,8 +111,7 @@ public class AchievementAssetService : IAchievmentAssetService
     public async Task<bool> RemoveAsync(long id)
     {
         var entity = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .Where(e => e.AchievementId == id)
+            .Where(e => e.IsDeleted == false && e.Id == id)
             .AsNoTracking()
             .FirstOrDefaultAsync();
         if (entity == null)
