@@ -6,7 +6,7 @@ using Innoplatform.Domain.Entities.Projects;
 using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Service.DTOs.ProjectInvestments;
 using Innoplatform.Service.Exceptions;
-using Innoplatform.Service.Interfaces;
+using Innoplatform.Service.Interfaces.IProjectServices;
 using Microsoft.EntityFrameworkCore;
 
 namespace Innoplatform.Service.Services.ProjectServices;

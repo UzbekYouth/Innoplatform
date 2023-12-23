@@ -10,7 +10,6 @@ namespace Innoplatform.Service.DTOs.ProjectAssets
 {
     public class ProjectAssetForUpdateDto
     {
-        public long ProjectId { get; set; }
         public IFormFile File { get; set; }
     }
 }

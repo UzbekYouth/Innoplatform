@@ -1,9 +1,10 @@
-﻿using Innoplatform.Domain.Entities.Users;
+﻿using Innoplatform.Domain.Commons;
+using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Domain.Enums;
 
 namespace Innoplatform.Domain.Entities.Projects
 {
-    public class ProjectInvestmentInvitation
+    public class ProjectInvestmentInvitation:Auditable
     {
         public long UserId { get; set; } // Investor
         public User User { get; set; }

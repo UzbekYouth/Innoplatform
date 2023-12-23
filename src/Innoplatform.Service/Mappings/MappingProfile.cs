@@ -2,9 +2,11 @@
 using AutoMapper;
 using Innoplatform.Domain.Entities.About;
 using Innoplatform.Domain.Entities.Achievments;
+using Innoplatform.Domain.Entities.Educations;
 using Innoplatform.Domain.Entities.Investments;
 using Innoplatform.Domain.Entities.Mentors;
 using Innoplatform.Domain.Entities.Messagings;
+using Innoplatform.Domain.Entities.Organizations;
 using Innoplatform.Domain.Entities.Projects;
 using Innoplatform.Domain.Entities.Recommendations;
 using Innoplatform.Domain.Entities.Sponsors;
@@ -13,10 +15,14 @@ using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Service.DTOs.AboutUsAssets;
 using Innoplatform.Service.DTOs.AchievementAssets;
 using Innoplatform.Service.DTOs.Applications;
+using Innoplatform.Service.DTOs.Educations;
 using Innoplatform.Service.DTOs.InvestmentAreas;
 using Innoplatform.Service.DTOs.Investments;
 using Innoplatform.Service.DTOs.Mentors;
 using Innoplatform.Service.DTOs.Messages;
+using Innoplatform.Service.DTOs.OrganizationApplications;
+using Innoplatform.Service.DTOs.OrganizationExtraDetails;
+using Innoplatform.Service.DTOs.OrganizationInvestmentInvitations;
 using Innoplatform.Service.DTOs.ProjectAssets;
 using Innoplatform.Service.DTOs.ProjectInvestments;
 using Innoplatform.Service.DTOs.Projects;
@@ -58,7 +64,7 @@ namespace Innoplatform.Service.Mappings
             CreateMap<Project, ProjectForResultDto>().ReverseMap();
             CreateMap<Project, ProjectForUpdateDto>().ReverseMap();
 
-            CreateMap<ProjectAsset, ProjectAssetForCreationDto>().ReverseMap();
+            CreateMap<ProjectAsset, OrganizationExtraDetailForCreationDto>().ReverseMap();
             CreateMap<ProjectAsset, ProjectAssetForResultDto>().ReverseMap();
             CreateMap<ProjectAsset, ProjectAssetForUpdateDto>().ReverseMap();
 
@@ -104,6 +110,22 @@ namespace Innoplatform.Service.Mappings
             CreateMap<Recommendation, RecommendationAssetForCreationDto>().ReverseMap();
             CreateMap<Recommendation, RecommendationAssetForUpdateDto>().ReverseMap();
             CreateMap<Recommendation, RecommendationAssetForResultDto>().ReverseMap();
+
+            CreateMap<Education, EducationForCreationDto>().ReverseMap();
+            CreateMap<Education, EducationForUpdateDto>().ReverseMap();
+            CreateMap<Education, EducationForResultDto>().ReverseMap();
+
+            CreateMap<OrganizationExtraDetails, OrganizationExtraDetailForResultDto>().ReverseMap();
+            CreateMap<OrganizationExtraDetails, OrganizationExtraDetailForResultDto>().ReverseMap();
+            CreateMap<OrganizationExtraDetails, OrganizationExtraDetailForUpdateDto>().ReverseMap();
+
+            CreateMap<OrganizationApplication, OrganizationApplicationForCreationDto>().ReverseMap();
+            CreateMap<OrganizationApplication, OrganizationApplicationForUpdateDto>().ReverseMap();
+            CreateMap<OrganizationApplication, OrganizationApplicationForResultDto>().ReverseMap();
+
+            CreateMap<OrganizationInvestmentInvitation, OrganizationInvestmentInvitationForResultDto>().ReverseMap();
+            CreateMap<OrganizationInvestmentInvitation, OrganizationInvestmentInvitationForCreationDto>().ReverseMap();
+            CreateMap<OrganizationInvestmentInvitation, OrganizationInvestmentInvitationForUpdateDto>().ReverseMap();
         }
     }
 }

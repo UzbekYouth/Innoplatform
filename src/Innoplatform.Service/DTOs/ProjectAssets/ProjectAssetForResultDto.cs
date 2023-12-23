@@ -10,7 +10,6 @@ namespace Innoplatform.Service.DTOs.ProjectAssets
     public class ProjectAssetForResultDto
     {
         public long Id { get; set; }
-        public Project Project { get; set; }
         public string File { get; set; }
     }
 }

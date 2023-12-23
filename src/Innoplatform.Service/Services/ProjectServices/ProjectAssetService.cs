@@ -5,8 +5,8 @@ using Innoplatform.Domain.Entities.Projects;
 using Innoplatform.Service.DTOs.Assets;
 using Innoplatform.Service.DTOs.ProjectAssets;
 using Innoplatform.Service.Exceptions;
-using Innoplatform.Service.Interfaces;
 using Innoplatform.Service.Interfaces.IFileUploadServices;
+using Innoplatform.Service.Interfaces.IProjectServices;
 using Microsoft.EntityFrameworkCore;
 
 namespace Innoplatform.Service.Services.ProjectServices;
@@ -86,14 +86,6 @@ public class ProjectAssetService : IProjectAssetService
 
     public async Task<ProjectAssetForResultDto> ModifyAsync(long id, ProjectAssetForUpdateDto dto)
     {
-        var project = _projectRepository.SelectAll()
-            .Where(p => p.IsDeleted == false && p.Id == dto.ProjectId)
-            .AsNoTracking()
-            .FirstOrDefault();
-
-        if (project == null)
-            throw new InnoplatformException(404, "Project not found");
-
         var projectAsset = _projectAssetRepository.SelectAll()
             .Where(p => p.IsDeleted == false && p.Id == id)
             .AsNoTracking()
@@ -106,7 +98,7 @@ public class ProjectAssetService : IProjectAssetService
         
         if (dto != null && dto.File != null)
         {
-            if(projectAsset != null)
+            if(projectAsset.File != null)
             {
                 await _fileUploadService.DeleteFileAsync(projectAsset.File);
             }

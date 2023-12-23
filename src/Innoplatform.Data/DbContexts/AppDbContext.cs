@@ -1,6 +1,10 @@
 ﻿using Innoplatform.Domain.Entities.About;
+using Innoplatform.Domain.Entities.Achievments;
+using Innoplatform.Domain.Entities.Educations;
 using Innoplatform.Domain.Entities.Investments;
+using Innoplatform.Domain.Entities.Mentors;
 using Innoplatform.Domain.Entities.Messagings;
+using Innoplatform.Domain.Entities.Organizations;
 using Innoplatform.Domain.Entities.Projects;
 using Innoplatform.Domain.Entities.Recommendations;
 using Innoplatform.Domain.Entities.Sponsors;
@@ -16,19 +20,59 @@ namespace Innoplatform.Data.DbContexts
         { }
 
 
-        DbSet<Investment> Investments { get; set; }
-        DbSet<InvestmentArea> InvestmentAreas { get; set; }
-        DbSet<Messaging> Messages { get; set; }
-        DbSet<Transaction> Transactions { get; set; }
-        DbSet<User> Users { get; set; }
-        DbSet<Application> Applications { get; set; }
-        DbSet<ProjectInvestment> ProjectInvestments { get; set; }
-        DbSet<Project> Projects { get;set; }
-        DbSet<ProjectAsset> ProjectAssets { get; set; }
-        DbSet<AboutUsAsset> AboutUsAssets { get; set; }
-        DbSet<Recommendation> Recommendations { get; set; }
-        DbSet<RecommendationAsset> RecommendationAssets { get; set; }
-        DbSet<Sponsor> Sponsors { get; set;}
+        //About Us
+        public DbSet<AboutUs> AboutUs { get; set; }
+        public DbSet<AboutUsAsset> AboutUsAssets { get; set; }
+
+        //Achievments
+        public DbSet<Achievement> Achievements { get; set; }
+        public DbSet<AchievementAsset> AchievementAssets { get; set; }
+
+        //Investments
+        public DbSet<Investment> Investments { get; set; }
+        public DbSet<InvestmentArea> InvestmentAreas { get; set; }
+
+        //Mentors
+        public DbSet<Mentor> Mentors { get; set; }
+
+        //Messaging
+        public DbSet<Messaging> Messages { get; set; }
+
+        //Organization
+        public DbSet<Organization> Organizations { get; set; }
+        public DbSet<OrganizationApplication> OrganizationApplications { get; set; }
+        public DbSet<OrganizationExtraDetails> OrganizationExtraDetails { get; set; }
+        public DbSet<OrganizationInvestment> OrganizationInvestments { get; set; }
+        public DbSet<OrganizationInvestmentInvitation> OrganizationInvestmentInvitations { get; set; }
+        public DbSet<OrganizationProjectInvestment> OrganizationProjectInvestments { get; set; }
+        public DbSet<OrganizationSocialMediaLink> OrganizationSocialMediaLinks { get; set; }
+
+
+        //Projects
+        public DbSet<Application> Applications { get; set; }
+        public DbSet<Project> Projects { get;set; }
+        public DbSet<ProjectAsset> ProjectAssets { get; set; }
+        public DbSet<ProjectInvestment> ProjectInvestments { get; set; }
+        public DbSet<ProjectInvestmentInvitation> ProjectInvestmentInvitations { get; set; }
+
+        //Recommendations
+        public DbSet<Recommendation> Recommendations { get; set; }
+        public DbSet<RecommendationAsset> RecommendationAssets { get; set; }
+        public DbSet<RecommendationArea> RecommendationAreas { get; set; }
+
+
+        //Sponsers
+        public DbSet<Sponsor> Sponsors { get; set; }
+
+        //Transactions
+        public DbSet<Transaction> Transactions { get; set; }
+
+        //User
+        public DbSet<User> Users { get; set; }
+
+        //Education
+        public DbSet<Education> Educations { get; set; }
+
         
 
     }
