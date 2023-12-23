@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Innoplatform.Service.Interfaces.IAchievmentServices
 {
-    public interface IAchievementAssetService
+    public interface IAchievmentAssetService
     {
         Task<bool> RemoveAsync(long id);
         Task<AchievementAssetsForResultDto> GetByIdAsync(long id);
         Task<IEnumerable<AchievementAssetsForResultDto>> GetAllAsync();
-        Task<AchievementAssetsForResultDto> AddAsync(AchievementAssetsForCreationDto dto);
+        Task<AchievementAssetsForResultDto> AddAsync(AchievmentAssetsForCreationDto dto);
         Task<AchievementAssetsForResultDto> ModifyAsync(long id, AchievementAssetsForUpdateDto dto);
     }
 }

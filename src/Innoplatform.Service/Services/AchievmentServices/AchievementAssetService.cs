@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Innoplatform.Service.Services.AchievmentServices;
 
-public class AchievementAssetService : IAchievementAssetService
+public class AchievementAssetService : IAchievmentAssetService
 {
     private readonly IMapper _mapper;
     private readonly IRepository<AchievementAsset> _repository;
@@ -28,7 +28,7 @@ public class AchievementAssetService : IAchievementAssetService
         _fileUploadService = fileUploadService;
     }
 
-    public async Task<AchievementAssetsForResultDto> AddAsync(AchievementAssetsForCreationDto dto)
+    public async Task<AchievementAssetsForResultDto> AddAsync(AchievmentAssetsForCreationDto dto)
     {
         var entity = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)

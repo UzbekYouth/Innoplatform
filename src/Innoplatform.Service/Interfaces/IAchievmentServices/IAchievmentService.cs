@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Innoplatform.Service.Interfaces.IAchievmentServices
 {
-    public interface IAchievementService
+    public interface IAchievmentService
     {
         Task<bool> RemoveAsync(long id);
         Task<AchievementForResultDto> GetByIdAsync(long id);

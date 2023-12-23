@@ -74,7 +74,7 @@ public class MentorService : IMentorService
         return mappedEntity;
     }
 
-    public async Task<MentorForResultDto> ModifyAsync(long id, MentorForCreationDto dto)
+    public async Task<MentorForResultDto> ModifyAsync(long id, MentorForUpdateDto dto)
     {
         var entity = await _repository.SelectAll()
         .Where(e => e.IsDeleted == false)
@@ -112,16 +112,16 @@ public class MentorService : IMentorService
     }
 
 
-        public async Task<bool> RemoveAsync(long id)
-        {
-            var entity = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
-            .Where(e => e.Id == id)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-            if (entity == null)
-                throw new InnoplatformException(400, "mentor is not found");
+    public async Task<bool> RemoveAsync(long id)
+    {
+        var entity = await _repository.SelectAll()
+        .Where(e => e.IsDeleted == false)
+        .Where(e => e.Id == id)
+        .AsNoTracking()
+        .FirstOrDefaultAsync();
+        if (entity == null)
+            throw new InnoplatformException(400, "mentor is not found");
 
-            return await _repository.DeleteAsync(id);
-        }
+        return await _repository.DeleteAsync(id);
+    }
 }
