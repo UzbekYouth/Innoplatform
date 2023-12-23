@@ -86,6 +86,7 @@ public class ProjectAssetService : IProjectAssetService
 
     public async Task<ProjectAssetForResultDto> ModifyAsync(long id, ProjectAssetForUpdateDto dto)
     {
+<<<<<<< HEAD
         var project = _projectRepository.SelectAll()
             .Where(p => p.IsDeleted == false && p.Id == id)
             .AsNoTracking()
@@ -94,6 +95,8 @@ public class ProjectAssetService : IProjectAssetService
         if (project == null)
             throw new InnoplatformException(404, "Project not found");
 
+=======
+>>>>>>> a0db60329ae01489ccc94f8aa234a0a69a902da0
         var projectAsset = _projectAssetRepository.SelectAll()
             .Where(p => p.IsDeleted == false && p.Id == id)
             .AsNoTracking()

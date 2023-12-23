@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Innoplatform.Data.IRepositories;
-using Innoplatform.Domain.Entities.About;
 using Innoplatform.Domain.Entities.Achievments;
-using Innoplatform.Service.DTOs.AboutUsAssets;
 using Innoplatform.Service.DTOs.AchievementAssets;
 using Innoplatform.Service.Exceptions;
 using Innoplatform.Service.Interfaces.IAchievmentServices;
@@ -43,18 +41,47 @@ public class AchievementService : IAchievementService
         return _mapper.Map<IEnumerable<AchievementForResultDto>>(entities);
     }
 
-    public Task<AchievementForResultDto> GetByIdAsync(long id)
+    public async Task<AchievementForResultDto> GetByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        var entity = await _repository.SelectAll()
+            .Where(r => r.IsDeleted == false && r.Id == id)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (entity is null)
+            throw new InnoplatformException(404, "Achievement is not found");
+
+        return _mapper.Map<AchievementForResultDto>(entity);
     }
 
-    public Task<AchievementForResultDto> ModifyAsync(long id, AchievementForUpdateDto dto)
+    public async Task<AchievementForResultDto> ModifyAsync(long id, AchievementForUpdateDto dto)
     {
-        throw new NotImplementedException();
+        var sponsor = await _repository.SelectAll()
+            .Where(r => r.IsDeleted == false && r.Id == id)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (sponsor is null)
+            throw new InnoplatformException(404, "Achievement is not found");
+
+        var mapped = _mapper.Map(dto, sponsor);
+        mapped.UpdatedAt = DateTime.UtcNow;
+
+        var result = await _repository.UpdateAsync(mapped);
+
+        return _mapper.Map<AchievementForResultDto>(result);
     }
 
-    public Task<bool> RemoveAsync(long id)
+    public async Task<bool> RemoveAsync(long id)
     {
-        throw new NotImplementedException();
+        var sponsor = await _repository.SelectAll()
+            .Where(r => r.IsDeleted == false && r.Id == id)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (sponsor is null)
+            throw new InnoplatformException(404, "Achievement is not found");
+
+        return await _repository.DeleteAsync(id);
     }
 }
