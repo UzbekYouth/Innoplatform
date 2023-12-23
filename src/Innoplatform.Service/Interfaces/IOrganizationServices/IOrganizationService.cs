@@ -10,7 +10,7 @@ namespace Innoplatform.Service.Interfaces.IOrganizationServices
         public Task<IEnumerable<OrganizationForResultDto>> GetAllAsync(PaginationParams @params);
         public Task<OrganizationForResultDto> AddAsync(OrganizationForCreationDto dto);
         public Task<OrganizationForResultDto> ModifyAsync(long id, OrganizationForUpdateDto dto);
-        public Task<bool> ChangePasswordAsync(long Id, OrganizationPasswordForChangeDto dto);
+        public Task<bool> ChangePasswordAsync(long id, OrganizationPasswordForChangeDto dto);
 
     }
 }
