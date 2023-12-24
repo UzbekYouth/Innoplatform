@@ -40,18 +40,15 @@ public class MessagingService : IMessagingService
         return _mapper.Map<MessagingForResultDto>(result);
     }
 
-  
+    public async Task<IEnumerable<MessagingForResultDto>> GetAllAsync()
+    {
+        var entities = await _repository.SelectAll()
+            .Where(e => e.IsDeleted == false)
+            .Include(e => e.Sender)
+            .ToListAsync();
 
-        public async Task<IEnumerable<MessagingForResultDto>> GetAllAsync()
-        {
-            var entities = await _repository.SelectAll()
-                .Where(e => e.IsDeleted == false)
-                .Include(e => e.Sender)
-                .ToListAsync();
-
-            return _mapper.Map<IEnumerable<MessagingForResultDto>>(entities);
-        }
-
+        return _mapper.Map<IEnumerable<MessagingForResultDto>>(entities);
+    }
 
     public async Task<MessagingForResultDto> GetByIdAsync(long id)
     {
@@ -59,6 +56,9 @@ public class MessagingService : IMessagingService
             .Where(e => e.IsDeleted == false && e.Id == id)
             .AsNoTracking()
             .FirstOrDefaultAsync();
+        if (entity == null)
+            throw new InnoplatformException(400, "Messaging is not found in this id");
+
         var mappedEntity = _mapper.Map<MessagingForResultDto>(entity);
 
         return mappedEntity;
@@ -72,7 +72,11 @@ public class MessagingService : IMessagingService
             .FirstOrDefaultAsync();
 
         if (entity == null)
+<<<<<<< HEAD
+            throw new InnoplatformException(400, "Messaging is not found in this id");
+=======
             throw new InnoplatformException(400, "Messaging is empty");
+>>>>>>> cf05122a3f1011c7eb9a6a69e84b13df35e1d55d
 
         var mappedEntity = _mapper.Map(dto, entity);
         mappedEntity.UpdatedAt = DateTime.UtcNow;
@@ -84,9 +88,12 @@ public class MessagingService : IMessagingService
     public async Task<bool> RemoveAsync(long id)
     {
         var entity = await _repository.SelectAll()
-            .Where(e => e.IsDeleted == false)
+            .Where(e => e.IsDeleted == false && e.Id == id)
             .AsNoTracking()
             .FirstOrDefaultAsync();
+
+        if (entity == null)
+            throw new InnoplatformException(400, "Messaging is not found in this id");
 
         if (entity == null)
             throw new InnoplatformException(400, "Messaging is empty");
