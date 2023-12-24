@@ -1,8 +1,10 @@
 
 using Innoplatform.Api.Extensions;
 using Innoplatform.Api.Middlewares;
+using Innoplatform.Api.Models;
 using Innoplatform.Data.DbContexts;
 using Innoplatform.Service.Helpers;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Serilog;
@@ -12,6 +14,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCustomService();
+
+//Configure api url name
+builder.Services.AddControllers(options =>
+{
+    options.Conventions.Add(new RouteTokenTransformerConvention(
+                                        new ConfigurationApiUrlName()));
+});
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddJwtService(builder.Configuration);
