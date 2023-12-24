@@ -1,12 +1,24 @@
-2023-12-23 20:50:29.237 +05:00 [Error] [Microsoft.EntityFrameworkCore.Database.Command] [{ Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }] Failed executing DbCommand ("271"ms) [Parameters=["@p0='?' (DbType = Int64), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int64), @p3='?' (DbType = Int64), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int64), @p6='?' (DbType = Boolean), @p7='?' (DbType = Int64), @p8='?' (DbType = Int32), @p9='?' (DbType = DateTime), @p10='?' (DbType = Int64)"], CommandType='Text', CommandTimeout='30']"
-""INSERT INTO \"OrganizationProjectInvestments\" (\"ApplicationId\", \"CreatedAt\", \"InvestmentAmount\", \"InvestmentAreaId\", \"InvestmentDate\", \"InvestmentId\", \"IsDeleted\", \"OrganizationId\", \"Status\", \"UpdatedAt\", \"UserId\")
-VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10)
+2023-12-24 05:34:04.165 +05:00 [Information] [System.Net.Http.HttpClient.Default.LogicalHandler] [{ Id: 100, Name: "RequestPipelineStart" }] Start processing HTTP request "POST" "https://notify.eskiz.uz/api/message/sms/send"
+
+
+2023-12-24 05:34:04.211 +05:00 [Information] [System.Net.Http.HttpClient.Default.ClientHandler] [{ Id: 100, Name: "RequestStart" }] Sending HTTP request "POST" "https://notify.eskiz.uz/api/message/sms/send"
+
+
+2023-12-24 05:34:04.472 +05:00 [Information] [System.Net.Http.HttpClient.Default.ClientHandler] [{ Id: 101, Name: "RequestEnd" }] Received HTTP response headers after 255.2957ms - 200
+
+
+2023-12-24 05:34:04.474 +05:00 [Information] [System.Net.Http.HttpClient.Default.LogicalHandler] [{ Id: 101, Name: "RequestPipelineEnd" }] End processing HTTP request after 326.7952ms - 200
+
+
+2023-12-24 05:34:23.859 +05:00 [Error] [Microsoft.EntityFrameworkCore.Database.Command] [{ Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }] Failed executing DbCommand ("301"ms) [Parameters=["@p0='?' (DbType = Decimal), @p1='?', @p2='?' (DbType = DateTime), @p3='?' (DbType = DateTime), @p4='?', @p5='?', @p6='?', @p7='?' (DbType = Boolean), @p8='?', @p9='?', @p10='?', @p11='?' (DbType = Int32), @p12='?', @p13='?' (DbType = DateTime)"], CommandType='Text', CommandTimeout='30']"
+""INSERT INTO \"Users\" (\"AccountBalance\", \"Address\", \"CreatedAt\", \"DateOfBirth\", \"Email\", \"FirstName\", \"Image\", \"IsDeleted\", \"LastName\", \"Password\", \"PhoneNumber\", \"Role\", \"Salt\", \"UpdatedAt\")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13)
 RETURNING \"Id\";"
 
 
-2023-12-23 20:50:29.256 +05:00 [Error] [Microsoft.EntityFrameworkCore.Update] [{ Id: 10000, Name: "Microsoft.EntityFrameworkCore.Update.SaveChangesFailed" }] An exception occurred in the database while saving changes for context type '"Innoplatform.Data.DbContexts.AppDbContext"'."
+2023-12-24 05:34:23.945 +05:00 [Error] [Microsoft.EntityFrameworkCore.Update] [{ Id: 10000, Name: "Microsoft.EntityFrameworkCore.Update.SaveChangesFailed" }] An exception occurred in the database while saving changes for context type '"Innoplatform.Data.DbContexts.AppDbContext"'."
 ""Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
- ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table \"OrganizationProjectInvestments\" violates foreign key constraint \"FK_OrganizationProjectInvestments_Investments_InvestmentId\"
+ ---> Npgsql.PostgresException (0x80004005): 23502: null value in column \"Image\" of relation \"Users\" violates not-null constraint
 
 DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
    at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
@@ -20,15 +32,15 @@ DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error
    at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
   Exception data:
     Severity: ERROR
-    SqlState: 23503
-    MessageText: insert or update on table \"OrganizationProjectInvestments\" violates foreign key constraint \"FK_OrganizationProjectInvestments_Investments_InvestmentId\"
+    SqlState: 23502
+    MessageText: null value in column \"Image\" of relation \"Users\" violates not-null constraint
     Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
     SchemaName: public
-    TableName: OrganizationProjectInvestments
-    ConstraintName: FK_OrganizationProjectInvestments_Investments_InvestmentId
-    File: ri_triggers.c
-    Line: 2619
-    Routine: ri_ReportViolation
+    TableName: Users
+    ColumnName: Image
+    File: execMain.c
+    Line: 2009
+    Routine: ExecConstraints
    --- End of inner exception stack trace ---
    at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
@@ -39,7 +51,7 @@ DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error
    at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)"
 Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
- ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table "OrganizationProjectInvestments" violates foreign key constraint "FK_OrganizationProjectInvestments_Investments_InvestmentId"
+ ---> Npgsql.PostgresException (0x80004005): 23502: null value in column "Image" of relation "Users" violates not-null constraint
 
 DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
    at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
@@ -53,15 +65,15 @@ DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error
    at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
   Exception data:
     Severity: ERROR
-    SqlState: 23503
-    MessageText: insert or update on table "OrganizationProjectInvestments" violates foreign key constraint "FK_OrganizationProjectInvestments_Investments_InvestmentId"
+    SqlState: 23502
+    MessageText: null value in column "Image" of relation "Users" violates not-null constraint
     Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
     SchemaName: public
-    TableName: OrganizationProjectInvestments
-    ConstraintName: FK_OrganizationProjectInvestments_Investments_InvestmentId
-    File: ri_triggers.c
-    Line: 2619
-    Routine: ri_ReportViolation
+    TableName: Users
+    ColumnName: Image
+    File: execMain.c
+    Line: 2009
+    Routine: ExecConstraints
    --- End of inner exception stack trace ---
    at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)

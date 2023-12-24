@@ -22,11 +22,12 @@ namespace Innoplatform.Service.Services.OrganizationServices
         private readonly IRepository<User> _userRepository;
         private readonly IFileUploadService _fileUploadService;
         private readonly IMapper _mapper;
-        public OrganizationService(IRepository<Organization> repository, IMapper mapper, IFileUploadService fileUploadService)
+        public OrganizationService(IRepository<Organization> repository, IMapper mapper, IFileUploadService fileUploadService, IRepository<User> userRepository)
         {
             _repository = repository;
             _mapper = mapper;
             _fileUploadService = fileUploadService;
+            _userRepository = userRepository;
         }
 
         public async Task<OrganizationForResultDto> AddAsync(OrganizationForCreationDto dto)

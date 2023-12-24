@@ -35,6 +35,8 @@ using Innoplatform.Service.DTOs.Projects;
 using Innoplatform.Service.DTOs.RecommendationAreas;
 using Innoplatform.Service.DTOs.RecommendationAsset;
 using Innoplatform.Service.DTOs.Recommendations;
+using Innoplatform.Service.DTOs.Registrations.OrganizationRegistrations;
+using Innoplatform.Service.DTOs.Registrations.UserRegistrations;
 using Innoplatform.Service.DTOs.Sponsors;
 using Innoplatform.Service.DTOs.Transactions;
 using Innoplatform.Service.DTOs.Users;
@@ -179,5 +181,16 @@ public class MappingProfile : Profile
         CreateMap<User, UserForCreationDto>().ReverseMap();
         CreateMap<User, UserForUpdateDto>().ReverseMap();
         CreateMap<User, UserForResultDto>().ReverseMap();
+
+
+        //Registration 
+        CreateMap<UserForCreationDto, UserRegistrationForCreationDto>().ReverseMap();
+        CreateMap<UserForResultDto, UserRegistrationForResultDto>().ReverseMap();
+
+        CreateMap<OrganizationForCreationDto, OrganizationRegistrationForCreationDto>().ReverseMap();
+        CreateMap<OrganizationForResultDto, OrganizationRegistrationForResultDto>().ReverseMap();
+
+
+        //
     }
 }
