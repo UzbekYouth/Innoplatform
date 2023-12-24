@@ -45,10 +45,6 @@ public class ProjectAssetService : IProjectAssetService
             FormFile = dto.File
         };
 
-        if (asset.FormFile.ContentType != "image/jpeg" && asset.FormFile.ContentType != "image/png" && asset.FormFile.ContentType != "image/jpg" && asset.FormFile.ContentType != "image/HEIC")
-        {
-            throw new InnoplatformException(400, "Image is not valid");
-        }
         var assetPath = await _fileUploadService.FileUploadAsync(asset);
         var mappedProjectAsset = _mapper.Map<ProjectAsset>(dto);
         mappedProjectAsset.File = assetPath?.AssetPath;
@@ -113,10 +109,6 @@ public class ProjectAssetService : IProjectAssetService
                 FormFile = dto.File
             };
 
-            if (asset.FormFile.ContentType != "image/jpeg" && asset.FormFile.ContentType != "image/png" && asset.FormFile.ContentType != "image/jpg" && asset.FormFile.ContentType != "image/HEIC")
-            {
-                throw new InnoplatformException(400, "Image is not valid");
-            }
 
             var assetPath = await _fileUploadService.FileUploadAsync(asset);
             mappedProjectAsset.File = assetPath?.AssetPath;
