@@ -5,7 +5,6 @@ using Innoplatform.Domain.Entities.Achievments;
 using Innoplatform.Domain.Entities.Educations;
 using Innoplatform.Domain.Entities.Investments;
 using Innoplatform.Domain.Entities.Mentors;
-using Innoplatform.Domain.Entities.Messagings;
 using Innoplatform.Domain.Entities.Organizations;
 using Innoplatform.Domain.Entities.Projects;
 using Innoplatform.Domain.Entities.Recommendations;
@@ -91,11 +90,6 @@ public class MappingProfile : Profile
         CreateMap<Mentor, MentorForCreationDto>().ReverseMap();
         CreateMap<Mentor, MentorForResultDto>().ReverseMap();
         CreateMap<Mentor, MentorForUpdateDto>().ReverseMap();
-
-        //Messaging
-        CreateMap<Messaging, MessagingForCreationDto>().ReverseMap();
-        CreateMap<Messaging, MessagingForUpdateDto>().ReverseMap();
-        CreateMap<Messaging, MessagingForResultDto>().ReverseMap();
 
         //OrganizationExtraDetail
         CreateMap<OrganizationExtraDetails, OrganizationExtraDetailForCreationDto>().ReverseMap();

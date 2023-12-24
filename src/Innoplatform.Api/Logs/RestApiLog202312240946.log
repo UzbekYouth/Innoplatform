@@ -1,0 +1,12 @@
+2023-12-24 09:46:42.541 +05:00 [Information] [System.Net.Http.HttpClient.Default.LogicalHandler] [{ Id: 100, Name: "RequestPipelineStart" }] Start processing HTTP request "GET" "https://localhost:7113/api/Users"
+
+
+2023-12-24 09:46:42.592 +05:00 [Information] [System.Net.Http.HttpClient.Default.ClientHandler] [{ Id: 100, Name: "RequestStart" }] Sending HTTP request "GET" "https://localhost:7113/api/Users"
+
+
+2023-12-24 09:46:43.476 +05:00 [Information] [System.Net.Http.HttpClient.Default.ClientHandler] [{ Id: 101, Name: "RequestEnd" }] Received HTTP response headers after 877.2371ms - 200
+
+
+2023-12-24 09:46:43.478 +05:00 [Information] [System.Net.Http.HttpClient.Default.LogicalHandler] [{ Id: 101, Name: "RequestPipelineEnd" }] End processing HTTP request after 950.6882ms - 200
+
+

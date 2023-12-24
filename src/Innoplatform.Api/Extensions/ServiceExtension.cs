@@ -25,8 +25,8 @@ using Innoplatform.Service.Services.AuthServices;
 using Innoplatform.Service.Services.EducationServices;
 using Innoplatform.Service.Services.FileUploadServices;
 using Innoplatform.Service.Services.InvestmentServices;
-using Innoplatform.Service.Services.MessagingServices;
 using Innoplatform.Service.Services.OrganizationServices;
+using Innoplatform.Service.Services.OTPServices;
 using Innoplatform.Service.Services.ProjectServices;
 using Innoplatform.Service.Services.RecommendationServices;
 using Innoplatform.Service.Services.RegistrationServices;
@@ -73,8 +73,6 @@ namespace Innoplatform.Api.Extensions
             services.AddScoped<IMentorService, MentorService>();
 
             // Messaging service
-            services.AddScoped<IMessagingService, MessagingService>();
-
             // Organization services
             services.AddScoped<IOrganizationService, OrganizationService>();
             services.AddScoped<IOrganizationInvestmentService, OrganizationInvestmentService>();
@@ -111,10 +109,14 @@ namespace Innoplatform.Api.Extensions
             //Otp
             services.AddHttpClient();
             services.AddScoped<ISmsService, SmsService>();
-
+            services.AddScoped<ISendSmsToGraduatedUserService, SendSmsToGraduatedUserService>();
+            
+            
             //Registration
             services.AddScoped<IUserRegistrationService, UserRegistrationService>();
             services.AddScoped<IOrganizationRegistrationService, OrganizationRegistrationService>();
+
+
 
             //MemoryCache
             services.AddMemoryCache();

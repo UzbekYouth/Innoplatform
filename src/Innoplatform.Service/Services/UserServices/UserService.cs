@@ -33,18 +33,13 @@ public class UserService : IUserService
     }
     public async Task<UserForResultDto> AddAsync(UserForCreationDto dto)
     {
-<<<<<<< HEAD
-        var orgChecking = await _organizationRepository.SelectAll().Where(e => e.PhoneNumber == dto.PhoneNumber && e.Email == dto.Email && e.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
-        if (orgChecking == null)
-=======
-        
+
         var orgChecking = await _organizationRepository.SelectAll()
             .Where(e => e.PhoneNumber == dto.PhoneNumber || e.Email == dto.Email && e.IsDeleted == false)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
         if (orgChecking != null)
->>>>>>> cf05122a3f1011c7eb9a6a69e84b13df35e1d55d
         {
             throw new InnoplatformException(400, "This data is exist");
         }
