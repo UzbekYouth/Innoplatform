@@ -13,7 +13,7 @@ namespace Innoplatform.Service.DTOs.ProjectInvestments
         [Required]
         public long ApplicationId { get; set; }
         [Required]
-        public long IvestmentAreaId { get; set; }
+        public long InvestmentAreaId { get; set; }
         [Required]
         public long InvestmentId { get; set; }
         [Required]

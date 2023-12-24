@@ -13,7 +13,7 @@ public class ProjectInvestment : Auditable
     public User User { get; set; }
     public long ApplicationId { get; set; }
     public Application Application { get; set; }
-    public long IvestmentAreaId { get; set; }
+    public long InvestmentAreaId { get; set; }
     public InvestmentArea InvestmentArea { get; set; }
     public long InvestmentId { get; set; }
     public Investment Investment { get; set; }

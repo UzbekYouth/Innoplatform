@@ -67,16 +67,5 @@ namespace Innoplatform.Api.Controllers.OrganizationControllers
             return Ok(response);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync([FromRoute(Name = "id")] long id, [FromBody] OrganizationInvestmentInvitationForUpdateDto dto)
-        {
-            var response = new Response()
-            {
-                StatusCode = 200,
-                Message = "Success",
-                Data = await _service.ModifyAsync(id, dto)
-            };
-            return Ok(response);
-        }
     }
 }

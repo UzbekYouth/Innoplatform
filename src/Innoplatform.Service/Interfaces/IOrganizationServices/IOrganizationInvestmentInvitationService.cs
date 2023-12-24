@@ -9,5 +9,4 @@ public interface IOrganizationInvestmentInvitationService
     public Task<OrganizationInvestmentInvitationForResultDto> GetByIdAsync(long id);
     public Task<IEnumerable<OrganizationInvestmentInvitationForResultDto>> GetAllAsync();
     public Task<OrganizationInvestmentInvitationForResultDto> AddAsync(OrganizationInvestmentInvitationForCreationDto dto);
-    public Task<OrganizationInvestmentInvitationForResultDto> ModifyAsync(long id, OrganizationInvestmentInvitationForUpdateDto dto);
 }

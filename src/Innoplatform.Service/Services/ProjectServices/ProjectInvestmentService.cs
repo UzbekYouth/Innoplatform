@@ -73,7 +73,7 @@ public class ProjectInvestmentService : IProjectInvestmentService
             throw new InnoplatformException(404, "Application not found");
 
         var investmentArea = await _investmentAreaRepository.SelectAll()
-            .Where(i => i.IsDeleted == false && i.Id == dto.IvestmentAreaId)
+            .Where(i => i.IsDeleted == false && i.Id == dto.InvestmentAreaId)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
@@ -130,45 +130,6 @@ public class ProjectInvestmentService : IProjectInvestmentService
 
     public async Task<ProjectInvestmentForResultDto> ModifyAsync(long id, ProjectInvestmentForUpdateDto dto)
     {
-        var user = await _userRepository.SelectAll()
-            .Where(u => u.IsDeleted == false && u.Id == dto.UserId)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-
-        if (user is null)
-            throw new InnoplatformException(404, "User not found");
-
-        var project = await _projectRepository.SelectAll()
-            .Where(p => p.IsDeleted == false && p.Id == dto.ProjectId)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-
-        if (project is null)
-            throw new InnoplatformException(404, "Project not found");
-
-        var investment = await _investmentRepository.SelectAll()
-            .Where(i => i.IsDeleted == false && i.Id == dto.InvestmentId)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-
-        if (investment is null)
-            throw new InnoplatformException(404, "Investment not found");
-
-        var application = await _applicationRepository.SelectAll()
-            .Where(a => a.IsDeleted == false && a.Id == dto.ApplicationId)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-
-        if (application is null)
-            throw new InnoplatformException(404, "Application not found");
-
-        var investmentArea = await _investmentAreaRepository.SelectAll()
-            .Where(i => i.IsDeleted == false && i.Id == dto.IvestmentAreaId)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-
-        if (investmentArea is null)
-            throw new InnoplatformException(404, "Investment area not found");
 
         var projectInvestment = await _projectInvestmentRepository.SelectAll()
             .Where(p => p.IsDeleted == false && p.Id == id)
