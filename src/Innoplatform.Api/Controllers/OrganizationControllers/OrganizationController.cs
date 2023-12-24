@@ -69,7 +69,7 @@ namespace Innoplatform.Api.Controllers.OrganizationControllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync([FromForm(Name = "id")] long id, [FromBody] OrganizationForUpdateDto dto)
+        public async Task<IActionResult> PutAsync([FromRoute(Name = "id")] long id, [FromForm] OrganizationForUpdateDto dto)
         {
             var response = new Response()
             {

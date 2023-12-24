@@ -1,6 +1,0 @@
-2023-12-24 09:57:43.224 +05:00 [Information] [System.Net.Http.HttpClient.Default.LogicalHandler] [{ Id: 100, Name: "RequestPipelineStart" }] Start processing HTTP request "GET" "https://localhost:7113/api/Users"
-
-
-2023-12-24 09:57:43.228 +05:00 [Information] [System.Net.Http.HttpClient.Default.ClientHandler] [{ Id: 100, Name: "RequestStart" }] Sending HTTP request "GET" "https://localhost:7113/api/Users"
-
-
