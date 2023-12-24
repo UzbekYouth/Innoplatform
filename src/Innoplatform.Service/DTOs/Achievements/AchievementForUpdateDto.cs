@@ -13,6 +13,6 @@ namespace Innoplatform.Service.DTOs.AchievementAssets
     {
         [Required]
         public string Title { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
     }
 }

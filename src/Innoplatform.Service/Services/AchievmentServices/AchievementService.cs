@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Innoplatform.Data.IRepositories;
+using Innoplatform.Domain.Entities.About;
 using Innoplatform.Domain.Entities.Achievments;
 using Innoplatform.Service.DTOs.AchievementAssets;
 using Innoplatform.Service.Exceptions;
@@ -36,6 +37,8 @@ public class AchievementService : IAchievementService
     {
         var entities = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)
+            .Include(e => e.AchievementAssets)
+            .AsNoTracking()
             .ToListAsync();
 
         return _mapper.Map<IEnumerable<AchievementForResultDto>>(entities);
@@ -45,6 +48,7 @@ public class AchievementService : IAchievementService
     {
         var entity = await _repository.SelectAll()
             .Where(r => r.IsDeleted == false && r.Id == id)
+            .Include(r => r.AchievementAssets)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
@@ -74,13 +78,21 @@ public class AchievementService : IAchievementService
 
     public async Task<bool> RemoveAsync(long id)
     {
-        var sponsor = await _repository.SelectAll()
+        var achievement = await _repository.SelectAll()
             .Where(r => r.IsDeleted == false && r.Id == id)
-            .AsNoTracking()
+            .Include(r => r.AchievementAssets)
             .FirstOrDefaultAsync();
 
-        if (sponsor is null)
+        if (achievement is null)
             throw new InnoplatformException(404, "Achievement is not found");
+
+        foreach (var relatedEntity in achievement.AchievementAssets)
+        {
+            if (relatedEntity.Media != null)
+            {
+                relatedEntity.IsDeleted = true;
+            }
+        }
 
         return await _repository.DeleteAsync(id);
     }

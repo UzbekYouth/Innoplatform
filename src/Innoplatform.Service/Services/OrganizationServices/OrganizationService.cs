@@ -22,22 +22,23 @@ namespace Innoplatform.Service.Services.OrganizationServices
         private readonly IRepository<User> _userRepository;
         private readonly IFileUploadService _fileUploadService;
         private readonly IMapper _mapper;
-        public OrganizationService(IRepository<Organization> repository, IMapper mapper, IFileUploadService fileUploadService)
+        public OrganizationService(IRepository<Organization> repository, IMapper mapper, IFileUploadService fileUploadService, IRepository<User> userRepository)
         {
             _repository = repository;
             _mapper = mapper;
             _fileUploadService = fileUploadService;
+            _userRepository = userRepository;
         }
 
         public async Task<OrganizationForResultDto> AddAsync(OrganizationForCreationDto dto)
         {
-            var UserPhoneChecking = await _userRepository.SelectAll().Where(e => e.PhoneNumber == dto.PhoneNumber && e.Email == dto.Email && e.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
-            if (UserPhoneChecking == null)
+            var UserPhoneChecking = await _userRepository.SelectAll().Where(e => e.PhoneNumber == dto.PhoneNumber || e.Email == dto.Email && e.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
+            if (UserPhoneChecking != null)
             {
                 throw new InnoplatformException(400, "This Data is exist");
             }
             var Checking = await _repository.SelectAll()
-                .Where(o => o.Email == dto.Email && o.UserName == dto.UserName && o.CallCenter == dto.CallCenter && o.Name == dto.Name && o.IsDeleted == false)
+                .Where(o => (o.Email == dto.Email || o.PhoneNumber == dto.PhoneNumber) && o.IsDeleted == false)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
 

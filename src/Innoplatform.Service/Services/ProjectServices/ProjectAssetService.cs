@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Innoplatform.Data.IRepositories;
 using Innoplatform.Domain.Entities;
+using Innoplatform.Domain.Entities.About;
 using Innoplatform.Domain.Entities.Projects;
 using Innoplatform.Service.DTOs.Assets;
 using Innoplatform.Service.DTOs.ProjectAssets;
@@ -132,6 +133,7 @@ public class ProjectAssetService : IProjectAssetService
 
         if (projectAsset is null)
             throw new InnoplatformException(404, "Project asset not found");
+
         if(projectAsset.File != null)
         {
             await _fileUploadService.DeleteFileAsync(projectAsset.File);

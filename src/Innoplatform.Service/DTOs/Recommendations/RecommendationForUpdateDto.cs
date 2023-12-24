@@ -11,5 +11,5 @@ public class RecommendationForUpdateDto
     public IFormFile Image { get; set; }
     [Required]
     public long RecommendationAreaId { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
 }

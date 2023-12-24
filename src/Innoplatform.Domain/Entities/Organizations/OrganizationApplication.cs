@@ -13,7 +13,7 @@ namespace Innoplatform.Domain.Entities.Organizations
         public Project Project { get; set; }
         public long OrganizationId { get; set; }
         public Organization Organization { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public ApplicationStatus Status { get; set; }
         public DateTime ApplicationDate { get; set; }
         public decimal ProposedInvestmentAmount { get; set; }

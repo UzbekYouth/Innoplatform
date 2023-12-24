@@ -56,6 +56,7 @@ public class AboutUsAssetService : IAboutUsAssetService
     {
         var entities = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)
+            .AsNoTracking()
             .ToListAsync();
 
         return _mapper.Map<IEnumerable<AboutUsAssetForResultDto>>(entities);

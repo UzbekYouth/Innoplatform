@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Innoplatform.Data.IRepositories;
 using Innoplatform.Domain.Entities.About;
+using Innoplatform.Domain.Entities.Recommendations;
 using Innoplatform.Service.DTOs.AboutUses;
 using Innoplatform.Service.Exceptions;
 using Innoplatform.Service.Interfaces.IAboutServices;
@@ -81,11 +82,19 @@ public class AboutUsService : IAboutUsService
     {
         var aboutUs = await this._repository.SelectAll()
             .Where(e => e.IsDeleted == false && e.Id == id)
-            .AsNoTracking()
+            .Include(e => e.AboutUsAssets)
             .FirstOrDefaultAsync();
 
         if (aboutUs is null)
             throw new InnoplatformException(409, "aboutUs is not found in this Id");
+
+        foreach (var relatedEntity in aboutUs.AboutUsAssets)
+        {
+            if (relatedEntity.Image != null)
+            {
+                relatedEntity.IsDeleted = true;
+            }
+        }
 
         return await _repository.DeleteAsync(id);
     }

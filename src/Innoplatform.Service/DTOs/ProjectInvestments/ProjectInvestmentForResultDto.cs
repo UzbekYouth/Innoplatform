@@ -13,10 +13,15 @@ namespace Innoplatform.Service.DTOs.ProjectInvestments
     public class ProjectInvestmentForResultDto
     {
         public long Id { get; set; }
+        public long ProjectId { get; set; }
         public ProjectForResultDto Project { get; set; }
+        public long UserId { get; set; }
         public UserForResultDto User { get; set; }
+        public long ApplicationId { get; set; }
         public ApplicationForResultDto Application { get; set; }
+        public long InvestmentAreaId { get; set; }
         public InvestmentAreaForResultDto InvestmentArea { get; set; }
+        public long InvestmentId { get; set; }
         public InvestmentForResultDto Investment { get; set; }
         public decimal InvestmentAmount { get; set; }
         public ProjectInvestmentStatus Status { get; set; }

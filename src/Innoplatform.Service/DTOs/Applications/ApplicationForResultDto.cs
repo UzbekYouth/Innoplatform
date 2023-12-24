@@ -12,9 +12,13 @@ namespace Innoplatform.Service.DTOs.Applications
     public class ApplicationForResultDto
     {
         public long Id { get; set; }
+        public long UserId { get; set; }
         public UserForResultDto User { get; set; }
+        public long ProjectId { get; set; }
         public ProjectForResultDto Project { get; set; }
+        public long InvestmentId { get; set; }
         public InvestmentForResultDto Investment { get; set; }
+        public long InvestmentAreaId { get; set; }
         public InvestmentAreaForResultDto InvestmentArea { get; set; }
         public ApplicationStatus Status { get; set; }
         public decimal ProposedInvestmentAmount { get; set; }

@@ -10,8 +10,8 @@ public class OrganizationForUpdateDto
     public string Name { get; set; }
     [Required]
     public IFormFile ImagePath { get; set; }
-    public string Description { get; set; }
-    public string CallCenter { get; set; }
+    public string? Description { get; set; }
+    public string? CallCenter { get; set; }
     [Required]
     public string Address { get; set; }
 }

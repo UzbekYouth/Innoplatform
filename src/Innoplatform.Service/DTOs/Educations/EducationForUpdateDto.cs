@@ -12,6 +12,6 @@ public class EducationForUpdateDto
     public IFormFile Image { get; set; }
     [Required]
     public string PhoneNumber { get; set; }
-    public string Latitude { get; set; }
-    public string Longitude { get; set; }
+    public string? Latitude { get; set; }
+    public string? Longitude { get; set; }
 }
