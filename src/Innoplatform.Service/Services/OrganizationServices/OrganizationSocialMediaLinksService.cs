@@ -133,7 +133,10 @@ namespace Innoplatform.Service.Services.OrganizationServices
 
         public async Task<bool> RemoveAsync(long id)
         {
-            var existingLink = await _repository.SelectAll().Where(o => o.Id == id).FirstOrDefaultAsync();
+            var existingLink = await _repository.SelectAll()
+                .Where(o => o.Id == id  && o.IsDeleted == false)
+                .FirstOrDefaultAsync();
+
             if (existingLink == null)
             {
                 throw new InnoplatformException(404, "Not Found");

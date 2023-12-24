@@ -1,24 +1,21 @@
-2023-12-24 05:30:59.726 +05:00 [Error] [Microsoft.EntityFrameworkCore.Database.Command] [{ Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }] Failed executing DbCommand ("26,591"ms) [Parameters=["@__dto_Title_0='?'"], CommandType='Text', CommandTimeout='30']"
-""SELECT s.\"Id\", s.\"CreatedAt\", s.\"Description\", s.\"Image\", s.\"IsDeleted\", s.\"Title\", s.\"UpdatedAt\"
-FROM \"Sponsors\" AS s
-WHERE NOT (s.\"IsDeleted\") AND s.\"Title\" = @__dto_Title_0
+2023-12-24 06:53:39.819 +05:00 [Error] [Microsoft.EntityFrameworkCore.Database.Command] [{ Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }] Failed executing DbCommand ("22,568"ms) [Parameters=["@__id_0='?' (DbType = Int64)"], CommandType='Text', CommandTimeout='30']"
+""SELECT o.\"Id\", o.\"CreatedAt\", o.\"Description\", o.\"InvestmentArea\", o.\"IsDeleted\", o.\"Latitude\", o.\"Longitude\", o.\"MaximumInvestmentAmount\", o.\"MinimumInvestmentAmount\", o.\"OrganizationId\", o.\"Status\", o.\"Title\", o.\"UpdatedAt\"
+FROM \"OrganizationInvestments\" AS o
+WHERE o.\"Id\" = @__id_0 AND NOT (o.\"IsDeleted\")
 LIMIT 1"
 
 
-2023-12-24 05:30:59.739 +05:00 [Error] [Microsoft.EntityFrameworkCore.Query] [{ Id: 10100, Name: "Microsoft.EntityFrameworkCore.Query.QueryIterationFailed" }] An exception occurred while iterating over the results of a query for context type '"Innoplatform.Data.DbContexts.AppDbContext"'."
+2023-12-24 06:53:39.949 +05:00 [Error] [Microsoft.EntityFrameworkCore.Query] [{ Id: 10100, Name: "Microsoft.EntityFrameworkCore.Query.QueryIterationFailed" }] An exception occurred while iterating over the results of a query for context type '"Innoplatform.Data.DbContexts.AppDbContext"'."
 ""System.InvalidOperationException: An exception has been raised that is likely due to a transient failure.
  ---> Npgsql.NpgsqlException (0x80004005): Exception while reading from stream
  ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host..
  ---> System.Net.Sockets.SocketException (10054): An existing connection was forcibly closed by the remote host.
    at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.CreateException(SocketError error, Boolean forAsyncThrow)
    at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ReceiveAsync(Socket socket, CancellationToken cancellationToken)
-   at System.Net.Sockets.Socket.ReceiveAsync(Memory`1 buffer, SocketFlags socketFlags, Boolean fromNetworkStream, CancellationToken cancellationToken)
    at System.Net.Sockets.NetworkStream.ReadAsync(Memory`1 buffer, CancellationToken cancellationToken)
    at Npgsql.Internal.NpgsqlReadBuffer.<Ensure>g__EnsureLong|42_0(NpgsqlReadBuffer buffer, Int32 count, Boolean async, Boolean readingNotifications)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
    at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
    at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
    at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.InvokeContinuation(Action`1 continuation, Object state, Boolean forceAsync, Boolean requiresExecutionContextFlow)
    at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.OnCompleted(SocketAsyncEventArgs _)
    at System.Net.Sockets.SocketAsyncEventArgs.<>c.<.cctor>b__176_0(UInt32 errorCode, UInt32 numBytes, NativeOverlapped* nativeOverlapped)
@@ -48,13 +45,10 @@ System.InvalidOperationException: An exception has been raised that is likely du
  ---> System.Net.Sockets.SocketException (10054): An existing connection was forcibly closed by the remote host.
    at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.CreateException(SocketError error, Boolean forAsyncThrow)
    at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ReceiveAsync(Socket socket, CancellationToken cancellationToken)
-   at System.Net.Sockets.Socket.ReceiveAsync(Memory`1 buffer, SocketFlags socketFlags, Boolean fromNetworkStream, CancellationToken cancellationToken)
    at System.Net.Sockets.NetworkStream.ReadAsync(Memory`1 buffer, CancellationToken cancellationToken)
    at Npgsql.Internal.NpgsqlReadBuffer.<Ensure>g__EnsureLong|42_0(NpgsqlReadBuffer buffer, Int32 count, Boolean async, Boolean readingNotifications)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
    at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
    at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
    at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.InvokeContinuation(Action`1 continuation, Object state, Boolean forceAsync, Boolean requiresExecutionContextFlow)
    at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.OnCompleted(SocketAsyncEventArgs _)
    at System.Net.Sockets.SocketAsyncEventArgs.<>c.<.cctor>b__176_0(UInt32 errorCode, UInt32 numBytes, NativeOverlapped* nativeOverlapped)
@@ -80,19 +74,16 @@ System.InvalidOperationException: An exception has been raised that is likely du
    at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
 
 
-2023-12-24 05:30:59.956 +05:00 [Error] [Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare] [] System.InvalidOperationException: An exception has been raised that is likely due to a transient failure.
+2023-12-24 06:53:59.505 +05:00 [Error] [Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare] [] System.InvalidOperationException: An exception has been raised that is likely due to a transient failure.
  ---> Npgsql.NpgsqlException (0x80004005): Exception while reading from stream
  ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host..
  ---> System.Net.Sockets.SocketException (10054): An existing connection was forcibly closed by the remote host.
    at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.CreateException(SocketError error, Boolean forAsyncThrow)
    at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ReceiveAsync(Socket socket, CancellationToken cancellationToken)
-   at System.Net.Sockets.Socket.ReceiveAsync(Memory`1 buffer, SocketFlags socketFlags, Boolean fromNetworkStream, CancellationToken cancellationToken)
    at System.Net.Sockets.NetworkStream.ReadAsync(Memory`1 buffer, CancellationToken cancellationToken)
    at Npgsql.Internal.NpgsqlReadBuffer.<Ensure>g__EnsureLong|42_0(NpgsqlReadBuffer buffer, Int32 count, Boolean async, Boolean readingNotifications)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
    at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
    at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
    at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.InvokeContinuation(Action`1 continuation, Object state, Boolean forceAsync, Boolean requiresExecutionContextFlow)
    at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.OnCompleted(SocketAsyncEventArgs _)
    at System.Net.Sockets.SocketAsyncEventArgs.<>c.<.cctor>b__176_0(UInt32 errorCode, UInt32 numBytes, NativeOverlapped* nativeOverlapped)
@@ -118,8 +109,8 @@ System.InvalidOperationException: An exception has been raised that is likely du
    at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
    at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
-   at Innoplatform.Service.Services.SponsorServices.SponsorService.AddAsync(SponsorForCreationDto dto) in C:\Users\sardorbek\Desktop\Hackaton\Innoplatform\src\Innoplatform.Service\Services\SponsorServices\SponsorService.cs:line 31
-   at Innoplatform.Api.Controllers.SponsorControllers.SponsorsController.AddAsync(SponsorForCreationDto dto) in C:\Users\sardorbek\Desktop\Hackaton\Innoplatform\src\Innoplatform.Api\Controllers\SponsorControllers\SponsorsController.cs:line 45
+   at Innoplatform.Service.Services.OrganizationServices.OrganizationInvestmentService.RemoveAsync(Int64 id) in C:\Users\sardorbek\Desktop\Hackaton\Innoplatform\src\Innoplatform.Service\Services\OrganizationServices\OrganizationInvestmentService.cs:line 102
+   at Innoplatform.Api.Controllers.OrganizationControllers.OrganizationInvestmentController.DeleteAsync(Int64 id)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
@@ -131,7 +122,7 @@ System.InvalidOperationException: An exception has been raised that is likely du
    at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
    at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
    at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
-   at Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare.Invoke(HttpContext context) in C:\Users\sardorbek\Desktop\Hackaton\Innoplatform\src\Innoplatform.Api\Middlewares\ExceptionHandlerMiddleWare.cs:line 21
+   at Innoplatform.Api.Middlewares.ExceptionHandlerMiddleWare.Invoke(HttpContext context)
 
 
 
