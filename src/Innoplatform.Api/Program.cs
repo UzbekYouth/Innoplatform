@@ -1,36 +1,71 @@
 
-namespace Innoplatform.Api
+using Innoplatform.Api.Extensions;
+using Innoplatform.Api.Middlewares;
+using Innoplatform.Api.Models;
+using Innoplatform.Data.DbContexts;
+using Innoplatform.Service.Helpers;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Serilog;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddCustomService();
+
+//Configure api url name
+builder.Services.AddControllers(options =>
 {
-    public class Program
+    options.Conventions.Add(new RouteTokenTransformerConvention(
+                                        new ConfigurationApiUrlName()));
+});
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddJwtService(builder.Configuration);
+builder.Services.AddSwaggerService();
+
+//DB
+
+builder.Services.AddDbContext<AppDbContext>(option
+=> option.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
     {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
-            // Add services to the container.
+// Logger
+var logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+//Cycle solution
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
-            var app = builder.Build();
+var app = builder.Build();
+WebEnvironmentHost.WebRootPath = Path.GetFullPath("wwwroot");
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-
-            app.MapControllers();
-
-            app.Run();
-        }
-    }
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+app.UseCors("AllowAll");
+app.UseHttpsRedirection();
+app.UseMiddleware<ExceptionHandlerMiddleWare>();
+app.UseStaticFiles();
+app.UseAuthorization();
+app.MapControllers();
+app.Run();
