@@ -8,6 +8,6 @@ namespace Innoplatform.Domain.Entities.Mentors
         public string LastName { get; set; }
         public string Image { get; set; }
         public string Position { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
     }
 }

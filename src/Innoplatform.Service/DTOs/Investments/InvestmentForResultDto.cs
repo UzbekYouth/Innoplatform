@@ -8,7 +8,9 @@ namespace Innoplatform.Service.DTOs.Investments;
 public class InvestmentForResultDto
 {
     public long Id { get; set; }
+    public long InvestmentAreaId { get; set; }
     public InvestmentAreaForResultDto InvestmentArea { get; set; }
+    public long UserId { get; set; }
     public UserForResultDto User { get; set; }
     public string Title { get; set; }
     public string Latitude { get; set; }

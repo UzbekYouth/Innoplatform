@@ -3,6 +3,7 @@ using System;
 using Innoplatform.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Innoplatform.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231223210836_RecFluentMigration")]
+    partial class RecFluentMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1040,6 +1043,7 @@ namespace Innoplatform.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Image")
@@ -1176,7 +1180,7 @@ namespace Innoplatform.Data.Migrations
             modelBuilder.Entity("Innoplatform.Domain.Entities.Achievments.AchievementAsset", b =>
                 {
                     b.HasOne("Innoplatform.Domain.Entities.Achievments.Achievement", "Achievement")
-                        .WithMany("AchievementAssets")
+                        .WithMany()
                         .HasForeignKey("AchievementId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1385,7 +1389,7 @@ namespace Innoplatform.Data.Migrations
             modelBuilder.Entity("Innoplatform.Domain.Entities.Projects.ProjectAsset", b =>
                 {
                     b.HasOne("Innoplatform.Domain.Entities.Projects.Project", "Project")
-                        .WithMany("ProjectAssets")
+                        .WithMany()
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1499,16 +1503,6 @@ namespace Innoplatform.Data.Migrations
             modelBuilder.Entity("Innoplatform.Domain.Entities.About.AboutUs", b =>
                 {
                     b.Navigation("AboutUsAssets");
-                });
-
-            modelBuilder.Entity("Innoplatform.Domain.Entities.Achievments.Achievement", b =>
-                {
-                    b.Navigation("AchievementAssets");
-                });
-
-            modelBuilder.Entity("Innoplatform.Domain.Entities.Projects.Project", b =>
-                {
-                    b.Navigation("ProjectAssets");
                 });
 
             modelBuilder.Entity("Innoplatform.Domain.Entities.Recommendations.Recommendation", b =>

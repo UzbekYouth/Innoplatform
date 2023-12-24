@@ -9,5 +9,5 @@ public class SponsorForUpdateDto
     public string Title { get; set; }
     [Required]
     public IFormFile Image { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
 }

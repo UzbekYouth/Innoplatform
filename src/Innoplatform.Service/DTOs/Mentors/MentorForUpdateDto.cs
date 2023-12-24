@@ -16,7 +16,8 @@ namespace Innoplatform.Service.DTOs.Mentors
         public string LastName { get; set; }
         [Required]
         public IFormFile Image { get; set; }
+        [Required]
         public string Position { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
     }
 }

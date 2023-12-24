@@ -10,13 +10,13 @@ public class OrganizationForCreationDto
     public string Name { get; set; }
     [Required]
     public IFormFile ImagePath { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
     [Required]
     public string PhoneNumber { get; set; }
-    public string CallCenter { get; set; }
+    public string? CallCenter { get; set; }
     [EmailAddress]
     public string Email { get; set; }
-    public string UserName { get; set; }
+    public string? UserName { get; set; }
     [Required]
     public string Password { get; set; }
     [Required]
