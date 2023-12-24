@@ -8,5 +8,6 @@ public class Recommendation : Auditable
     public string Image { get; set; }
     public long RecommendationAreaId { get; set; }
     public RecommendationArea RecommendationArea { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
+    public IEnumerable<RecommendationAsset> RecommendationAssets { get; set; }
 }

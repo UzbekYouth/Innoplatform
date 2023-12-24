@@ -1,34 +1,48 @@
 ﻿using AutoMapper;
-using Innoplatform.Data.IRepositories;
-using Innoplatform.Domain.Entities.Organizations;
-using Innoplatform.Service.DTOs.Assets;
-using Innoplatform.Service.DTOs.OrganizationSocialMediaLinks;
+using Microsoft.EntityFrameworkCore;
 using Innoplatform.Service.Exceptions;
+using Innoplatform.Data.IRepositories;
+using Innoplatform.Service.DTOs.Assets;
+using Innoplatform.Domain.Entities.Organizations;
 using Innoplatform.Service.Interfaces.IFileUploadServices;
 using Innoplatform.Service.Interfaces.IOrganizationServices;
-using Microsoft.EntityFrameworkCore;
+using Innoplatform.Service.DTOs.OrganizationSocialMediaLinks;
 
 namespace Innoplatform.Service.Services.OrganizationServices
 {
     public class OrganizationSocialMediaLinksService : IOrganizationSocialMediaLinkService
     {
-        private readonly IRepository<OrganizationSocialMediaLink> _repository;
         private readonly IMapper _mapper;
         private readonly IFileUploadService _fileUploadService;
+        private readonly IRepository<Organization> _organizationRepository;
+        private readonly IRepository<OrganizationSocialMediaLink> _repository;
 
         public OrganizationSocialMediaLinksService(
-            IRepository<OrganizationSocialMediaLink> repository,
+
             IMapper mapper,
-            IFileUploadService fileUploadService)
+            IFileUploadService fileUploadService,
+            IRepository<Organization> organizationRepository,
+            IRepository<OrganizationSocialMediaLink> repository)
         {
-            _repository = repository;
             _mapper = mapper;
+            _repository = repository;
             _fileUploadService = fileUploadService;
+            _organizationRepository = organizationRepository;
         }
 
         public async Task<OrganizationSocialMediaLinkForResultDto> AddAsync(OrganizationSocialMediaLinkForCreationDto dto)
         {
-            var existingLink = await _repository.SelectAll().Where(o => o.OrganizationId == dto.OrganizationId && o.Title == dto.Title && o.Url == dto.Url && o.IsDeleted == false).FirstOrDefaultAsync();
+            var organization = await _organizationRepository.SelectAll()
+                .Where(o => o.Id == dto.OrganizationId && o.IsDeleted == false)
+                .FirstOrDefaultAsync();
+
+            if (organization == null)
+                throw new InnoplatformException(404, "Not Found");
+            
+            var existingLink = await _repository.SelectAll()
+                .Where(o => o.OrganizationId == dto.OrganizationId && o.Title == dto.Title && o.Url == dto.Url && o.IsDeleted == false)
+                .FirstOrDefaultAsync();
+
             if (existingLink != null)
             {
                 throw new InnoplatformException(404, "This Social Media Link is exist");
@@ -75,11 +89,20 @@ namespace Innoplatform.Service.Services.OrganizationServices
 
         public async Task<OrganizationSocialMediaLinkForResultDto> ModifyAsync(long id, OrganizationSocialMediaLinkForUpdateDto dto)
         {
-            var existingLink = await _repository.SelectAll().Where(o => o.Id == id && o.IsDeleted == false).FirstOrDefaultAsync();
+            var existingLink = await _repository.SelectAll()
+                .Where(o => o.Id == id && o.IsDeleted == false)
+                .FirstOrDefaultAsync();
             if (existingLink == null)
             {
                 throw new InnoplatformException(404, "Not Found");
             }
+
+            var organization = await _organizationRepository.SelectAll()
+                .Where(o => o.Id == dto.OrganizationId && o.IsDeleted == false)
+                .FirstOrDefaultAsync();
+
+            if (organization == null)
+                throw new InnoplatformException(404, "Not Found");
 
             // Update properties
             existingLink.Title = dto.Title;

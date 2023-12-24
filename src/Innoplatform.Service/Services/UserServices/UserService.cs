@@ -23,41 +23,54 @@ public class UserService : IUserService
     public UserService(
         IMapper mapper,
         IRepository<User> userRepository,
-        IFileUploadService fileUploadService)
+        IFileUploadService fileUploadService,
+        IRepository<Organization> organizationRepository)
     {
         _mapper = mapper;
         _userRepository = userRepository;
         _fileUploadService = fileUploadService;
+        _organizationRepository = organizationRepository;
     }
     public async Task<UserForResultDto> AddAsync(UserForCreationDto dto)
     {
+<<<<<<< HEAD
         var orgChecking = await _organizationRepository.SelectAll().Where(e => e.PhoneNumber == dto.PhoneNumber && e.Email == dto.Email && e.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
         if (orgChecking == null)
+=======
+        
+        var orgChecking = await _organizationRepository.SelectAll()
+            .Where(e => e.PhoneNumber == dto.PhoneNumber || e.Email == dto.Email && e.IsDeleted == false)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (orgChecking != null)
+>>>>>>> cf05122a3f1011c7eb9a6a69e84b13df35e1d55d
         {
             throw new InnoplatformException(400, "This data is exist");
         }
         var user = await _userRepository.SelectAll()
-            .Where(u => u.IsDeleted == false && u.Email == dto.Email && u.PhoneNumber == dto.PhoneNumber)
+            .Where(u => u.IsDeleted == false && (u.Email == dto.Email || u.PhoneNumber == dto.PhoneNumber))
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
         if (user is not null)
             throw new InnoplatformException(409, "User with this email or phone number already exists");
 
-        var asset = new AssetForCreationDto
-        {
-            FolderPath = "Users",
-            FormFile = dto.Image
-        };
-
-        var assetPath = await _fileUploadService.FileUploadAsync(asset);
-
         var mappedUser = _mapper.Map<User>(dto);
+        if(dto.Image != null)
+        {
+            var asset = new AssetForCreationDto
+            {
+                FolderPath = "Users",
+                FormFile = dto.Image
+            };
+            var assetPath = await _fileUploadService.FileUploadAsync(asset);
+            mappedUser.Image = assetPath?.AssetPath;
+        }
+
         var HashedPassword = PasswordHelper.Hash(dto.Password);
         mappedUser.Password = HashedPassword.Hash;
         mappedUser.Salt = HashedPassword.Salt;
-
-        mappedUser.Image = assetPath?.AssetPath;
 
         var createdUser = await _userRepository.CreateAsync(mappedUser);
 

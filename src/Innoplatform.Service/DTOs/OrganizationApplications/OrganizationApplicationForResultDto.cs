@@ -14,7 +14,10 @@ public class OrganizationApplicationForResultDto
     public ProjectForResultDto Project { get; set; }
     public long OrganizationId { get; set; }
     public OrganizationForResultDto Organization { get; set; }
+<<<<<<< HEAD
 
+=======
+>>>>>>> cf05122a3f1011c7eb9a6a69e84b13df35e1d55d
     public string Description { get; set; }
     public ApplicationStatus Status { get; set; }
     public DateTime ApplicationDate { get; set; }

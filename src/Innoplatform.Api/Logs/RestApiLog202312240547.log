@@ -1,0 +1,12 @@
+2023-12-24 05:47:47.295 +05:00 [Information] [System.Net.Http.HttpClient.Default.LogicalHandler] [{ Id: 100, Name: "RequestPipelineStart" }] Start processing HTTP request "POST" "https://notify.eskiz.uz/api/message/sms/send"
+
+
+2023-12-24 05:47:47.404 +05:00 [Information] [System.Net.Http.HttpClient.Default.ClientHandler] [{ Id: 100, Name: "RequestStart" }] Sending HTTP request "POST" "https://notify.eskiz.uz/api/message/sms/send"
+
+
+2023-12-24 05:47:47.755 +05:00 [Information] [System.Net.Http.HttpClient.Default.ClientHandler] [{ Id: 101, Name: "RequestEnd" }] Received HTTP response headers after 338.7268ms - 200
+
+
+2023-12-24 05:47:47.760 +05:00 [Information] [System.Net.Http.HttpClient.Default.LogicalHandler] [{ Id: 101, Name: "RequestPipelineEnd" }] End processing HTTP request after 491.0298ms - 200
+
+

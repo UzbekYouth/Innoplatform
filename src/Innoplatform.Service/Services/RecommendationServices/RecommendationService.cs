@@ -40,12 +40,12 @@ public class RecommendationService : IRecommendationService
             throw new InnoplatformException(404, "Recommendation area not found");
 
         var recommendation = await _recommendationRepository.SelectAll()
-            .Where(r => r.IsDeleted == false && r.RecommendationAreaId == dto.RecommendationAreaId)
+            .Where(r => r.IsDeleted == false && r.Title.ToLower() == dto.Title.ToLower())
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
         if (recommendation is not null)
-            throw new InnoplatformException(409, "Recommendation area already has a recommendation");
+            throw new InnoplatformException(409, "Recommendation  already exist");
 
         var asset = new AssetForCreationDto
         {
@@ -69,6 +69,7 @@ public class RecommendationService : IRecommendationService
         var recommendations = await _recommendationRepository.SelectAll()
             .Where(r => r.IsDeleted == false)
             .Include(r => r.RecommendationArea)
+            .Include(a => a.RecommendationAssets)
             .AsNoTracking()
             .ToListAsync();
 
@@ -80,6 +81,7 @@ public class RecommendationService : IRecommendationService
         var recommendation = await _recommendationRepository.SelectAll()
             .Where(r => r.IsDeleted == false && r.Id == id)
             .Include(r => r.RecommendationArea)
+            .Include(a => a.RecommendationAssets)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
@@ -141,6 +143,7 @@ public class RecommendationService : IRecommendationService
     {
         var recommendation = await _recommendationRepository.SelectAll()
             .Where(r => r.IsDeleted == false && r.Id == id)
+            .Include(r => r.RecommendationAssets)
             .FirstOrDefaultAsync();
 
         if (recommendation is null)
@@ -151,6 +154,13 @@ public class RecommendationService : IRecommendationService
             await _fileUploadService.DeleteFileAsync(recommendation.Image);
         }
 
+        foreach (var relatedEntity in recommendation.RecommendationAssets)
+        {
+            if(relatedEntity.Media != null)
+            {
+                relatedEntity.IsDeleted = true;
+            }
+        }
         return await _recommendationRepository.DeleteAsync(id);
     }
 }

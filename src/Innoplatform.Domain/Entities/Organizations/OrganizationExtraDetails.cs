@@ -7,6 +7,6 @@ namespace Innoplatform.Domain.Entities.Organizations
         public long OrganizationId { get; set; }
         public Organization Organization { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
     }
 }

@@ -73,7 +73,22 @@ namespace Innoplatform.Data.DbContexts
         //Education
         public DbSet<Education> Educations { get; set; }
 
-        
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Recommendation>()
+            .HasMany(r => r.RecommendationAssets)
+            .WithOne(ra => ra.Recommendation)
+            .HasForeignKey(ra => ra.RecommendationId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<AboutUs>()
+                .HasMany(a => a.AboutUsAssets)
+                .WithOne(aa => aa.AboutUs)
+                .HasForeignKey(aa => aa.AboutUsId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+        }
 
     }
 }

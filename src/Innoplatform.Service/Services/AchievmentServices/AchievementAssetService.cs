@@ -16,25 +16,29 @@ public class AchievementAssetService : IAchievementAssetService
 {
     private readonly IMapper _mapper;
     private readonly IRepository<AchievementAsset> _repository;
+    private readonly IRepository<Achievement> _achievementRepository;
     private readonly IFileUploadService _fileUploadService;
 
     public AchievementAssetService(
         IRepository<AchievementAsset> repository,
         IMapper mapper,
-        IFileUploadService fileUploadService)
+        IFileUploadService fileUploadService,
+        IRepository<Achievement> achievementRepository)
     {
         _repository = repository;
         _mapper = mapper;
         _fileUploadService = fileUploadService;
+        _achievementRepository = achievementRepository;
     }
 
     public async Task<AchievementAssetsForResultDto> AddAsync(AchievmentAssetsForCreationDto dto)
     {
-        var existAsset = await _repository.SelectAll()
-           .Where(ea => ea.AchievementId == dto.AchievementId && ea.IsDeleted == false)
-           .AsNoTracking()
-           .FirstOrDefaultAsync();
-        if (existAsset is null)
+        var existAchievement = await _achievementRepository.SelectAll()
+            .Where(ea => ea.Id == dto.AchievementId && ea.IsDeleted == false)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (existAchievement is null)
             throw new InnoplatformException(400, "Achievement is not found in this Id");
 
         var asset = new AssetForCreationDto
@@ -57,7 +61,6 @@ public class AchievementAssetService : IAchievementAssetService
     {
         var entites = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false)
-            .Include(e => e.Achievement)
             .AsNoTracking()
             .ToListAsync();
 
@@ -69,7 +72,6 @@ public class AchievementAssetService : IAchievementAssetService
         var entity = await _repository.SelectAll()
             .Where(e => e.IsDeleted == false && e.Id == id)
             .AsNoTracking()
-            .Include(e => e.Achievement)
             .FirstOrDefaultAsync();
         if (entity == null)
             throw new InnoplatformException(400, "achievementAsset is not found");
@@ -81,17 +83,17 @@ public class AchievementAssetService : IAchievementAssetService
 
     public async Task<AchievementAssetsForResultDto> ModifyAsync(long id, AchievementAssetsForUpdateDto dto)
     {
-        var existAsset = await _repository.SelectAll()
-           .Where(ea => ea.AchievementId == dto.AchievementId && ea.IsDeleted == false)
-           .AsNoTracking()
-           .FirstOrDefaultAsync();
-        if (existAsset is null)
+        var existAchievement = await _achievementRepository.SelectAll()
+            .Where(ea => ea.Id == dto.AchievementId && ea.IsDeleted == false)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (existAchievement is null)
             throw new InnoplatformException(400, "Achievement is not found in this Id");
 
         var entity = await _repository.SelectAll()
             .Where(e => e.AchievementId == dto.AchievementId)
             .Where(e => e.IsDeleted == false)
-            .Include(e => e.Achievement)
             .AsNoTracking()
             .FirstOrDefaultAsync();
         if (entity == null)

@@ -1,6 +1,7 @@
 ﻿using Innoplatform.Data.IRepositories;
 using Innoplatform.Data.Repositories;
 using Innoplatform.Domain.Entities.Organizations;
+using Innoplatform.Service.DTOs.OTP.Sms;
 using Innoplatform.Service.Interfaces;
 using Innoplatform.Service.Interfaces.IAboutServices;
 using Innoplatform.Service.Interfaces.IAchievmentServices;
@@ -10,7 +11,9 @@ using Innoplatform.Service.Interfaces.IFileUploadServices;
 using Innoplatform.Service.Interfaces.IInvestmentServices;
 using Innoplatform.Service.Interfaces.IMentorServices;
 using Innoplatform.Service.Interfaces.IOrganizationServices;
+using Innoplatform.Service.Interfaces.IOTPServices;
 using Innoplatform.Service.Interfaces.IProjectServices;
+using Innoplatform.Service.Interfaces.IRegistrationServices;
 using Innoplatform.Service.Interfaces.ISponsorServices;
 using Innoplatform.Service.Interfaces.ITransactionServices;
 using Innoplatform.Service.Interfaces.IUserServices;
@@ -26,6 +29,7 @@ using Innoplatform.Service.Services.MessagingServices;
 using Innoplatform.Service.Services.OrganizationServices;
 using Innoplatform.Service.Services.ProjectServices;
 using Innoplatform.Service.Services.RecommendationServices;
+using Innoplatform.Service.Services.RegistrationServices;
 using Innoplatform.Service.Services.SponsorServices;
 using Innoplatform.Service.Services.TransactionServices;
 using Innoplatform.Service.Services.UserServices;
@@ -103,6 +107,17 @@ namespace Innoplatform.Api.Extensions
 
             // Automapper
             services.AddAutoMapper(typeof(MappingProfile));
+
+            //Otp
+            services.AddHttpClient();
+            services.AddScoped<ISmsService, SmsService>();
+
+            //Registration
+            services.AddScoped<IUserRegistrationService, UserRegistrationService>();
+            services.AddScoped<IOrganizationRegistrationService, OrganizationRegistrationService>();
+
+            //MemoryCache
+            services.AddMemoryCache();
 
 
         }
