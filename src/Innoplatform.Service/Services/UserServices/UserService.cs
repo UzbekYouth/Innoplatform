@@ -33,7 +33,7 @@ public class UserService : IUserService
     }
     public async Task<UserForResultDto> AddAsync(UserForCreationDto dto)
     {
-        
+
         var orgChecking = await _organizationRepository.SelectAll()
             .Where(e => e.PhoneNumber == dto.PhoneNumber || e.Email == dto.Email && e.IsDeleted == false)
             .AsNoTracking()

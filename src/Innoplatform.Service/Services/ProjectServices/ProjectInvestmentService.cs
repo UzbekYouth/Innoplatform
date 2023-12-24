@@ -52,7 +52,7 @@ public class ProjectInvestmentService : IProjectInvestmentService
             .Where(p => p.IsDeleted == false && p.Id == dto.ProjectId)
             .AsNoTracking()
             .FirstOrDefaultAsync();
-
+        
         if (project is null)
             throw new InnoplatformException(404, "Project not found");
 
@@ -60,7 +60,7 @@ public class ProjectInvestmentService : IProjectInvestmentService
             .Where(i => i.IsDeleted == false && i.Id == dto.InvestmentId)
             .AsNoTracking()
             .FirstOrDefaultAsync();
-
+        
         if (investment is null)
             throw new InnoplatformException(404, "Investment not found");
 
