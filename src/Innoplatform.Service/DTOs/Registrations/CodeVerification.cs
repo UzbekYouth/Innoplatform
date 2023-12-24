@@ -2,7 +2,7 @@
 {
     public class CodeVerification
     {
-        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
         public string VerificationCode { get; set; }
     }
 }

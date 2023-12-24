@@ -1,24 +1,24 @@
-<<<<<<<< HEAD:src/Innoplatform.Api/Logs/RestApiLog202312240549.log
-2023-12-24 05:49:41.227 +05:00 [Error] [Microsoft.EntityFrameworkCore.Database.Command] [{ Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }] Failed executing DbCommand ("300"ms) [Parameters=["@p0='?' (DbType = Decimal), @p1='?', @p2='?' (DbType = DateTime), @p3='?' (DbType = DateTime), @p4='?', @p5='?', @p6='?', @p7='?' (DbType = Boolean), @p8='?', @p9='?', @p10='?', @p11='?' (DbType = Int32), @p12='?', @p13='?' (DbType = DateTime)"], CommandType='Text', CommandTimeout='30']"
+2023-12-24 05:40:03.284 +05:00 [Information] [System.Net.Http.HttpClient.Default.LogicalHandler] [{ Id: 100, Name: "RequestPipelineStart" }] Start processing HTTP request "POST" "https://notify.eskiz.uz/api/message/sms/send"
+
+
+2023-12-24 05:40:03.362 +05:00 [Information] [System.Net.Http.HttpClient.Default.ClientHandler] [{ Id: 100, Name: "RequestStart" }] Sending HTTP request "POST" "https://notify.eskiz.uz/api/message/sms/send"
+
+
+2023-12-24 05:40:03.788 +05:00 [Information] [System.Net.Http.HttpClient.Default.ClientHandler] [{ Id: 101, Name: "RequestEnd" }] Received HTTP response headers after 416.4536ms - 200
+
+
+2023-12-24 05:40:03.793 +05:00 [Information] [System.Net.Http.HttpClient.Default.LogicalHandler] [{ Id: 101, Name: "RequestPipelineEnd" }] End processing HTTP request after 529.3174ms - 200
+
+
+2023-12-24 05:40:42.041 +05:00 [Error] [Microsoft.EntityFrameworkCore.Database.Command] [{ Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }] Failed executing DbCommand ("336"ms) [Parameters=["@p0='?' (DbType = Decimal), @p1='?', @p2='?' (DbType = DateTime), @p3='?' (DbType = DateTime), @p4='?', @p5='?', @p6='?', @p7='?' (DbType = Boolean), @p8='?', @p9='?', @p10='?', @p11='?' (DbType = Int32), @p12='?', @p13='?' (DbType = DateTime)"], CommandType='Text', CommandTimeout='30']"
 ""INSERT INTO \"Users\" (\"AccountBalance\", \"Address\", \"CreatedAt\", \"DateOfBirth\", \"Email\", \"FirstName\", \"Image\", \"IsDeleted\", \"LastName\", \"Password\", \"PhoneNumber\", \"Role\", \"Salt\", \"UpdatedAt\")
 VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13)
 RETURNING \"Id\";"
 
 
-2023-12-24 05:49:41.278 +05:00 [Error] [Microsoft.EntityFrameworkCore.Update] [{ Id: 10000, Name: "Microsoft.EntityFrameworkCore.Update.SaveChangesFailed" }] An exception occurred in the database while saving changes for context type '"Innoplatform.Data.DbContexts.AppDbContext"'."
+2023-12-24 05:40:42.163 +05:00 [Error] [Microsoft.EntityFrameworkCore.Update] [{ Id: 10000, Name: "Microsoft.EntityFrameworkCore.Update.SaveChangesFailed" }] An exception occurred in the database while saving changes for context type '"Innoplatform.Data.DbContexts.AppDbContext"'."
 ""Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
  ---> Npgsql.PostgresException (0x80004005): 23502: null value in column \"Image\" of relation \"Users\" violates not-null constraint
-========
-2023-12-24 05:35:21.710 +05:00 [Error] [Microsoft.EntityFrameworkCore.Database.Command] [{ Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }] Failed executing DbCommand ("292"ms) [Parameters=["@p0='?' (DbType = DateTime), @p1='?', @p2='?', @p3='?' (DbType = Boolean), @p4='?', @p5='?' (DbType = DateTime)"], CommandType='Text', CommandTimeout='30']"
-""INSERT INTO \"Sponsors\" (\"CreatedAt\", \"Description\", \"Image\", \"IsDeleted\", \"Title\", \"UpdatedAt\")
-VALUES (@p0, @p1, @p2, @p3, @p4, @p5)
-RETURNING \"Id\";"
-
-
-2023-12-24 05:35:21.824 +05:00 [Error] [Microsoft.EntityFrameworkCore.Update] [{ Id: 10000, Name: "Microsoft.EntityFrameworkCore.Update.SaveChangesFailed" }] An exception occurred in the database while saving changes for context type '"Innoplatform.Data.DbContexts.AppDbContext"'."
-""Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
- ---> Npgsql.PostgresException (0x80004005): 23502: null value in column \"Description\" of relation \"Sponsors\" violates not-null constraint
->>>>>>>> 162466ddb7a9da548e98aeb6d00ddf9d9eb6daad:src/Innoplatform.Api/Logs/RestApiLog202312240535.log
 
 DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
    at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
@@ -33,19 +33,11 @@ DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error
   Exception data:
     Severity: ERROR
     SqlState: 23502
-<<<<<<<< HEAD:src/Innoplatform.Api/Logs/RestApiLog202312240549.log
     MessageText: null value in column \"Image\" of relation \"Users\" violates not-null constraint
     Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
     SchemaName: public
     TableName: Users
     ColumnName: Image
-========
-    MessageText: null value in column \"Description\" of relation \"Sponsors\" violates not-null constraint
-    Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
-    SchemaName: public
-    TableName: Sponsors
-    ColumnName: Description
->>>>>>>> 162466ddb7a9da548e98aeb6d00ddf9d9eb6daad:src/Innoplatform.Api/Logs/RestApiLog202312240535.log
     File: execMain.c
     Line: 2009
     Routine: ExecConstraints
@@ -59,11 +51,7 @@ DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error
    at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)"
 Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
-<<<<<<<< HEAD:src/Innoplatform.Api/Logs/RestApiLog202312240549.log
  ---> Npgsql.PostgresException (0x80004005): 23502: null value in column "Image" of relation "Users" violates not-null constraint
-========
- ---> Npgsql.PostgresException (0x80004005): 23502: null value in column "Description" of relation "Sponsors" violates not-null constraint
->>>>>>>> 162466ddb7a9da548e98aeb6d00ddf9d9eb6daad:src/Innoplatform.Api/Logs/RestApiLog202312240535.log
 
 DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
    at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
@@ -78,19 +66,11 @@ DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error
   Exception data:
     Severity: ERROR
     SqlState: 23502
-<<<<<<<< HEAD:src/Innoplatform.Api/Logs/RestApiLog202312240549.log
     MessageText: null value in column "Image" of relation "Users" violates not-null constraint
     Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
     SchemaName: public
     TableName: Users
     ColumnName: Image
-========
-    MessageText: null value in column "Description" of relation "Sponsors" violates not-null constraint
-    Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
-    SchemaName: public
-    TableName: Sponsors
-    ColumnName: Description
->>>>>>>> 162466ddb7a9da548e98aeb6d00ddf9d9eb6daad:src/Innoplatform.Api/Logs/RestApiLog202312240535.log
     File: execMain.c
     Line: 2009
     Routine: ExecConstraints

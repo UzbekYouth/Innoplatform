@@ -3,6 +3,7 @@ using System;
 using Innoplatform.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Innoplatform.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231224010026_ImageNullMigration")]
+    partial class ImageNullMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,6 +37,7 @@ namespace Innoplatform.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
@@ -94,6 +98,7 @@ namespace Innoplatform.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
@@ -165,9 +170,11 @@ namespace Innoplatform.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Latitude")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Longitude")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
@@ -198,6 +205,7 @@ namespace Innoplatform.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<long>("InvestmentAreaId")
@@ -207,9 +215,11 @@ namespace Innoplatform.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Latitude")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Longitude")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<decimal>("MaxInvestmentAmount")
@@ -282,6 +292,7 @@ namespace Innoplatform.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("FirstName")
@@ -360,12 +371,14 @@ namespace Innoplatform.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("CallCenter")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
@@ -401,6 +414,7 @@ namespace Innoplatform.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -423,6 +437,7 @@ namespace Innoplatform.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
@@ -469,6 +484,7 @@ namespace Innoplatform.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
@@ -503,6 +519,7 @@ namespace Innoplatform.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("InvestmentArea")
@@ -513,9 +530,11 @@ namespace Innoplatform.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Latitude")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Longitude")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<decimal>("MaximumInvestmentAmount")
@@ -743,6 +762,7 @@ namespace Innoplatform.Data.Migrations
                         .HasColumnType("numeric");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("ExpectedEndDate")
@@ -926,6 +946,7 @@ namespace Innoplatform.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Image")
@@ -1021,6 +1042,7 @@ namespace Innoplatform.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Image")
@@ -1156,7 +1178,7 @@ namespace Innoplatform.Data.Migrations
             modelBuilder.Entity("Innoplatform.Domain.Entities.Achievments.AchievementAsset", b =>
                 {
                     b.HasOne("Innoplatform.Domain.Entities.Achievments.Achievement", "Achievement")
-                        .WithMany("AchievementAssets")
+                        .WithMany()
                         .HasForeignKey("AchievementId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1365,7 +1387,7 @@ namespace Innoplatform.Data.Migrations
             modelBuilder.Entity("Innoplatform.Domain.Entities.Projects.ProjectAsset", b =>
                 {
                     b.HasOne("Innoplatform.Domain.Entities.Projects.Project", "Project")
-                        .WithMany("ProjectAssets")
+                        .WithMany()
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1449,7 +1471,7 @@ namespace Innoplatform.Data.Migrations
             modelBuilder.Entity("Innoplatform.Domain.Entities.Recommendations.RecommendationAsset", b =>
                 {
                     b.HasOne("Innoplatform.Domain.Entities.Recommendations.Recommendation", "Recommendation")
-                        .WithMany("RecommendationAssets")
+                        .WithMany()
                         .HasForeignKey("RecommendationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1479,21 +1501,6 @@ namespace Innoplatform.Data.Migrations
             modelBuilder.Entity("Innoplatform.Domain.Entities.About.AboutUs", b =>
                 {
                     b.Navigation("AboutUsAssets");
-                });
-
-            modelBuilder.Entity("Innoplatform.Domain.Entities.Achievments.Achievement", b =>
-                {
-                    b.Navigation("AchievementAssets");
-                });
-
-            modelBuilder.Entity("Innoplatform.Domain.Entities.Projects.Project", b =>
-                {
-                    b.Navigation("ProjectAssets");
-                });
-
-            modelBuilder.Entity("Innoplatform.Domain.Entities.Recommendations.Recommendation", b =>
-                {
-                    b.Navigation("RecommendationAssets");
                 });
 #pragma warning restore 612, 618
         }
