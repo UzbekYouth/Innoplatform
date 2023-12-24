@@ -72,11 +72,8 @@ public class MessagingService : IMessagingService
             .FirstOrDefaultAsync();
 
         if (entity == null)
-<<<<<<< HEAD
             throw new InnoplatformException(400, "Messaging is not found in this id");
-=======
             throw new InnoplatformException(400, "Messaging is empty");
->>>>>>> cf05122a3f1011c7eb9a6a69e84b13df35e1d55d
 
         var mappedEntity = _mapper.Map(dto, entity);
         mappedEntity.UpdatedAt = DateTime.UtcNow;

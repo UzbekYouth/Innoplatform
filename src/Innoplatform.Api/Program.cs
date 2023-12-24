@@ -1,8 +1,10 @@
 
 using Innoplatform.Api.Extensions;
 using Innoplatform.Api.Middlewares;
+using Innoplatform.Api.Models;
 using Innoplatform.Data.DbContexts;
 using Innoplatform.Service.Helpers;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Serilog;
@@ -44,6 +46,13 @@ builder.Logging.AddSerilog(logger);
 //Cycle solution
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+
+//Configure api url name
+builder.Services.AddControllers(options =>
+{
+    options.Conventions.Add(new RouteTokenTransformerConvention(
+                                        new ConfigurationApiUrlName()));
+});
 
 var app = builder.Build();
 WebEnvironmentHost.WebRootPath = Path.GetFullPath("wwwroot");
