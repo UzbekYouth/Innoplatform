@@ -1,18 +1,6 @@
 ﻿using AutoMapper;
 using Innoplatform.Data.IRepositories;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-using Innoplatform.Domain.Entities;
 using Innoplatform.Domain.Entities.Organizations;
-using Innoplatform.Domain.Entities.Sponsors;
->>>>>>> af1f154b207947e95e89e86b3468ee31b6e05bd4
-=======
-
-using Innoplatform.Domain.Entities;
-using Innoplatform.Domain.Entities.Organizations;
-using Innoplatform.Domain.Entities.Sponsors;
->>>>>>> 0e8cecf0f4a89881b72cfcbbedf45555e5745f50
 using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Service.Configuration;
 using Innoplatform.Service.DTOs.Assets;
@@ -44,7 +32,7 @@ public class UserService : IUserService
     public async Task<UserForResultDto> AddAsync(UserForCreationDto dto)
     {
         var orgChecking = await _organizationRepository.SelectAll().Where(e => e.PhoneNumber == dto.PhoneNumber && e.Email == dto.Email && e.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
-        if(orgChecking == null) 
+        if (orgChecking == null)
         {
             throw new InnoplatformException(400, "This data is exist");
         }
