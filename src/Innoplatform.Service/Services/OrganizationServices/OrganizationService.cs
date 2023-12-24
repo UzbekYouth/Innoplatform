@@ -46,20 +46,24 @@ namespace Innoplatform.Service.Services.OrganizationServices
             {
                 throw new InnoplatformException(400, "This organization is exist");
             }
-            var asset = new AssetForCreationDto
-            {
-                FolderPath = "Organizations",
-                FormFile = dto.ImagePath
-            };
-
-            var assetPath = await _fileUploadService.FileUploadAsync(asset);
-
             var MappedData = _mapper.Map<Organization>(dto);
+            if(dto.ImagePath != null)
+            {
+                var asset = new AssetForCreationDto
+                {
+                    FolderPath = "Organizations",
+                    FormFile = dto.ImagePath
+                };
+
+                var assetPath = await _fileUploadService.FileUploadAsync(asset);
+
+                MappedData.ImagePath = assetPath?.AssetPath;
+            }
+
             var HashedPassword = PasswordHelper.Hash(dto.Password);
 
             MappedData.Password = HashedPassword.Hash;
             MappedData.Salt = HashedPassword.Salt;
-            MappedData.ImagePath = assetPath?.AssetPath;
 
             var result = await _repository.CreateAsync(MappedData);
 

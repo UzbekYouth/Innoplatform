@@ -90,6 +90,11 @@ namespace Innoplatform.Service.Services.RegistrationServices
                             .SelectAll()
                             .Where(e => e.PhoneNumber == dto.PhoneNumber && e.IsDeleted == false)
                             .FirstOrDefaultAsync();
+            var CheckOrganization = await this._organizationRepository.SelectAll().Where(e => e.PhoneNumber == dto.PhoneNumber && e.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
+            if (CheckOrganization != null)
+            {
+                throw new InnoplatformException(400, "This User is exist");
+            }
 
             if (existingUser == null)
             {

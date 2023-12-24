@@ -114,7 +114,7 @@ namespace Innoplatform.Api.Extensions
 
             //Registration
             services.AddScoped<IUserRegistrationService, UserRegistrationService>();
-            services.AddScoped<OrganizationRegistrationService, OrganizationRegistrationService>();
+            services.AddScoped<IOrganizationRegistrationService, OrganizationRegistrationService>();
 
             //MemoryCache
             services.AddMemoryCache();

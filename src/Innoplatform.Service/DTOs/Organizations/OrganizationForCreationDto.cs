@@ -8,7 +8,6 @@ public class OrganizationForCreationDto
 {
     [Required]
     public string Name { get; set; }
-    [Required]
     public IFormFile ImagePath { get; set; }
     public string? Description { get; set; }
     [Required]
