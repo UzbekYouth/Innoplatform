@@ -43,6 +43,12 @@ public class AboutUsAssetService : IAboutUsAssetService
             FormFile = dto.Image
         };
 
+        if (asset.FormFile.ContentType != "image/jpeg" && asset.FormFile.ContentType != "image/png" && asset.FormFile.ContentType != "image/jpg" && asset.FormFile.ContentType != "image/HEIC")
+        {
+            throw new InnoplatformException(400, "Image is not valid");
+        }
+
+
         var assetPath = await _fileUploadService.FileUploadAsync(asset);
 
         var mappedEntity = _mapper.Map<AboutUsAsset>(dto);
@@ -97,6 +103,11 @@ public class AboutUsAssetService : IAboutUsAssetService
                 FolderPath = "Sponsors",
                 FormFile = dto.Image
             };
+
+            if (asset.FormFile.ContentType != "image/jpeg" && asset.FormFile.ContentType != "image/png" && asset.FormFile.ContentType != "image/jpg" && asset.FormFile.ContentType != "image/HEIC")
+            {
+                throw new InnoplatformException(400, "Image is not valid");
+            }
 
             var assetPath = await _fileUploadService.FileUploadAsync(asset);
             mappedEntity.Image = assetPath?.AssetPath;

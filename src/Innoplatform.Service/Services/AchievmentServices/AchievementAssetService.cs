@@ -47,6 +47,11 @@ public class AchievementAssetService : IAchievementAssetService
             FormFile = dto.Media
         };
 
+         if (asset.FormFile.ContentType != "image/jpeg" && asset.FormFile.ContentType != "image/png" && asset.FormFile.ContentType != "image/jpg" && asset.FormFile.ContentType != "image/HEIC" && asset.FormFile.ContentType != "video/mp4")
+        {
+            throw new InnoplatformException(400, "Media is not valid");
+        }
+
         var assetPath = await _fileUploadService.FileUploadAsync(asset);
 
         var mapped = _mapper.Map<AchievementAsset>(dto);
@@ -113,6 +118,11 @@ public class AchievementAssetService : IAchievementAssetService
                 FolderPath = "Sponsors",
                 FormFile = dto.Media
             };
+
+            if (asset.FormFile.ContentType != "image/jpeg" && asset.FormFile.ContentType != "image/png" && asset.FormFile.ContentType != "image/jpg" && asset.FormFile.ContentType != "image/HEIC" && asset.FormFile.ContentType != "video/mp4")
+            {
+                throw new InnoplatformException(400, "Media is not valid");
+            }
 
             var assetPath = await _fileUploadService.FileUploadAsync(asset);
             mappedEntity.Media = assetPath?.AssetPath;

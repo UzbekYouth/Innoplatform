@@ -53,6 +53,10 @@ public class RecommendationService : IRecommendationService
             FormFile = dto.Image
         };
 
+        if (asset.FormFile.ContentType != "image/jpeg" && asset.FormFile.ContentType != "image/png" && asset.FormFile.ContentType != "image/jpg" && asset.FormFile.ContentType != "image/HEIC")
+        {
+            throw new InnoplatformException(400, "Image is not valid");
+        }
         var assetPath = await _fileUploadService.FileUploadAsync(asset);
 
         var mappedRecommendation = _mapper.Map<Recommendation>(dto);
@@ -124,6 +128,11 @@ public class RecommendationService : IRecommendationService
                 FolderPath = "Sponsors",
                 FormFile = dto.Image
             };
+
+            if (asset.FormFile.ContentType != "image/jpeg" && asset.FormFile.ContentType != "image/png" && asset.FormFile.ContentType != "image/jpg" && asset.FormFile.ContentType != "image/HEIC")
+            {
+                throw new InnoplatformException(400, "Image is not valid");
+            }
 
             var assetPath = await _fileUploadService.FileUploadAsync(asset);
             mapped.Image = assetPath?.AssetPath;

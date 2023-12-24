@@ -50,6 +50,11 @@ public class RecommendationAssetService : IRecommendationAssetService
             FormFile = dto.Media
         };
 
+        if (asset.FormFile.ContentType != "image/jpeg" && asset.FormFile.ContentType != "image/png" && asset.FormFile.ContentType != "image/jpg" && asset.FormFile.ContentType != "image/HEIC" && asset.FormFile.ContentType != "video/mp4")
+        {
+            throw new InnoplatformException(400, "Media is not valid");
+        }
+
         var assetPath = await _fileUploadService.FileUploadAsync(asset);
 
         var mapped = _mapper.Map<RecommendationAsset>(dto);
@@ -115,6 +120,11 @@ public class RecommendationAssetService : IRecommendationAssetService
                 FolderPath = "Recommendations",
                 FormFile = dto.Media
             };
+
+            if (asset.FormFile.ContentType != "image/jpeg" && asset.FormFile.ContentType != "image/png" && asset.FormFile.ContentType != "image/jpg" && asset.FormFile.ContentType != "image/HEIC" && asset.FormFile.ContentType != "video/mp4")
+            {
+                throw new InnoplatformException(400, "Image is not valid");
+            }
 
             var assetPath = await _fileUploadService.FileUploadAsync(asset);
             mapped.Media = assetPath?.AssetPath;

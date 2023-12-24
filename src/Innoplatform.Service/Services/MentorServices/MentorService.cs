@@ -40,6 +40,11 @@ public class MentorService : IMentorService
             FormFile = dto.Image
         };
 
+        if (asset.FormFile.ContentType != "image/jpeg" && asset.FormFile.ContentType != "image/png" && asset.FormFile.ContentType != "image/jpg" && asset.FormFile.ContentType != "image/HEIC")
+        {
+            throw new InnoplatformException(400, "Image is not valid");
+        }
+
         var assetPath = await _fileUploadService.FileUploadAsync(asset);
 
         var mappedMentor = _mapper.Map<Mentor>(dto);
@@ -98,7 +103,10 @@ public class MentorService : IMentorService
                 FolderPath = "Mentors",
                 FormFile = dto.Image
             };
-
+            if (asset.FormFile.ContentType != "image/jpeg" && asset.FormFile.ContentType != "image/png" && asset.FormFile.ContentType != "image/jpg" && asset.FormFile.ContentType != "image/HEIC")
+            {
+                throw new InnoplatformException(400, "Image is not valid");
+            }
             var assetPath = await _fileUploadService.FileUploadAsync(asset);
             mappedEntity.Image = assetPath?.AssetPath;
         }

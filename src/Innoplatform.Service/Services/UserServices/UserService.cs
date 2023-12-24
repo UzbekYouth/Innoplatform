@@ -59,6 +59,11 @@ public class UserService : IUserService
                 FolderPath = "Users",
                 FormFile = dto.Image
             };
+
+            if (asset.FormFile.ContentType != "image/jpeg" && asset.FormFile.ContentType != "image/png" && asset.FormFile.ContentType != "image/jpg" && asset.FormFile.ContentType != "image/HEIC")
+            {
+                throw new InnoplatformException(400, "Image is not valid");
+            }
             var assetPath = await _fileUploadService.FileUploadAsync(asset);
             mappedUser.Image = assetPath?.AssetPath;
         }
@@ -141,6 +146,11 @@ public class UserService : IUserService
                 FolderPath = "Sponsors",
                 FormFile = dto.Image
             };
+
+            if (asset.FormFile.ContentType != "image/jpeg" && asset.FormFile.ContentType != "image/png" && asset.FormFile.ContentType != "image/jpg" && asset.FormFile.ContentType != "image/HEIC")
+            {
+                throw new InnoplatformException(400, "Image is not valid");
+            }
 
             var assetPath = await _fileUploadService.FileUploadAsync(asset);
             mappedUser.Image = assetPath?.AssetPath;

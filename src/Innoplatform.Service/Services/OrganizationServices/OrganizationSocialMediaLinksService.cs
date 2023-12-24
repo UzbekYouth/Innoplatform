@@ -55,6 +55,10 @@ namespace Innoplatform.Service.Services.OrganizationServices
                 FormFile = dto.Image
             };
 
+            if (assetDetails.FormFile.ContentType != "image/jpeg" && assetDetails.FormFile.ContentType != "image/png" && assetDetails.FormFile.ContentType != "image/jpg" && assetDetails.FormFile.ContentType != "image/HEIC" )
+            {
+                throw new InnoplatformException(400, "Image is not valid");
+            }
             var savedFile = await _fileUploadService.FileUploadAsync(assetDetails);
             organizationSocialMediaLink.Image = savedFile.AssetPath;
 
@@ -121,6 +125,11 @@ namespace Innoplatform.Service.Services.OrganizationServices
                     FolderPath = "OrganizationSocialMediaLinks",
                     FormFile = dto.Image
                 };
+
+                if (assetDetails.FormFile.ContentType != "image/jpeg" && assetDetails.FormFile.ContentType != "image/png" && assetDetails.FormFile.ContentType != "image/jpg" && assetDetails.FormFile.ContentType != "image/HEIC")
+                {
+                    throw new InnoplatformException(400, "Image is not valid");
+                }
 
                 var savedFile = await _fileUploadService.FileUploadAsync(assetDetails);
                 existingLink.Image = savedFile.AssetPath;
