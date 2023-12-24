@@ -89,40 +89,6 @@ public class OrganizationInvestmentInvitationService : IOrganizationInvestmentIn
         return _mapper.Map<OrganizationInvestmentInvitationForResultDto>(organizationInvestmentInvitation);
     }
 
-    public async Task<OrganizationInvestmentInvitationForResultDto> ModifyAsync(long id, OrganizationInvestmentInvitationForUpdateDto dto)
-    {
-        var project = await _projectRepository.SelectAll()
-            .Where(p => p.IsDeleted == false && p.Id == dto.ProjectId)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-
-        if (project is null)
-            throw new InnoplatformException(404, "Project not found");
-
-        var organization = await _organizationRepository.SelectAll()
-            .Where(o => o.IsDeleted == false && o.Id == dto.OrganizationId)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-
-        if (organization is null)
-            throw new InnoplatformException(404, "Organization not found");
-
-
-        var organizationInvestmentInvitation = await _organizationInvestmentInvitationRepository.SelectAll()
-            .Where(o => o.IsDeleted == false && o.Id == id)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-
-        if (organizationInvestmentInvitation is null)
-            throw new InnoplatformException(404, "Organization investment invitation not found");
-
-        var mappedOrganizationInvestmentInvitation = _mapper.Map(dto, organizationInvestmentInvitation);
-        mappedOrganizationInvestmentInvitation.UpdatedAt = DateTime.UtcNow;
-
-        var modifiedOrganizationInvestmentInvitation = _organizationInvestmentInvitationRepository.UpdateAsync(mappedOrganizationInvestmentInvitation);
-
-        return _mapper.Map<OrganizationInvestmentInvitationForResultDto>(modifiedOrganizationInvestmentInvitation);
-    }
 
     public async Task<bool> RemoveAsync(long id)
     {

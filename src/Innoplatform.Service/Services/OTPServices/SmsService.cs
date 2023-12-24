@@ -39,7 +39,7 @@ namespace Innoplatform.Service.DTOs.OTP.Sms
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
                 // Add Bearer Token to Authorization header
-                _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDU5NTk0NzcsImlhdCI6MTcwMzM2NzQ3Nywicm9sZSI6InRlc3QiLCJzdWIiOiI1OTkyIn0.LbdcCseN6MtGVFVkG_owmDzm8k-2Uuj6FXg5mJEvGoA");
+                _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDU5OTAxOTUsImlhdCI6MTcwMzM5ODE5NSwicm9sZSI6InRlc3QiLCJzdWIiOiI1OTk4In0.OW0wQl1-kbjYPBi3Kc_xtbqRU8phk1erzvD816AYg0M");
 
                 // Make the POST request
                 var response = await _httpClient.PostAsync(apiUrl, content);

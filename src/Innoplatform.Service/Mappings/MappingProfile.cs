@@ -104,7 +104,6 @@ public class MappingProfile : Profile
         //OrganizationInvestmentInvitation
         CreateMap<OrganizationInvestmentInvitation, OrganizationInvestmentInvitationForResultDto>().ReverseMap();
         CreateMap<OrganizationInvestmentInvitation, OrganizationInvestmentInvitationForCreationDto>().ReverseMap();
-        CreateMap<OrganizationInvestmentInvitation, OrganizationInvestmentInvitationForUpdateDto>().ReverseMap();
 
         //OrganizationInvestment
         CreateMap<OrganizationInvestment, OrganizationInvestmentForCreationDto>().ReverseMap();
