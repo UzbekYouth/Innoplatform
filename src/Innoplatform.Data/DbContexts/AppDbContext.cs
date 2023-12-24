@@ -3,7 +3,6 @@ using Innoplatform.Domain.Entities.Achievments;
 using Innoplatform.Domain.Entities.Educations;
 using Innoplatform.Domain.Entities.Investments;
 using Innoplatform.Domain.Entities.Mentors;
-using Innoplatform.Domain.Entities.Messagings;
 using Innoplatform.Domain.Entities.Organizations;
 using Innoplatform.Domain.Entities.Projects;
 using Innoplatform.Domain.Entities.Recommendations;
@@ -34,9 +33,6 @@ namespace Innoplatform.Data.DbContexts
 
         //Mentors
         public DbSet<Mentor> Mentors { get; set; }
-
-        //Messaging
-        public DbSet<Messaging> Messages { get; set; }
 
         //Organization
         public DbSet<Organization> Organizations { get; set; }

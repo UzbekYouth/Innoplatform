@@ -1,0 +1,36 @@
+2023-12-24 09:56:04.334 +05:00 [Information] [System.Net.Http.HttpClient.Default.LogicalHandler] [{ Id: 100, Name: "RequestPipelineStart" }] Start processing HTTP request "GET" "https://localhost:7113/api/Users"
+
+
+2023-12-24 09:56:04.375 +05:00 [Information] [System.Net.Http.HttpClient.Default.ClientHandler] [{ Id: 100, Name: "RequestStart" }] Sending HTTP request "GET" "https://localhost:7113/api/Users"
+
+
+2023-12-24 09:56:09.924 +05:00 [Information] [System.Net.Http.HttpClient.Default.ClientHandler] [{ Id: 101, Name: "RequestEnd" }] Received HTTP response headers after 5545.2991ms - 200
+
+
+2023-12-24 09:56:09.926 +05:00 [Information] [System.Net.Http.HttpClient.Default.LogicalHandler] [{ Id: 101, Name: "RequestPipelineEnd" }] End processing HTTP request after 5599.4588ms - 200
+
+
+2023-12-24 09:56:40.600 +05:00 [Information] [System.Net.Http.HttpClient.Default.LogicalHandler] [{ Id: 100, Name: "RequestPipelineStart" }] Start processing HTTP request "POST" "https://notify.eskiz.uz/api/message/sms/send"
+
+
+2023-12-24 09:56:40.601 +05:00 [Information] [System.Net.Http.HttpClient.Default.ClientHandler] [{ Id: 100, Name: "RequestStart" }] Sending HTTP request "POST" "https://notify.eskiz.uz/api/message/sms/send"
+
+
+2023-12-24 09:56:40.919 +05:00 [Information] [System.Net.Http.HttpClient.Default.ClientHandler] [{ Id: 101, Name: "RequestEnd" }] Received HTTP response headers after 318.1174ms - 200
+
+
+2023-12-24 09:56:40.919 +05:00 [Information] [System.Net.Http.HttpClient.Default.LogicalHandler] [{ Id: 101, Name: "RequestPipelineEnd" }] End processing HTTP request after 318.6808ms - 200
+
+
+2023-12-24 09:56:46.263 +05:00 [Information] [System.Net.Http.HttpClient.Default.LogicalHandler] [{ Id: 100, Name: "RequestPipelineStart" }] Start processing HTTP request "POST" "https://notify.eskiz.uz/api/message/sms/send"
+
+
+2023-12-24 09:56:46.263 +05:00 [Information] [System.Net.Http.HttpClient.Default.ClientHandler] [{ Id: 100, Name: "RequestStart" }] Sending HTTP request "POST" "https://notify.eskiz.uz/api/message/sms/send"
+
+
+2023-12-24 09:56:46.314 +05:00 [Information] [System.Net.Http.HttpClient.Default.ClientHandler] [{ Id: 101, Name: "RequestEnd" }] Received HTTP response headers after 50.3423ms - 200
+
+
+2023-12-24 09:56:46.314 +05:00 [Information] [System.Net.Http.HttpClient.Default.LogicalHandler] [{ Id: 101, Name: "RequestPipelineEnd" }] End processing HTTP request after 51.1445ms - 200
+
+

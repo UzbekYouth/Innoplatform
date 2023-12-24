@@ -20,6 +20,9 @@ namespace Innoplatform.Service.DTOs.OTP.Sms
         {
             try
             {
+                //There is an api url tahseen.uz/users
+                //Do the logic that I can get all users PhoneNumber and send One message to everyone
+                
                 // API endpoint for sending SMS
                 var apiUrl = "https://notify.eskiz.uz/api/message/sms/send";
 
