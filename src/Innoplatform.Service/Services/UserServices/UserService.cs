@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Innoplatform.Data.IRepositories;
-using Innoplatform.Domain.Entities;
 using Innoplatform.Domain.Entities.Organizations;
-using Innoplatform.Domain.Entities.Sponsors;
 using Innoplatform.Domain.Entities.Users;
 using Innoplatform.Service.Configuration;
 using Innoplatform.Service.DTOs.Assets;
@@ -12,7 +10,6 @@ using Innoplatform.Service.Extensions;
 using Innoplatform.Service.Interfaces.IFileUploadServices;
 using Innoplatform.Service.Interfaces.IUserServices;
 using Microsoft.EntityFrameworkCore;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Innoplatform.Service.Services.UserServices;
 
@@ -36,14 +33,18 @@ public class UserService : IUserService
     }
     public async Task<UserForResultDto> AddAsync(UserForCreationDto dto)
     {
-        var orgChecking = await _organizationRepository.SelectAll().Where(e => e.PhoneNumber == dto.PhoneNumber && e.Email == dto.Email && e.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
         
-        if(orgChecking != null) 
+        var orgChecking = await _organizationRepository.SelectAll()
+            .Where(e => e.PhoneNumber == dto.PhoneNumber || e.Email == dto.Email && e.IsDeleted == false)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (orgChecking != null)
         {
             throw new InnoplatformException(400, "This data is exist");
         }
         var user = await _userRepository.SelectAll()
-            .Where(u => u.IsDeleted == false && u.Email == dto.Email && u.PhoneNumber == dto.PhoneNumber)
+            .Where(u => u.IsDeleted == false && (u.Email == dto.Email || u.PhoneNumber == dto.PhoneNumber))
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
@@ -65,7 +66,6 @@ public class UserService : IUserService
         var HashedPassword = PasswordHelper.Hash(dto.Password);
         mappedUser.Password = HashedPassword.Hash;
         mappedUser.Salt = HashedPassword.Salt;
-        
 
         var createdUser = await _userRepository.CreateAsync(mappedUser);
 

@@ -32,13 +32,13 @@ namespace Innoplatform.Service.Services.OrganizationServices
 
         public async Task<OrganizationForResultDto> AddAsync(OrganizationForCreationDto dto)
         {
-            var UserPhoneChecking = await _userRepository.SelectAll().Where(e => e.PhoneNumber == dto.PhoneNumber && e.Email == dto.Email && e.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
-            if (UserPhoneChecking == null)
+            var UserPhoneChecking = await _userRepository.SelectAll().Where(e => e.PhoneNumber == dto.PhoneNumber || e.Email == dto.Email && e.IsDeleted == false).AsNoTracking().FirstOrDefaultAsync();
+            if (UserPhoneChecking != null)
             {
                 throw new InnoplatformException(400, "This Data is exist");
             }
             var Checking = await _repository.SelectAll()
-                .Where(o => o.Email == dto.Email && o.UserName == dto.UserName && o.CallCenter == dto.CallCenter && o.Name == dto.Name && o.IsDeleted == false)
+                .Where(o => (o.Email == dto.Email || o.PhoneNumber == dto.PhoneNumber) && o.IsDeleted == false)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
 

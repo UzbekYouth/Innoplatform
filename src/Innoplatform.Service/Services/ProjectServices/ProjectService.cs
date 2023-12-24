@@ -56,6 +56,7 @@ public class ProjectService : IProjectService
         var projects = await _projectRepository.SelectAll()
             .Where(p => p.IsDeleted == false)
             .Include(p => p.User)
+            .Include(p => p.ProjectAssets)
             .ToPagedList(@params)
             .AsNoTracking()
             .ToListAsync();
@@ -68,6 +69,7 @@ public class ProjectService : IProjectService
         var project = await _projectRepository.SelectAll()
             .Where(p => p.IsDeleted == false && p.Id == id)
             .Include(p => p.User)
+            .Include(p => p.ProjectAssets)
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
@@ -106,12 +108,20 @@ public class ProjectService : IProjectService
     {
         var project = _projectRepository.SelectAll()
             .Where(p => p.IsDeleted == false && p.Id == id)
-            .AsNoTracking()
+            .Include(p => p.ProjectAssets)
             .FirstOrDefault();
 
         if (project is null)
             throw new InnoplatformException(404, "Project not found");
 
+
+        foreach (var relatedEntity in project.ProjectAssets)
+        {
+            if (relatedEntity.File != null)
+            {
+                relatedEntity.IsDeleted = true;
+            }
+        }
         return _projectRepository.DeleteAsync(id);
     }
 }
